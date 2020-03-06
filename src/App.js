@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
+import Navigation from './components/Navigation';
 import Icons from './components/Icons';
 import './assets/css/main.css';
 
@@ -8,6 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <div id="wrapper">
+        <Navigation />
           <section id="main">
             <Header />
             <Icons />

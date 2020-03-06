@@ -5,7 +5,7 @@ const Header = (props) => (
     <header>
         <span className="avatar"><img src={avatar} alt="" /></span>
         <h1>Taylor Barrett-Wilsdon</h1>
-        <p>Engineer @ Yelp</p>
+        <p>@Yelp</p>
     </header>
 )
 
