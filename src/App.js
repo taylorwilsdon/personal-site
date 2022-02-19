@@ -5,9 +5,8 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import Header from './components/Header';
 import Blog from './components/Blog';
-import Icons from './components/Icons';
+import Main from './components/Main';
 import './assets/css/main.css';
 
 
@@ -21,15 +20,8 @@ class App extends Component {
               <span className="navBar"><Link to="/">Home</Link> | <Link to="/blog">Blog</Link></span>
             </header>
             <Routes>
-              <Route path="/blog">
-                <Blog />
-              </Route>
-              <Route path="/">
-                <section id="main">
-                  <Header />
-                  <Icons />
-                </section>
-              </Route>
+              <Route path="/" element={< Main />} />
+              <Route path="/blog" element={<Blog />} />
             </Routes>
             <footer id="footer">
               <ul className="copyright">
