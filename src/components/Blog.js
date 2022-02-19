@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import avatar from '../images/avatar.png';
 
 const Blog = (props) => (
