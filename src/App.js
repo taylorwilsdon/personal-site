@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
 } from "react-router-dom";
@@ -20,7 +20,7 @@ class App extends Component {
             <header>
               <span className="navBar"><Link to="/">Home</Link> | <Link to="/blog">Blog</Link></span>
             </header>
-            <Switch>
+            <Routes>
               <Route path="/blog">
                 <Blog />
               </Route>
@@ -30,7 +30,7 @@ class App extends Component {
                   <Icons />
                 </section>
               </Route>
-            </Switch>
+            </Routes>
             <footer id="footer">
               <ul className="copyright">
                 <li>&copy; Taylor Wilsdon</li>
