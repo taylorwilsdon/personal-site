@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -13,17 +13,17 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-} from '@mui/material';
-import { formatDistanceToNow } from 'date-fns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faCodeBranch, 
-  faCodePullRequest, 
-  faCircleExclamation, 
-  faCodeFork, 
-  faComment, 
-  faPlus 
-} from '@fortawesome/free-solid-svg-icons';
+} from "@mui/material";
+import { formatDistanceToNow } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCodeBranch,
+  faCodePullRequest,
+  faCircleExclamation,
+  faCodeFork,
+  faComment,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 const EVENT_ICONS = {
   PushEvent: faCodeBranch,
@@ -36,13 +36,14 @@ const EVENT_ICONS = {
 };
 
 const EVENT_TYPES = {
-  PushEvent: 'pushed to',
-  PullRequestEvent: 'opened a pull request in',
-  IssuesEvent: 'opened an issue in',
-  ForkEvent: 'forked',
-  IssueCommentEvent: 'commented on an issue in',
-  CommentEvent: 'commented on',
-  CreateEvent: 'created',
+  PushEvent: "pushed to",
+  PullRequestEvent: "opened a pr in",
+  IssuesEvent: "opened an issue in",
+  ForkEvent: "forked",
+  IssueCommentEvent: "commented on an issue in",
+  CommentEvent: "commented on",
+  CreateEvent: "created",
+  PullRequestReviewEvent: "reviewed pr"
 };
 
 const ICON_STYLE = { width: 20, height: 20, marginRight: 8 };
@@ -55,9 +56,11 @@ const GitHubActivityLog = ({ username }) => {
 
   const fetchActivityLog = useCallback(async () => {
     try {
-      const response = await fetch(`https://api.github.com/users/${username}/events`);
+      const response = await fetch(
+        `https://api.github.com/users/${username}/events`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch activity log');
+        throw new Error("Failed to fetch activity log");
       }
       const data = await response.json();
       setActivityLog(data);
@@ -80,7 +83,9 @@ const GitHubActivityLog = ({ username }) => {
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
 
   const displayedEvents = useMemo(() => {
-    const filteredEvents = activityLog.filter(event => event.type !== 'IssueCommentEvent');
+    const filteredEvents = activityLog.filter(
+      (event) => event.type !== "IssueCommentEvent"
+    );
     return showAll ? filteredEvents : filteredEvents.slice(0, 5);
   }, [showAll, activityLog]);
 
@@ -101,7 +106,7 @@ const GitHubActivityLog = ({ username }) => {
   }
 
   return (
-    <Card variant="outlined" sx={{ maxWidth: 800, margin: 'auto', mt: 4 }}>
+    <Card variant="outlined" sx={{ maxWidth: 800, margin: "auto", mt: 4 }}>
       <CardContent>
         <Typography variant="body1" gutterBottom>
           git log
@@ -126,15 +131,17 @@ const GitHubActivityLog = ({ username }) => {
                       {event.actor.login}
                     </Link>
                     <Chip
-                      label={event.type}
+                      label={event.type
+                        .replace(/Event$|([A-Z])/g, " $1")
+                        .trim()}
                       size="xsmall"
                       sx={{ ml: 1 }}
-                    />
+                    />{" "}
                   </Box>
                 }
                 secondary={
                   <Typography variant="body2" color="text.secondary">
-                    {formatEventType(event.type)}{' '}
+                    {formatEventType(event.type)}{" "}
                     <Link
                       href={`https://github.com/${event.repo.name}`}
                       target="_blank"
@@ -143,9 +150,11 @@ const GitHubActivityLog = ({ username }) => {
                       underline="hover"
                     >
                       {event.repo.name}
-                    </Link>
-                    {' '}
-                    — {formatDistanceToNow(new Date(event.created_at), { addSuffix: true })}
+                    </Link>{" "}
+                    —{" "}
+                    {formatDistanceToNow(new Date(event.created_at), {
+                      addSuffix: true,
+                    })}
                   </Typography>
                 }
               />
@@ -158,7 +167,7 @@ const GitHubActivityLog = ({ username }) => {
               variant="outlined"
               onClick={() => setShowAll((prev) => !prev)}
             >
-              {showAll ? 'Show Less' : 'Show More'}
+              {showAll ? "Show Less" : "Show More"}
             </Button>
           </Box>
         )}
