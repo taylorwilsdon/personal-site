@@ -15,21 +15,24 @@ import {
   ListItemText,
 } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
-import { ReactComponent as PushIcon } from '../assets/icons/push.svg';
-import { ReactComponent as PullRequestIcon } from '../assets/icons/pull-request.svg'; 
-import { ReactComponent as IssueIcon } from '../assets/icons/issue.svg';
-import { ReactComponent as ForkIcon } from '../assets/icons/fork.svg';
-import { ReactComponent as CommentIcon } from '../assets/icons/comment.svg';
-import { ReactComponent as CreateIcon } from '../assets/icons/create.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faCodeBranch, 
+  faCodePullRequest, 
+  faCircleExclamation, 
+  faCodeFork, 
+  faComment, 
+  faPlus 
+} from '@fortawesome/free-solid-svg-icons';
 
 const EVENT_ICONS = {
-  PushEvent: PushIcon,
-  PullRequestEvent: PullRequestIcon,
-  IssuesEvent: IssueIcon,
-  ForkEvent: ForkIcon,
-  IssueCommentEvent: CommentIcon,
-  CommentEvent: CommentIcon,
-  CreateEvent: CreateIcon,
+  PushEvent: faCodeBranch,
+  PullRequestEvent: faCodePullRequest,
+  IssuesEvent: faCircleExclamation,
+  ForkEvent: faCodeFork,
+  IssueCommentEvent: faComment,
+  CommentEvent: faComment,
+  CreateEvent: faPlus,
 };
 
 const EVENT_TYPES = {
@@ -70,8 +73,8 @@ const GitHubActivityLog = ({ username }) => {
   }, [fetchActivityLog]);
 
   const getEventIcon = useCallback((type) => {
-    const IconComponent = EVENT_ICONS[type];
-    return IconComponent ? <IconComponent style={ICON_STYLE} /> : null;
+    const icon = EVENT_ICONS[type];
+    return icon ? <FontAwesomeIcon icon={icon} style={ICON_STYLE} /> : null;
   }, []);
 
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
