@@ -114,8 +114,8 @@ const GitHubActivityLog = ({ username }) => {
         <List>
           {displayedEvents.map((event) => (
             <ListItem key={event.id} alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar src={event.actor.avatar_url} alt={event.actor.login} />
+              <ListItemAvatar sx={{ minWidth: 40 }}>
+                <Avatar src={event.actor.avatar_url} alt={event.actor.login} sx={{ width: 32, height: 32 }} />
               </ListItemAvatar>
               <ListItemText
                 primary={
