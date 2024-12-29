@@ -1,9 +1,4 @@
-@import url(font-awesome.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300");
-
-/*
-	@ajlkn | html5up.net/license
-*/
 
 /* Icon (alt) */
 
@@ -156,7 +151,7 @@
 		font-size: 14pt;
 		font-weight: 300;
 		line-height: 2;
-		letter-spacing: 0.2em;
+		letter-spacing: 0.15em;
 		text-transform: uppercase;
 	}
 
@@ -936,7 +931,7 @@
 		-webkit-transition: opacity 1s ease, -webkit-transform 1s ease;
 		-ms-transition: opacity 1s ease, -ms-transform 1s ease;
 		transition: opacity 1s ease, transform 1s ease;
-		padding: 4.5em 3em 3em 3em ;
+		padding: 2.5em 3em 1em 3em ;
 		background: #ffffff;
 		border-radius: 15px;
 		cursor: default;

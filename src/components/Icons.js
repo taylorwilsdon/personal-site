@@ -1,24 +1,11 @@
-import { faGithub, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 const Icons = (props) => (
     <footer>
     <ul className="icons">
-      <li>
-        <a href="https://github.com/taylorwilsdon">
-        <FontAwesomeIcon icon={faGithub} />        </a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/taylorwilsdon/">
-          <FontAwesomeIcon icon={faInstagram} /> Instagram
-        </a>
-      </li>
-      <li>
-        <a href="https://www.linkedin.com/in/taylorbarrettwilsdon/">
-          <FontAwesomeIcon icon={faLinkedin} /> LinkedIn
-        </a>
-      </li>
+      <li><a href="https://github.com/taylorwilsdon" className="fa-brands fa-github">Github</a></li>
+      <li><a href="https://www.instagram.com/taylorwilsdon/" className="fa-instagram">Instagram</a></li>
+      <li><a href="https://www.linkedin.com/in/taylorbarrettwilsdon/" className="fa-linkedin">LinkedIn</a></li>
     </ul>
   </footer>
 )
