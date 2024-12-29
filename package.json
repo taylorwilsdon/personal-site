@@ -3,7 +3,6 @@
   "version": "0.1.3",
   "private": true,
   "dependencies": {
-    "eslint-plugin-import": "^2.29.1",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -14,7 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,9 +27,16 @@
       "plugin:import/recommended",
       "plugin:import/typescript"
     ],
-    "plugins": ["import"],
+    "plugins": [
+      "import"
+    ],
     "rules": {
-      "import/no-unused-modules": [1, {"unusedExports": true}],
+      "import/no-unused-modules": [
+        1,
+        {
+          "unusedExports": true
+        }
+      ],
       "import/no-unresolved": "error",
       "import/no-duplicates": "error",
       "import/order": [
@@ -57,7 +63,10 @@
     "settings": {
       "import/resolver": {
         "node": {
-          "extensions": [".js", ".jsx"]
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
         }
       }
     }
@@ -67,5 +76,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-import": "^2.31.0"
+  }
 }
