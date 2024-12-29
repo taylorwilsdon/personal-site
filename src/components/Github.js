@@ -108,8 +108,8 @@ const GitHubActivityLog = ({ username }) => {
   return (
     <Card variant="outlined" sx={{ maxWidth: 800, margin: "auto", mt: 4 }}>
       <CardContent>
-        <Typography variant="body1" gutterBottom>
-          git log
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Recent GitHub Activity
         </Typography>
         <List>
           {displayedEvents.map((event) => (
@@ -125,7 +125,7 @@ const GitHubActivityLog = ({ username }) => {
                       href={`https://github.com/${event.actor.login}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      color="inherit"
+                      color="text.secondary"
                       underline="hover"
                     >
                       {event.actor.login}
@@ -134,13 +134,19 @@ const GitHubActivityLog = ({ username }) => {
                       label={event.type
                         .replace(/Event$|([A-Z])/g, " $1")
                         .trim()}
-                      size="xsmall"
-                      sx={{ ml: 1 }}
+                      size="small"
+                      sx={{ 
+                        ml: 1,
+                        color: 'text.secondary',
+                        backgroundColor: 'transparent',
+                        borderColor: 'divider'
+                      }}
+                      variant="outlined"
                     />{" "}
                   </Box>
                 }
                 secondary={
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography variant="body2" color="text.disabled">
                     {formatEventType(event.type)}{" "}
                     <Link
                       href={`https://github.com/${event.repo.name}`}
