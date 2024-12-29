@@ -1,5 +1,5 @@
-import OpenSource from './OpenSource';
 import Icons from './Icons';
+import OpenSource from './OpenSource';
 
 const OpenSourcePage = () => (
     <div>
