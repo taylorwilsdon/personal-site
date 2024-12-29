@@ -12,7 +12,7 @@ theme.typography.body2 = {
 
 const OpenSource = () => (
   <div>
-    <h3>projects I believe in, support & contribute to</h3>
+    <h3>projects we believe in, support & contribute to</h3>
     <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12} md={6}>
         <Card>

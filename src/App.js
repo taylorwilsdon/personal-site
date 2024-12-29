@@ -14,7 +14,8 @@ const App = (props) => {
         <div id="wrapper">
           <header>
             <span className="navBar">
-              <Link to="/">Home</Link> | <Link to="/opensource">Open Source</Link> |{" "}
+              <Link to="/">Home</Link> | {" "}
+              {/* <Link to="/opensource">Open Source</Link> |{" "} */}
               <Link to="/blog">Publications</Link>  |{" "} 
               <a href="https://instagram.com/taylorwilsdon">Photography</a>
             </span>
