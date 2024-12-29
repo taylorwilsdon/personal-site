@@ -118,7 +118,7 @@ const GitHubActivityLog = ({ username }) => {
       (event) => event.type !== "IssueCommentEvent"
     );
     const groupedEvents = groupConsecutiveEvents(filteredEvents);
-    return showAll ? groupedEvents : groupedEvents.slice(0, 5);
+    return showAll ? groupedEvents : groupedEvents.slice(0, 6);
   }, [showAll, activityLog, groupConsecutiveEvents]);
 
   if (loading) {
@@ -141,7 +141,7 @@ const GitHubActivityLog = ({ username }) => {
     <Card variant="outlined" sx={{ maxWidth: 800, margin: "auto", mt: 4 }}>
       <CardContent>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          git log
+          git blame
         </Typography>
         <List>
           {displayedEvents.map((event) => (
@@ -190,7 +190,7 @@ const GitHubActivityLog = ({ username }) => {
                     >
                       {event.repo.name}
                     </Link>
-                    {event.count > 1 && ` (${event.count} times)`}{" "}
+                    {event.count > 1 && ` (${event.count}x)`}{" "}
                     —{" "}
                     {formatDistanceToNow(new Date(event.created_at), {
                       addSuffix: true,
@@ -201,7 +201,7 @@ const GitHubActivityLog = ({ username }) => {
             </ListItem>
           ))}
         </List>
-        {activityLog.length > 5 && (
+        {activityLog.length > 6 && (
           <Box display="flex" justifyContent="center" mt={2}>
             <Button
               variant="outlined"

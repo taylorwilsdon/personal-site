@@ -4,9 +4,10 @@ import avatar from '../images/avatar.png';
 
 const Header = (props) => (
     <header>
+        <h2>taylor wilsdon</h2>
         <span className="avatar"><img src={avatar} alt="" /></span>
-        <h2>Taylor Wilsdon</h2>
-        <h4>corpeng @Yelp</h4>
+        <h4>@yelp</h4>
+
     </header>
 )
 
