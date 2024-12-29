@@ -7,8 +7,7 @@ const Icons = (props) => (
     <ul className="icons">
       <li>
         <a href="https://github.com/taylorwilsdon">
-          <FontAwesomeIcon icon={faGithub} /> Github
-        </a>
+        <FontAwesomeIcon icon={faGithub} />        </a>
       </li>
       <li>
         <a href="https://www.instagram.com/taylorwilsdon/">
