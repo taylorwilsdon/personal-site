@@ -22,7 +22,6 @@ const Icons = (props) => (
       </li>
     </ul>
   </footer>
-  )
-}
+)
 
 export default Icons
