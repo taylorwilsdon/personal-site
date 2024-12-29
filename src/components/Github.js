@@ -79,9 +79,10 @@ const GitHubActivityLog = ({ username }) => {
 
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
 
-  const displayedEvents = useMemo(() => 
-    showAll ? activityLog : activityLog.slice(0, 5),
-  [showAll, activityLog]);
+  const displayedEvents = useMemo(() => {
+    const filteredEvents = activityLog.filter(event => event.type !== 'IssueCommentEvent');
+    return showAll ? filteredEvents : filteredEvents.slice(0, 5);
+  }, [showAll, activityLog]);
 
   if (loading) {
     return (
