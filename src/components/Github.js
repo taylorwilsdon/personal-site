@@ -74,7 +74,7 @@ const GitHubActivityLog = ({ username }) => {
 
   const getEventIcon = useCallback((type) => {
     const icon = EVENT_ICONS[type];
-    return icon ? <FontAwesomeIcon icon={icon + fa-duotone + fa-solid} style={ICON_STYLE} /> : null;
+    return icon ? <FontAwesomeIcon icon={icon} style={ICON_STYLE} /> : null;
   }, []);
 
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
@@ -126,7 +126,7 @@ const GitHubActivityLog = ({ username }) => {
                     </Link>
                     <Chip
                       label={event.type}
-                      size="small"
+                      size="xsmall"
                       sx={{ ml: 1 }}
                     />
                   </Box>
