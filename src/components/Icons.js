@@ -4,7 +4,10 @@ import React from 'react'
 
 const ICON_STYLE = { width: 20, height: 20, marginRight: 8 }
 
-const Icons = (props) => (
+const Icons = (props) => {
+  console.log('Icons rendering with icons:', { faGithub, faInstagram, faLinkedin })
+  console.log('ICON_STYLE:', ICON_STYLE)
+  return (
   <footer>
     <ul className="icons">
       <li>
@@ -24,6 +27,7 @@ const Icons = (props) => (
       </li>
     </ul>
   </footer>
-)
+  )
+}
 
 export default Icons
