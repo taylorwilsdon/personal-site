@@ -546,7 +546,6 @@
 
 	ul {
 		list-style: disc;
-		margin: 0 0 1.5em 0;
 		padding-left: 1em;
 	}
 
@@ -721,11 +720,8 @@
 			ul.icons li a {
 				text-decoration: none;
 				position: relative;
-				display: block;
 				width: 3.75em;
 				height: 3.75em;
-				border-radius: 100%;
-				border: solid 1px #c8cccf;
 				line-height: 3.75em;
 				overflow: hidden;
 				text-align: center;
