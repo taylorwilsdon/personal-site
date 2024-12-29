@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  faCodeBranch,
+  faCodePullRequest,
+  faCircleExclamation,
+  faCodeFork,
+  faComment,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Card,
   CardContent,
@@ -15,15 +23,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCodeBranch,
-  faCodePullRequest,
-  faCircleExclamation,
-  faCodeFork,
-  faComment,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 const EVENT_ICONS = {
   PushEvent: faCodeBranch,
@@ -126,6 +126,7 @@ const GitHubActivityLog = ({ username }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                       color="text.secondary"
+                      sx={{ mr: 1 }}
                       underline="hover"
                     >
                       {event.actor.login}
@@ -135,7 +136,7 @@ const GitHubActivityLog = ({ username }) => {
                         .replace(/Event$|([A-Z])/g, " $1")
                         .trim()}
                       size="small"
-                      sx={{ 
+                      sx={{
                         ml: 1,
                         color: 'text.secondary',
                         backgroundColor: 'transparent',
