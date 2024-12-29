@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
 import Blog from "./components/Blog";
 import Main from "./components/Main";
+import OpenSourcePage from "./components/OpenSourcePage";
 import "./assets/css/main.css";
 
 const App = (props) => {
@@ -14,6 +15,7 @@ const App = (props) => {
           <header>
             <span className="navBar">
               <Link to="/">Home</Link> | <Link to="/blog">Publications</Link> |{" "}
+              <Link to="/opensource">Open Source</Link> |{" "}
               <a href="https://instagram.com/taylorwilsdon">Photography</a>
             </span>
           </header>
@@ -21,6 +23,7 @@ const App = (props) => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/opensource" element={<OpenSourcePage />} />
           </Routes>
           <footer id="footer">
             <ul className="copyright">
