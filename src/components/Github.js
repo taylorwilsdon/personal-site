@@ -109,7 +109,7 @@ const GitHubActivityLog = ({ username }) => {
     <Card variant="outlined" sx={{ maxWidth: 800, margin: "auto", mt: 4 }}>
       <CardContent>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          Recent GitHub Activity
+          git log
         </Typography>
         <List>
           {displayedEvents.map((event) => (
