@@ -82,12 +82,44 @@ const GitHubActivityLog = ({ username }) => {
 
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
 
+  const groupConsecutiveEvents = useCallback((events) => {
+    const grouped = [];
+    let currentGroup = null;
+
+    events.forEach((event) => {
+      if (event.type === "IssueCommentEvent") return;
+
+      if (currentGroup && 
+          currentGroup.type === event.type && 
+          currentGroup.repo.name === event.repo.name) {
+        currentGroup.count++;
+        // Keep the most recent timestamp
+        currentGroup.created_at = event.created_at;
+      } else {
+        if (currentGroup) {
+          grouped.push(currentGroup);
+        }
+        currentGroup = {
+          ...event,
+          count: 1
+        };
+      }
+    });
+
+    if (currentGroup) {
+      grouped.push(currentGroup);
+    }
+
+    return grouped;
+  }, []);
+
   const displayedEvents = useMemo(() => {
     const filteredEvents = activityLog.filter(
       (event) => event.type !== "IssueCommentEvent"
     );
-    return showAll ? filteredEvents : filteredEvents.slice(0, 5);
-  }, [showAll, activityLog]);
+    const groupedEvents = groupConsecutiveEvents(filteredEvents);
+    return showAll ? groupedEvents : groupedEvents.slice(0, 5);
+  }, [showAll, activityLog, groupConsecutiveEvents]);
 
   if (loading) {
     return (
@@ -157,7 +189,8 @@ const GitHubActivityLog = ({ username }) => {
                       underline="hover"
                     >
                       {event.repo.name}
-                    </Link>{" "}
+                    </Link>
+                    {event.count > 1 && ` (${event.count} times)`}{" "}
                     —{" "}
                     {formatDistanceToNow(new Date(event.created_at), {
                       addSuffix: true,
