@@ -4,20 +4,16 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Paper,
   Typography,
   styled
 } from '@mui/material';
 import * as React from "react";
 import { useState, useEffect } from "react";
 
-import mediumCard from '../images/medium_card.png';
-import nytCard from '../images/nyt_card.png';
-import summitCard from '../images/summit_card.png';
 import ventImage from '../images/vent.png';
 
 
-import MarkdownRenderer from './MarkdownRenderer';
+// import MarkdownRenderer from './MarkdownRenderer';
 
 
 // Styled components
@@ -42,12 +38,12 @@ const StyledCardMedia = styled(CardMedia)({
   width: 320,
 });
 
-const StyledMarkdownPaper = styled(Paper)(({ theme }) => ({
-  marginTop: theme.spacing(4),
-  padding: theme.spacing(3),
-  backgroundColor: '#fff',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-}));
+// const StyledMarkdownPaper = styled(Paper)(({ theme }) => ({
+//   marginTop: theme.spacing(4),
+//   padding: theme.spacing(3),
+//   backgroundColor: '#fff',
+//   boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+// }));
 
 const StyledLink = styled('a')({
   textDecoration: 'none',
@@ -83,13 +79,18 @@ const Blog = (props) => {
   const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
-    fetch(require('../assets/markdown/steamheat.md'))
-      .then(response => response.text())
-      .then(text => {
+    const loadMarkdown = async () => {
+      try {
+        const response = await fetch(require('../assets/markdown/steamheat.md'));
+        const text = await response.text();
         setMarkdown(text);
-      })
-      .catch(error => console.error('Error loading markdown:', error));
-  }, []);
+      } catch (error) {
+        console.error(`Error loading markdown: ${markdown} ${error}`);
+      }
+    };
+
+    loadMarkdown();
+  }, [markdown]);
 
   return (
     <div>
