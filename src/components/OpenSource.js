@@ -14,7 +14,7 @@ theme.typography.body2 = {
 const OpenSource = () => (
   <div>
     <h3>projects we believe in, support & contribute to</h3>
-    <Grid container spacing={4} justifyContent="center" sx={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+    <Grid container spacing={4} justifyContent="center" sx={{ maxWidth: '1200px', padding: '20px' }}>
       <Grid item xs={12} sm={6} md={6}>
         <Card>
           <CardActionArea href="https://github.com/netbirdio/netbird " target="_blank" rel="noopener noreferrer">

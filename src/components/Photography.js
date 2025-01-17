@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import InstagramApi from 'instagram-api';
 
 const Photography = () => {
   const [posts, setPosts] = useState([]);
@@ -15,9 +14,11 @@ const Photography = () => {
   useEffect(() => {
     const fetchInstagramPosts = async () => {
       try {
-        const instagramApi = new InstagramApi(process.env.REACT_APP_INSTAGRAM_TOKEN);
-        const response = await instagramApi.getUserMedia('taylorwilsdon');
-        setPosts(response.data);
+        const response = await fetch(
+          `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink&access_token=${process.env.REACT_APP_INSTAGRAM_TOKEN}`
+        );
+        const data = await response.json();
+        setPosts(data.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Instagram posts:', error);

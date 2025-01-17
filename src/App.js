@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
-import Publications from "./components/Publications";
 import Blog from "./components/Blog";
 import Main from "./components/Main";
 import OpenSourcePage from "./components/OpenSourcePage";
@@ -18,7 +17,6 @@ const App = (props) => {
               <Link to="/">Home</Link> | {" "}
               <Link to="/opensource">Open Source</Link> |{" "}
               <Link to="/blog">Blog</Link>  |{" "} 
-              <Link to="/publications">Publications</Link>  |{" "} 
               <a href="https://instagram.com/taylorwilsdon">Photography</a>
             </span>
           </header>
@@ -26,7 +24,6 @@ const App = (props) => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/publications" element={<Publications />} />
             <Route path="/opensource" element={<OpenSourcePage />} />
           </Routes>
           <footer id="footer">
