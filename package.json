@@ -10,11 +10,16 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/material": "^6.3.1",
+    "buffer": "^6.0.3",
     "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
+    "instagram-api": "^1.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.3",
     "react-router-dom": "^7.1.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "remark-gfm": "^3.0.1"
   },
   "scripts": {
     "purgecss": "purgecss --config purgecss.config.js",
@@ -80,6 +85,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-plugin-import": "^2.31.0"
+    "eslint-plugin-import": "^2.31.0",
+    "raw-loader": "^4.0.2"
   }
 }

@@ -16,7 +16,7 @@ const App = (props) => {
             <span className="navBar">
               <Link to="/">Home</Link> | {" "}
               <Link to="/opensource">Open Source</Link> |{" "}
-              <Link to="/blog">Publications</Link>  |{" "} 
+              <Link to="/blog">Blog</Link>  |{" "} 
               <a href="https://instagram.com/taylorwilsdon">Photography</a>
             </span>
           </header>
