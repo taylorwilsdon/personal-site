@@ -2,6 +2,25 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+const TitleContainer = styled('div')({
+  textAlign: 'center',
+  marginBottom: '3rem',
+  '& h1': {
+    fontSize: '2.8rem',
+    fontWeight: '700',
+    margin: '2rem 0 1rem',
+    color: '#2c3e50',
+    textTransform: 'none',
+    lineHeight: '1.2'
+  },
+  '& .subtitle': {
+    fontSize: '1.2rem',
+    color: '#666',
+    marginTop: '0.5rem',
+    fontStyle: 'italic'
+  }
+});
+
 const MarkdownContainer = styled('div')({
   '& h1': {
     fontSize: '2.5rem',
@@ -94,11 +113,30 @@ const MarkdownContainer = styled('div')({
   }
 });
 
+const extractTitle = (content) => {
+  const lines = content.split('\n');
+  for (const line of lines) {
+    if (line.startsWith('# ')) {
+      return line.replace('# ', '');
+    }
+  }
+  return null;
+};
+
 const MarkdownRenderer = ({ content }) => {
+  const title = extractTitle(content);
+  const contentWithoutTitle = content.replace(`# ${title}\n`, '');
+
   return (
     <MarkdownContainer sx={{ maxWidth: '740px', margin: '60px auto', padding: '0 20px' }}>
+      {title && (
+        <TitleContainer>
+          <h1>{title}</h1>
+          <div className="subtitle">Markdown Document</div>
+        </TitleContainer>
+      )}
       <ReactMarkdown>
-        {content}
+        {contentWithoutTitle}
       </ReactMarkdown>
     </MarkdownContainer>
   );
