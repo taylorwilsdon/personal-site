@@ -89,7 +89,8 @@ const StyledCardTitle = styled(Typography)({
   marginBottom: '0.25rem',
   display: 'block',
   wordWrap: 'break-word',
-  overflow: 'hidden'
+  whiteSpace: 'normal',
+  overflowWrap: 'break-word'
 });
 
 const StyledSubtitle = styled(Typography)({
