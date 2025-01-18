@@ -10,8 +10,6 @@ import {
 import * as React from "react";
 import { useState, useEffect } from "react";
 
-import ventImage from '../images/vent.png';
-
 
 // import MarkdownRenderer from './MarkdownRenderer';
 
@@ -29,7 +27,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
 const StyledCard = styled(Card)({
   minWidth: 0,
-  maxWidth: 320,
+  maxWidth: 400,
   minHeight: 320,
 });
 
@@ -151,8 +149,8 @@ const Blog = (props) => {
               <StyledLink href="https://medium.com/@tbarrettwilsdon/smart-zoned-nyc-steam-radiators-effectively-controlling-one-pipe-steam-heat-in-apartments-304a2ed2cd1b">
                 <StyledCardMedia
                   component="img"
-                  image={ventImage}
-                  alt="Steam Heat"
+                  image={require('../images/vent.png')}
+                  alt="Smart Steam Heat"
                 />
                 <CardContent>
                   <StyledCardTitle>
@@ -163,6 +161,32 @@ const Blog = (props) => {
                   </StyledSubtitle>
                   <StyledDescription>
                     A look into the misadventures and solutions as I implemented smart, individual zone control for my NYC apartment's cast iron one pipe steam radiators
+                  </StyledDescription>
+                </CardContent>
+              </StyledLink>
+            </CardActionArea>
+          </StyledCard>
+        </Grid>
+
+        <Grid item xs={4}>
+          <StyledCard>
+            <CardActionArea>
+              <StyledLink href="https://taylorwilsdon.medium.com/in-the-pursuit-of-a-more-refined-window-ac-installation-building-in-midea-u-shape-inverter-splits-9bd3b83b0351">
+                <StyledCardMedia
+                  component="img"
+                  image={require('../images/ac.jpg')}
+                  alt="Air Conditioner"
+                />
+                <CardContent>
+                  <StyledCardTitle>
+                  The pursuit of a more refined <br />
+                  window AC installation
+                  </StyledCardTitle>
+                  <StyledSubtitle variant="subtitle2">
+                  Building in Midea U-Shape Inverter Splits
+                  </StyledSubtitle>
+                  <StyledDescription>
+Building, insulating and finishing the closest thing to a true mini split for a clean, silent installation
                   </StyledDescription>
                 </CardContent>
               </StyledLink>
