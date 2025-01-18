@@ -132,7 +132,6 @@ const MarkdownRenderer = ({ content }) => {
       {title && (
         <TitleContainer>
           <h1>{title}</h1>
-          <div className="subtitle">Markdown Document</div>
         </TitleContainer>
       )}
       <ReactMarkdown>

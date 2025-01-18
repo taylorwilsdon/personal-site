@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
 import Blog from "./components/Blog";
 import Main from "./components/Main";
-import OpenSourcePage from "./components/OpenSourcePage";
 import MarkdownPage from "./components/MarkdownPage";
+import OpenSourcePage from "./components/OpenSourcePage";
 import "./assets/css/main.css";
 
 const App = (props) => {
@@ -18,7 +18,6 @@ const App = (props) => {
               <Link to="/">Home</Link> | {" "}
               <Link to="/opensource">Open Source</Link> |{" "}
               <Link to="/blog">Writing</Link> |{" "}
-              <Link to="/read/steamheat">Example Markdown</Link> |{" "}
               <a href="https://instagram.com/taylorwilsdon">Photography</a>
             </span>
           </header>

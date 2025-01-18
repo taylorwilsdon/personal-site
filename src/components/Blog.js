@@ -24,9 +24,9 @@ const articles = [
     href: "https://www.conferencecast.tv/speaker-32221-taylor-barrett-wilsdon#.speakerPage-latest",
     image: require('../images/summit_card.png'),
     alt: "Atlassian Summit",
-    title: "Scaling Jira Server Administration for the Enterprise",
-    subtitle: "Atlassian Summit 2019 - Jira & Ansible",
-    description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to run Jira at scale"
+    subtitle: "Scaling Jira Server for the Enterprise via IaC",
+    title: "Atlassian Summit - Jira & Ansible",
+    description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
   },
   {
     href: "https://medium.com/@tbarrettwilsdon/smart-zoned-nyc-steam-radiators-effectively-controlling-one-pipe-steam-heat-in-apartments-304a2ed2cd1b",
@@ -40,7 +40,7 @@ const articles = [
     href: "https://taylorwilsdon.medium.com/in-the-pursuit-of-a-more-refined-window-ac-installation-building-in-midea-u-shape-inverter-splits-9bd3b83b0351",
     image: require('../images/ac.jpg'),
     alt: "Air Conditioner",
-    title: "The pursuit of a more refined window AC installation",
+    title: "In the pursuit of a more refined window AC installation",
     subtitle: "Building in Midea U-Shape Inverter Splits",
     description: "Building, insulating and finishing the closest thing to a true mini split for a clean, silent installation"
   },
@@ -48,8 +48,8 @@ const articles = [
     href: "https://www.nytimes.com/interactive/2022/02/17/realestate/17hunt-wilsdon.html",
     image: require('../images/nyt_card.png'),
     alt: "NYT - The Hunt",
-    title: "The New York Times",
-    subtitle: "Real Estate | The Hunt",
+    subtitle: "The New York Times",
+    title: "Real Estate > The Hunt",
     description: "Interview with Joyce Cohen of the New York Times for The Hunt, focused on our experience finding our New York City home"
   }
 ];
