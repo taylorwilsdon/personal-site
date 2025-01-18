@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-
+import { useParams } from 'react-router-dom';
 import MarkdownRenderer from './MarkdownRenderer';
 
-const MarkdownPage = ({ filename }) => {
+const MarkdownPage = () => {
+  const { filename } = useParams();
   const [markdown, setMarkdown] = useState('');
 
   useEffect(() => {
     const loadMarkdown = async () => {
       try {
-        const response = await fetch(require(`../assets/markdown/${filename}.md`));
+        // Use dynamic import to handle markdown files
+        const markdownModule = await import(`../assets/markdown/${filename}.md`);
+        const response = await fetch(markdownModule.default);
         const text = await response.text();
         setMarkdown(text);
       } catch (error) {
