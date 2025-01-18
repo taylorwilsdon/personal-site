@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
-import Blog from "./components/Blog";
+import Blog from "./components/Writing";
 import Main from "./components/Main";
 import OpenSourcePage from "./components/OpenSourcePage";
 import "./assets/css/main.css";
