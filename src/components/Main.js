@@ -1,8 +1,9 @@
+import { styled } from '@mui/system';
+
 import GitHubActivityLog from './Github';
 import Header from './Header';
 import Icons from './Icons';
 import Photography from './Photography';
-import { styled } from '@mui/system';
 
 const MainContainer = styled('div')(({ theme }) => ({
   maxWidth: '100%',
