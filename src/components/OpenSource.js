@@ -85,7 +85,20 @@ const OpenSource = () => (
           </CardActionArea>
         </Card>
       </Grid>
-
+      <Grid item xs={12} sm={6} md={6}>
+        <Card>
+          <CardActionArea href="https://github.com/Aider-AI/aider" target="_blank" rel="noopener noreferrer">
+            <CardContent>
+              <Typography variant="h5" component="div">
+                aider
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              ai dev agent for us vim types
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
     </Grid>
   </div>
 );
