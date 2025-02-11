@@ -115,7 +115,7 @@ const GitHubActivityLog = ({ username }) => {
 
   const displayedEvents = useMemo(() => {
     const filteredEvents = activityLog.filter(
-      (event) => event.type !== "IssueCommentEvent"
+      (event) => event.type !== "IssueCommentEvent" && event.type !== "DeleteEvent"
     );
     const groupedEvents = groupConsecutiveEvents(filteredEvents);
     return showAll ? groupedEvents : groupedEvents.slice(0, 6);
