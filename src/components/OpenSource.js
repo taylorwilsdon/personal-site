@@ -93,7 +93,7 @@ const OpenSource = () => (
                 aider
               </Typography>
               <Typography variant="body2" color="text.secondary">
-              pragmatic ai dev assistant for us vim types
+              pragmatic, interactive ai dev assistant for us vim types
               </Typography>
             </CardContent>
           </CardActionArea>
