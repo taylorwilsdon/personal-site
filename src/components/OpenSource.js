@@ -247,7 +247,7 @@ const OpenSource = () => {
         </Card>
       </Grid>
     </Grid>
-  </div>
-);
+    </Box>
+);}
 
-export default OpenSource;
+export default OpenSource
