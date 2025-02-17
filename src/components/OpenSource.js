@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { Octokit } from '@octokit/rest';
+import { styled } from '@mui/material/styles';
 import { 
   Card, 
   CardActionArea, 
@@ -6,14 +7,12 @@ import {
   Typography, 
   Grid,
   Box,
-  Chip,
-  Tooltip
+  Chip
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import FolderIcon from '@mui/icons-material/Folder';
+import StarIcon from '@mui/icons-material/Star';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import { Octokit } from 'octokit';
+import { useState, useEffect } from 'react';
 
 const octokit = new Octokit();
 
@@ -115,7 +114,7 @@ const OpenSource = () => {
         fontWeight: 600,
         fontSize: '1.5rem'
       }}>
-        <GitHubIcon sx={{ marginRight: 1, verticalAlign: 'middle' }} />
+        <FolderIcon sx={{ marginRight: 1, verticalAlign: 'middle' }} />
         Open Source Contributions
       </Typography>
       <Typography variant="subtitle1" sx={{ 
@@ -146,7 +145,7 @@ const OpenSource = () => {
                   {repoStats['taylorwilsdon/reddacted'] && (
                     <>
                       <StatsChip
-                        icon={<StarBorderIcon />}
+                        icon={<StarIcon />}
                         label={repoStats['taylorwilsdon/reddacted'].stars}
                         size="small"
                       />
