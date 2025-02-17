@@ -1,4 +1,5 @@
-import { Octokit } from '@octokit/rest';
+import { useState, useEffect } from 'react';
+
 import { styled } from '@mui/material/styles';
 import { 
   Card, 
@@ -9,10 +10,10 @@ import {
   Box,
   Chip
 } from '@mui/material';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
-import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import { useState, useEffect } from 'react';
+import { Octokit } from '@octokit/rest';
 
 const octokit = new Octokit();
 
