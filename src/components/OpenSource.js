@@ -15,6 +15,20 @@ const OpenSource = () => (
   <div>
     <h3>a non-exhaustive list of projects I believe in, support & contribute to</h3>
     <Grid container spacing={4} justifyContent="center" sx={{ maxWidth: '1200px', padding: '20px' }}>
+            <Grid item xs={12} sm={6} md={6}>
+        <Card>
+          <CardActionArea href="https://github.com/taylorwilsdon/reddacted " target="_blank" rel="noopener noreferrer">
+            <CardContent>
+              <Typography variant="h5" component="div">
+                reddacted
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                clean up after yourself
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
       <Grid item xs={12} sm={6} md={6}>
         <Card>
           <CardActionArea href="https://github.com/netbirdio/netbird " target="_blank" rel="noopener noreferrer">
