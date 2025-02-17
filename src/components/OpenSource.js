@@ -1,6 +1,6 @@
-import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import FolderIcon from '@mui/icons-material/Folder';
-import StarIcon from '@mui/icons-material/Star';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import ForkRightIcon from '@mui/icons-material/ForkRight';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { 
   Card, 
   CardActionArea, 
@@ -8,7 +8,8 @@ import {
   Typography, 
   Grid,
   Box,
-  Chip
+  Chip,
+  Container
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Octokit } from '@octokit/rest';
@@ -18,51 +19,43 @@ const octokit = new Octokit();
 
 const ProjectCard = styled(Card)(({ theme }) => ({
   position: 'relative',
-  transition: 'all 0.3s ease',
-  background: '#0d1117',
-  border: '1px solid #30363d',
+  transition: 'all 0.2s ease',
+  background: '#ffffff',
+  border: '1px solid #e1e4e8',
+  borderRadius: '8px',
+  height: '100%',
   '&:hover': {
-    transform: 'translateY(-5px)',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
-    border: '1px solid #58a6ff',
-  },
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    left: '-20px',
-    top: '50%',
-    width: '20px',
-    height: '2px',
-    background: '#30363d',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 3px 10px rgba(0,0,0,0.1)',
+    '& .repo-name': {
+      color: '#2188ff',
+    }
   }
 }));
 
-const BranchLine = styled(Box)({
-  position: 'absolute',
-  left: 0,
-  top: 0,
-  bottom: 0,
-  width: '2px',
-  background: '#30363d',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    left: '-1px',
-    top: '50%',
-    width: '4px',
-    height: '4px',
-    borderRadius: '50%',
-    background: '#58a6ff',
+const RepoStats = styled(Box)({
+  display: 'flex',
+  gap: '12px',
+  marginTop: '8px'
+});
+
+const StatChip = styled(Chip)({
+  background: '#f6f8fa',
+  border: '1px solid #e1e4e8',
+  borderRadius: '12px',
+  color: '#586069',
+  height: '24px',
+  '& .MuiChip-icon': {
+    color: '#586069',
+    fontSize: '16px'
   }
 });
 
-const StatsChip = styled(Chip)({
-  background: '#21262d',
-  color: '#c9d1d9',
-  margin: '0 4px',
-  '.MuiSvgIcon-root': {
-    color: '#8b949e',
-  }
+const RepoDescription = styled(Typography)({
+  color: '#586069',
+  fontSize: '14px',
+  marginTop: '8px',
+  minHeight: '40px'
 });
 
 const OpenSource = () => {
@@ -100,67 +93,77 @@ const OpenSource = () => {
   }, []);
 
   return (
-    <Box sx={{ 
-      position: 'relative',
-      color: '#c9d1d9',
-      background: '#0d1117',
-      padding: '2rem',
-      borderRadius: '8px'
-    }}>
-      <BranchLine />
-      <Typography variant="h4" sx={{ 
-        color: '#58a6ff',
-        marginBottom: '2rem',
-        fontWeight: 600,
-        fontSize: '1.5rem'
-      }}>
-        <FolderIcon sx={{ marginRight: 1, verticalAlign: 'middle' }} />
-        Open Source Contributions
-      </Typography>
-      <Typography variant="subtitle1" sx={{ 
-        color: '#8b949e',
-        marginBottom: '2rem'
-      }}>
-        Projects I believe in, support & contribute to
-      </Typography>
-      <Grid container spacing={3} sx={{ position: 'relative' }}>
-        <Grid item xs={12} sm={6} md={4}>
-          <ProjectCard>
-            <CardActionArea 
-              href="https://github.com/taylorwilsdon/reddacted"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 1 }}>
-                  <AccountTreeIcon sx={{ color: '#58a6ff', marginRight: 1 }} />
-                  <Typography variant="h6" sx={{ color: '#c9d1d9' }}>
-                    reddacted
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Typography variant="h4" sx={{ 
+          color: '#24292e',
+          fontWeight: 600,
+          fontSize: '2rem',
+          mb: 2
+        }}>
+          <GitHubIcon sx={{ mr: 1, verticalAlign: 'bottom', fontSize: '2rem' }} />
+          Open Source Contributions
+        </Typography>
+        <Typography variant="subtitle1" sx={{ 
+          color: '#586069',
+          fontSize: '1.1rem'
+        }}>
+          Projects I believe in, support & contribute to
+        </Typography>
+      </Box>
+      <Grid container spacing={3}>
+        {[
+          { name: 'reddacted', owner: 'taylorwilsdon', desc: 'clean up after yourself' },
+          { name: 'netbird', owner: 'netbirdio', desc: 'wireguard overlay networking' },
+          { name: 'homebridge', owner: 'homebridge', desc: 'HomeKit support for the impatient' },
+          { name: 'open-webui', owner: 'open-webui', desc: 'the gold standard for llm chat ui' },
+          { name: 'ollama', owner: 'ollama', desc: 'llama.cpp wrapper for dead simple llm inference' },
+          { name: 'GAM', owner: 'GAM-team', desc: 'cli for google workspace superadmins & friends' },
+          { name: 'aider', owner: 'Aider-AI', desc: 'pragmatic, interactive ai dev assistant for us vim types' }
+        ].map((repo) => (
+          <Grid item xs={12} sm={6} md={4} key={`${repo.owner}/${repo.name}`}>
+            <ProjectCard>
+              <CardActionArea 
+                href={`https://github.com/${repo.owner}/${repo.name}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <CardContent>
+                  <Typography 
+                    variant="h6" 
+                    className="repo-name"
+                    sx={{ 
+                      color: '#24292e',
+                      fontSize: '1.1rem',
+                      fontWeight: 600 
+                    }}
+                  >
+                    {repo.name}
                   </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: '#8b949e', marginBottom: 2 }}>
-                  clean up after yourself
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  {repoStats['taylorwilsdon/reddacted'] && (
-                    <>
-                      <StatsChip
-                        icon={<StarIcon />}
-                        label={repoStats['taylorwilsdon/reddacted'].stars}
-                        size="small"
-                      />
-                      <StatsChip
-                        icon={<AccountTreeIcon />}
-                        label={repoStats['taylorwilsdon/reddacted'].forks}
-                        size="small"
-                      />
-                    </>
-                  )}
-                </Box>
-              </CardContent>
-            </CardActionArea>
-          </ProjectCard>
-        </Grid>
+                  <RepoDescription>
+                    {repo.desc}
+                  </RepoDescription>
+                  <RepoStats>
+                    {repoStats[`${repo.owner}/${repo.name}`] && (
+                      <>
+                        <StatChip
+                          icon={<StarOutlineIcon />}
+                          label={repoStats[`${repo.owner}/${repo.name}`].stars}
+                          size="small"
+                        />
+                        <StatChip
+                          icon={<ForkRightIcon />}
+                          label={repoStats[`${repo.owner}/${repo.name}`].forks}
+                          size="small"
+                        />
+                      </>
+                    )}
+                  </RepoStats>
+                </CardContent>
+              </CardActionArea>
+            </ProjectCard>
+          </Grid>
+        ))}
       <Grid item xs={12} sm={6} md={6}>
         <Card>
           <CardActionArea href="https://github.com/netbirdio/netbird " target="_blank" rel="noopener noreferrer">
