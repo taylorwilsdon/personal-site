@@ -106,7 +106,7 @@ const RepoCard = ({ repo, stats }) => {
         rel="noopener noreferrer"
       >
         <CardContent sx={{ p: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
             <Icon sx={{ 
               color: GITHUB_COLORS.text.secondary,
               mr: 1,
@@ -116,7 +116,7 @@ const RepoCard = ({ repo, stats }) => {
               className="repo-name"
               sx={{ 
                 color: GITHUB_COLORS.text.primary,
-                fontSize: '0.95rem',
+                fontSize: '1.1rem',
                 fontWeight: 600,
               }}
             >
@@ -126,10 +126,10 @@ const RepoCard = ({ repo, stats }) => {
         <Typography 
           sx={{ 
             color: GITHUB_COLORS.text.secondary,
-            fontSize: '0.85rem',
-            mb: 1.5,
-            minHeight: '32px',
-            lineHeight: 1.4
+            fontSize: '1rem',
+            mb: 2,
+            minHeight: '40px',
+            lineHeight: 1.5
           }}
         >
           {repo.desc}
@@ -156,7 +156,7 @@ const RepoCard = ({ repo, stats }) => {
 );
 }
 const PageHeader = () => (
-  <Box sx={{ textAlign: 'center', mb: 6 }}>
+  <Box sx={{ mb: 6 }}>
     <Typography 
       variant="h4" 
       sx={{ 
