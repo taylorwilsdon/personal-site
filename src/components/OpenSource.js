@@ -1,13 +1,13 @@
-import ForkRightIcon from '@mui/icons-material/ForkRightAlt';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import CodeIcon from '@mui/icons-material/Code';
-import SecurityIcon from '@mui/icons-material/Security';
-import HomeIcon from '@mui/icons-material/Home';
-import ChatIcon from '@mui/icons-material/Chat';
-import TerminalIcon from '@mui/icons-material/Terminal';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ChatIcon from '@mui/icons-material/Chat';
+import CodeIcon from '@mui/icons-material/Code';
+import ForkRightIcon from '@mui/icons-material/ForkRight';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import HomeIcon from '@mui/icons-material/Home';
+import SecurityIcon from '@mui/icons-material/Security';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import TerminalIcon from '@mui/icons-material/Terminal';
 import { 
   Card, 
   CardActionArea, 
@@ -154,7 +154,7 @@ const RepoCard = ({ repo, stats }) => {
     </CardActionArea>
   </StyledCard>
 );
-
+}
 const PageHeader = () => (
   <Box sx={{ textAlign: 'center', mb: 6 }}>
     <Typography 
