@@ -14,7 +14,6 @@ const MainContainer = styled('div')(({ theme }) => ({
 }));
 
 const MainSection = styled('section')(({ theme }) => ({
-  maxWidth: '1200px',
   margin: '0 auto',
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
