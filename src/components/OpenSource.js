@@ -1,6 +1,13 @@
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import CodeIcon from '@mui/icons-material/Code';
+import SecurityIcon from '@mui/icons-material/Security';
+import HomeIcon from '@mui/icons-material/Home';
+import ChatIcon from '@mui/icons-material/Chat';
+import TerminalIcon from '@mui/icons-material/Terminal';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { 
   Card, 
   CardActionArea, 
@@ -15,15 +22,25 @@ import { styled } from '@mui/material/styles';
 import { Octokit } from '@octokit/rest';
 import { useState, useEffect } from 'react';
 
+// Utilities
+const formatNumber = (num) => {
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1)}m`;
+  } else if (num >= 1000) {
+    return `${(num / 1000).toFixed(1)}k`;
+  }
+  return num.toString();
+};
+
 // Constants
 const REPOS = [
-  { name: 'reddacted', owner: 'taylorwilsdon', desc: 'clean up after yourself' },
-  { name: 'netbird', owner: 'netbirdio', desc: 'wireguard overlay networking' },
-  { name: 'homebridge', owner: 'homebridge', desc: 'HomeKit support for the impatient' },
-  { name: 'open-webui', owner: 'open-webui', desc: 'the gold standard for llm chat ui' },
-  { name: 'ollama', owner: 'ollama', desc: 'llama.cpp wrapper for dead simple llm inference' },
-  { name: 'GAM', owner: 'GAM-team', desc: 'cli for google workspace superadmins & friends' },
-  { name: 'aider', owner: 'Aider-AI', desc: 'pragmatic, interactive ai dev assistant for us vim types' }
+  { name: 'reddacted', owner: 'taylorwilsdon', desc: 'clean up after yourself', Icon: SecurityIcon },
+  { name: 'netbird', owner: 'netbirdio', desc: 'wireguard overlay networking', Icon: CodeIcon },
+  { name: 'homebridge', owner: 'homebridge', desc: 'HomeKit support for the impatient', Icon: HomeIcon },
+  { name: 'open-webui', owner: 'open-webui', desc: 'the gold standard for llm chat ui', Icon: ChatIcon },
+  { name: 'ollama', owner: 'ollama', desc: 'llama.cpp wrapper for dead simple llm inference', Icon: TerminalIcon },
+  { name: 'GAM', owner: 'GAM-team', desc: 'cli for google workspace superadmins & friends', Icon: AdminPanelSettingsIcon },
+  { name: 'aider', owner: 'Aider-AI', desc: 'pragmatic, interactive ai dev assistant for us vim types', Icon: SmartToyIcon }
 ];
 
 const GITHUB_COLORS = {
@@ -79,25 +96,33 @@ const StatChip = styled(Chip)({
 });
 
 // Components
-const RepoCard = ({ repo, stats }) => (
-  <StyledCard>
-    <CardActionArea 
-      href={`https://github.com/${repo.owner}/${repo.name}`}
-      target="_blank" 
-      rel="noopener noreferrer"
-    >
-      <CardContent sx={{ p: 2 }}>
-        <Typography 
-          className="repo-name"
-          sx={{ 
-            color: GITHUB_COLORS.text.primary,
-            fontSize: '0.95rem',
-            fontWeight: 600,
-            mb: 1
-          }}
-        >
-          {repo.name}
-        </Typography>
+const RepoCard = ({ repo, stats }) => {
+  const { Icon } = repo;
+  return (
+    <StyledCard>
+      <CardActionArea 
+        href={`https://github.com/${repo.owner}/${repo.name}`}
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        <CardContent sx={{ p: 2 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+            <Icon sx={{ 
+              color: GITHUB_COLORS.text.secondary,
+              mr: 1,
+              fontSize: '1.2rem'
+            }} />
+            <Typography 
+              className="repo-name"
+              sx={{ 
+                color: GITHUB_COLORS.text.primary,
+                fontSize: '0.95rem',
+                fontWeight: 600,
+              }}
+            >
+              {repo.name}
+            </Typography>
+          </Box>
         <Typography 
           sx={{ 
             color: GITHUB_COLORS.text.secondary,
@@ -114,12 +139,12 @@ const RepoCard = ({ repo, stats }) => (
             <>
               <StatChip
                 icon={<StarOutlineIcon sx={{ fontSize: '14px' }} />}
-                label={stats.stars}
+                label={formatNumber(stats.stars)}
                 size="small"
               />
               <StatChip
                 icon={<ForkRightIcon sx={{ fontSize: '14px' }} />}
-                label={stats.forks}
+                label={formatNumber(stats.forks)}
                 size="small"
               />
             </>
