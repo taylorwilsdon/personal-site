@@ -19,8 +19,8 @@ import {
   Container
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Octokit } from '@octokit/rest';
-import { useState, useEffect } from 'react';
+import { Octokit } from "@octokit/rest";
+import React, { useState, useEffect } from 'react';
 
 // Utilities
 const formatNumber = (num) => {
