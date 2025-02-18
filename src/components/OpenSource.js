@@ -214,7 +214,7 @@ const OpenSource = () => {
       <PageHeader />
       <Grid container spacing={2}>
         {REPOS.map((repo) => (
-          <Grid item xs={12} sm={6} md={4} key={`${repo.owner}/${repo.name}`}>
+          <Grid item xs={12} sm={6} md={6} key={`${repo.owner}/${repo.name}`}>
             <RepoCard 
               repo={repo} 
               stats={repoStats[`${repo.owner}/${repo.name}`]}
