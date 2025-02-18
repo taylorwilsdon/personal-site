@@ -1,4 +1,5 @@
 import { styled } from '@mui/system';
+import React from 'react'
 
 import GitHubActivityLog from './Github';
 import Header from './Header';

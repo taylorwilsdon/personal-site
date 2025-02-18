@@ -39,13 +39,13 @@ const REPOS = [
   {
     name: "reddacted",
     owner: "taylorwilsdon",
-    desc: "clean up after yourself",
+    desc: "ai-powered reddit comment analysis & redaction",
     Icon: SecurityIcon,
   },
   {
     name: "netbird",
     owner: "netbirdio",
-    desc: "wireguard overlay networking",
+    desc: "wireguard overlay networking made easy",
     Icon: CodeIcon,
   },
   {
@@ -75,7 +75,7 @@ const REPOS = [
   {
     name: "aider",
     owner: "Aider-AI",
-    desc: "pragmatic, interactive ai dev assistant for us vim types",
+    desc: "pragmatic, interactive ai dev tool for us vim types",
     Icon: SmartToyIcon,
   },
 ];
@@ -219,7 +219,7 @@ const RepoCard = React.memo(({ repo, stats }) => {
           <Typography
             sx={{
               color: GITHUB_COLORS.text.secondary,
-              fontSize: "1rem",
+              fontSize: ".85rem",
               mb: 2,
               minHeight: "40px",
               lineHeight: 1.5,
