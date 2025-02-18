@@ -1,5 +1,5 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { 
   Card, 
@@ -249,7 +249,7 @@ const OpenSource = () => {
         </Card>
       </Grid>
     </Grid>
-    </Box>
+    </Container>
 );}
 
 export default OpenSource
