@@ -43,12 +43,42 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
-        "moduleDirectory": ["node_modules", "src/"],
-        "paths": [
-          ["@octokit/rest", "./node_modules/@octokit/rest/dist-schema/index.js"]
+        extensions: ['.js', '.jsx', '.mjs'],
+        moduleDirectory: [
+          'node_modules',
+          'src/',
+          '../../node_modules',
+          '../../'
+        ],
+        paths: [
+          ['@mui/*', './node_modules/@mui/*/index.js'],
+          ['@octokit/rest', './node_modules/@octokit/rest/dist-schema/index.js'],
+          ['react', './node_modules/react/index.js']
         ]
       },
-    },
+      alias: {
+        map: [
+          ['@mui', './node_modules/@mui'],
+          ['@octokit', './node_modules/@octokit'],
+          ['^react$', './node_modules/react']
+        ],
+        extensions: ['.js', '.jsx', '.json']
+      }
+    }
   },
+  overrides: [
+    {
+      files: ['src/assets/**/*'],
+      rules: {
+        'import/no-unresolved': 'off'
+      }
+    },
+    {
+      files: ['src/components/OpenSource.js'],
+      rules: {
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off'
+      }
+    }
+  ]
 };
