@@ -1,4 +1,4 @@
-import ForkRightIcon from '@mui/icons-material/ForkRight';
+import ForkRightIcon from '@mui/icons-material/ForkRightAlt';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import CodeIcon from '@mui/icons-material/Code';
