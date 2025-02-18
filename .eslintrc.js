@@ -17,6 +17,7 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
+    'import/no-unused-modules': [1, { unusedExports: true }],
     'import/no-unresolved': 'error',
     'import/no-duplicates': 'error',
     'import/order': [
@@ -43,42 +44,11 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.mjs'],
-        moduleDirectory: [
-          'node_modules',
-          'src/',
-          '../../node_modules',
-          '../../'
-        ],
-        paths: [
-          ['@mui/*', './node_modules/@mui/*/index.js'],
-          ['@octokit/rest', './node_modules/@octokit/rest/dist-schema/index.js'],
-          ['react', './node_modules/react/index.js']
-        ]
+        extensions: ['.js', '.jsx'],
       },
-      alias: {
-        map: [
-          ['@mui', './node_modules/@mui'],
-          ['@octokit', './node_modules/@octokit'],
-          ['^react$', './node_modules/react']
-        ],
-        extensions: ['.js', '.jsx', '.json']
-      }
-    }
-  },
-  overrides: [
-    {
-      files: ['src/assets/**/*'],
-      rules: {
-        'import/no-unresolved': 'off'
-      }
+      paths: {
+        '@octokit/rest': './node_modules/@octokit/rest/dist-schema/index.js'
+      },
     },
-    {
-      files: ['src/components/OpenSource.js'],
-      rules: {
-        'import/no-unresolved': 'off',
-        'import/extensions': 'off'
-      }
-    }
-  ]
+  },
 };
