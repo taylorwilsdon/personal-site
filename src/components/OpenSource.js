@@ -19,7 +19,7 @@ import {
   Container
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Octokit } from 'octokit';
+import { Octokit } from '@octokit/rest';
 import React, { useState, useEffect } from 'react';
 
 // Utilities
