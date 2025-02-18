@@ -17,26 +17,26 @@ import { useState, useEffect } from 'react';
 
 const octokit = new Octokit();
 
-const ProjectCard = styled(Card)(({ theme }) => ({
+const ProjectCard = styled(Card)({
   position: 'relative',
   transition: 'all 0.2s ease',
   background: '#ffffff',
   border: '1px solid #e1e4e8',
-  borderRadius: '8px',
+  borderRadius: '6px',
   height: '100%',
   '&:hover': {
     transform: 'translateY(-2px)',
-    boxShadow: '0 3px 10px rgba(0,0,0,0.1)',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
     '& .repo-name': {
-      color: '#2188ff',
+      color: '#0366d6',
     }
   }
-}));
+});
 
 const RepoStats = styled(Box)({
   display: 'flex',
-  gap: '12px',
-  marginTop: '8px'
+  gap: '8px',
+  marginTop: '4px'
 });
 
 const StatChip = styled(Chip)({
@@ -44,18 +44,23 @@ const StatChip = styled(Chip)({
   border: '1px solid #e1e4e8',
   borderRadius: '12px',
   color: '#586069',
-  height: '24px',
+  height: '20px',
   '& .MuiChip-icon': {
     color: '#586069',
-    fontSize: '16px'
+    fontSize: '14px'
+  },
+  '& .MuiChip-label': {
+    padding: '0 8px',
+    fontSize: '0.75rem'
   }
 });
 
 const RepoDescription = styled(Typography)({
   color: '#586069',
-  fontSize: '14px',
-  marginTop: '8px',
-  minHeight: '40px'
+  fontSize: '0.85rem',
+  marginTop: '4px',
+  minHeight: '32px',
+  lineHeight: '1.4'
 });
 
 const OpenSource = () => {
@@ -111,7 +116,7 @@ const OpenSource = () => {
           Projects I believe in, support & contribute to
         </Typography>
       </Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {[
           { name: 'reddacted', owner: 'taylorwilsdon', desc: 'clean up after yourself' },
           { name: 'netbird', owner: 'netbirdio', desc: 'wireguard overlay networking' },
@@ -128,31 +133,31 @@ const OpenSource = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <CardContent>
+                <CardContent sx={{ p: 2 }}>
                   <Typography 
-                    variant="h6" 
                     className="repo-name"
                     sx={{ 
                       color: '#24292e',
-                      fontSize: '1.1rem',
-                      fontWeight: 600 
+                      fontSize: '0.95rem',
+                      fontWeight: 600,
+                      mb: 1
                     }}
                   >
                     {repo.name}
                   </Typography>
-                  <RepoDescription>
+                  <RepoDescription sx={{ fontSize: '0.85rem', mb: 1.5, minHeight: '32px' }}>
                     {repo.desc}
                   </RepoDescription>
                   <RepoStats>
                     {repoStats[`${repo.owner}/${repo.name}`] && (
                       <>
                         <StatChip
-                          icon={<StarOutlineIcon />}
+                          icon={<StarOutlineIcon sx={{ fontSize: '14px' }} />}
                           label={repoStats[`${repo.owner}/${repo.name}`].stars}
                           size="small"
                         />
                         <StatChip
-                          icon={<ForkRightIcon />}
+                          icon={<ForkRightIcon sx={{ fontSize: '14px' }} />}
                           label={repoStats[`${repo.owner}/${repo.name}`].forks}
                           size="small"
                         />
@@ -164,91 +169,7 @@ const OpenSource = () => {
             </ProjectCard>
           </Grid>
         ))}
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/netbirdio/netbird " target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                netbird
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                wireguard overlay networking
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
       </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/homebridge/homebridge" target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                Homebridge
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              HomeKit support for the impatient
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/open-webui/open-webui" target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                open-webui
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              the gold standard for llm chat ui
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/ollama/ollama" target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                ollama
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              llama.cpp wrapper for dead simple llm inference 
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/GAM-team/GAM" target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                gam
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              cli for google workspace superadmins & friends
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={6} md={6}>
-        <Card>
-          <CardActionArea href="https://github.com/Aider-AI/aider" target="_blank" rel="noopener noreferrer">
-            <CardContent>
-              <Typography variant="h5" component="div">
-                aider
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              pragmatic, interactive ai dev assistant for us vim types
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
-    </Grid>
     </Container>
 );}
 
