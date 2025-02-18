@@ -18,7 +18,7 @@ const MainSection = styled('section')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
     width: '100%',
-    padding: '0 8px',
+    padding: '0',
     boxSizing: 'border-box',
   },
 }));
@@ -27,7 +27,6 @@ const OpenSourcePage = () => (
   <MainContainer>
     <MainSection id="main">
       <OpenSource />
-      <br />
       <Icons />
     </MainSection>
   </MainContainer>

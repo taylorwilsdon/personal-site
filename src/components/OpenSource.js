@@ -251,7 +251,7 @@ const RepoCard = React.memo(({ repo, stats }) => {
 
 // Header Component for the page
 const PageHeader = () => (
-  <Box sx={{ mb: 6 }}>
+  <Box sx={{ mb: 3 }}>
     <Typography
       variant="h4"
       sx={{
@@ -278,7 +278,7 @@ const OpenSource = () => {
   const { repoStats, loading, error } = useRepoStats(REPOS);
 
   return (
-    <Container maxWidth="lg" sx={{ py: 6 }}>
+    <Container maxWidth="lg" sx={{ py: 2 }}>
       <PageHeader />
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "left", mt: 4 }}>
