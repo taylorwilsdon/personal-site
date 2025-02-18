@@ -17,7 +17,6 @@ module.exports = {
   },
   plugins: ['import'],
   rules: {
-    'import/no-unused-modules': [1, { unusedExports: true }],
     'import/no-unresolved': 'error',
     'import/no-duplicates': 'error',
     'import/order': [
@@ -45,6 +44,10 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx'],
+        "moduleDirectory": ["node_modules", "src/"],
+        "paths": [
+          ["@octokit/rest", "./node_modules/@octokit/rest/dist-schema/index.js"]
+        ]
       },
     },
   },
