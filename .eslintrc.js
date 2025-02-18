@@ -45,6 +45,9 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx']
+      },
+      typescript: {
+        alwaysTryTypes: true
       }
     },
   },
