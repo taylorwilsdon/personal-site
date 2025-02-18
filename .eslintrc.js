@@ -44,11 +44,8 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx'],
-      },
-      paths: {
-        '@octokit/rest': './node_modules/@octokit/rest/dist-schema/index.js'
-      },
+        extensions: ['.js', '.jsx']
+      }
     },
   },
 };
