@@ -207,7 +207,7 @@ const OpenSource = () => {
     };
 
     fetchRepoStats();
-  }, []);
+  }, [octokit.rest.repos]);
 
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
