@@ -1,0 +1,37 @@
+/* Typography */
+body, input, select, textarea {
+  color: #414f57;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 12pt;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 1680px) {
+  body, input, select, textarea {
+    font-size: 11pt;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  body, input, select, textarea {
+    font-size: 10pt;
+    line-height: 1.75;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #313f47;
+  line-height: 1.5;
+  margin: 0 0 0.75em 0;
+}
+
+h1 { font-size: 1.85em; letter-spacing: 0.22em; }
+h2 { font-size: 1.25em; }
+h3, h4, h5, h6 { font-size: 1em; }
+
+@media screen and (max-width: 480px) {
+  h1 { font-size: 1.65em; }
+}
