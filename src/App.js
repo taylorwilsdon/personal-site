@@ -18,7 +18,7 @@ const App = (props) => {
               <Link to="/">Home</Link> | {" "}
               <Link to="/opensource">Open Source</Link> |{" "}
               <Link to="/blog">Writing</Link> |{" "}
-              <a href="https://instagram.com/taylorwilsdon">Photography</a>
+              <a href="https://instagram.com/taylorwilsdon">Photos</a>
             </span>
           </header>
           <br />
