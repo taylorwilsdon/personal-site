@@ -1,6 +1,7 @@
 @import './modules/reset.css';
 @import './modules/typography.css';
 @import './modules/layout.css';
+@import './modules/navigation.css';
 
 /* Theme */
 :root {

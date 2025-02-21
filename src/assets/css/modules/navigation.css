@@ -1,0 +1,26 @@
+.navBar {
+  font-size: 1.25em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.navBar a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navBar a:hover {
+  color: var(--primary-color);
+}
+
+@media screen and (max-width: 480px) {
+  .navBar {
+    font-size: 1em;
+    flex-wrap: wrap;
+  }
+}
