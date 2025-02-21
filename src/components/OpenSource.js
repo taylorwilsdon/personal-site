@@ -39,7 +39,13 @@ const REPOS = [
   {
     name: "reddacted",
     owner: "taylorwilsdon",
-    desc: "ai-powered reddit comment analysis & redaction",
+    desc: "ai-powered reddit comment pii detection & sentiment analysis with redaction",
+    Icon: SecurityIcon,
+  },
+  {
+    name: "reclaim",
+    owner: "taylorwilsdon",
+    desc: "high performance cli disk analysis tool to find large folders & files ",
     Icon: SecurityIcon,
   },
   {
@@ -51,19 +57,19 @@ const REPOS = [
   {
     name: "homebridge",
     owner: "homebridge",
-    desc: "HomeKit support for the impatient",
+    desc: "HomeKit support for everything you own",
     Icon: HomeIcon,
   },
   {
     name: "open-webui",
     owner: "open-webui",
-    desc: "the gold standard for llm chat ui",
+    desc: "the gold standard for self hosted llm chat platforms",
     Icon: ChatIcon,
   },
   {
     name: "ollama",
     owner: "ollama",
-    desc: "llama.cpp wrapper for dead simple llm inference",
+    desc: "llama.cpp wrapper for dead simple llm inference with local models",
     Icon: TerminalIcon,
   },
   {

@@ -4,7 +4,7 @@ import React from 'react'
 import GitHubActivityLog from './Github';
 import Header from './Header';
 import Icons from './Icons';
-import Photography from './Photography';
+// import Photography from './Photography';
 
 const MainContainer = styled('div')(({ theme }) => ({
   maxWidth: '100%',
@@ -29,7 +29,7 @@ const Main = (props) => (
       <Header />
       <GitHubActivityLog username="taylorwilsdon" />
       <br />
-      <Photography />
+      {/* <Photography /> */}
       <br />
       <Icons />
     </MainSection>
