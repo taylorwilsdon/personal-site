@@ -69,7 +69,7 @@ const StatChip = styled(Chip)({
 });
 
 // Custom hook to fetch repository statistics concurrently
-const useRepoStats = (repos) => {
+const useRepoStats = (repos = []) => {
   const [repoStats, setRepoStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -210,7 +210,17 @@ const PageHeader = () => (
 );
 
 // Main Component
-const OpenSource = ({ repos }) => {
+const OpenSource = ({ repos = [] }) => {
+  if (!repos.length) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 2 }}>
+        <PageHeader />
+        <Typography color="error" align="left">
+          No repositories configured.
+        </Typography>
+      </Container>
+    );
+  }
   const { repoStats, loading, error } = useRepoStats(repos);
 
   return (

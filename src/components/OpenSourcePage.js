@@ -2,6 +2,7 @@ import { styled } from '@mui/system';
 
 import Icons from './Icons';
 import OpenSource from './OpenSource';
+import repositories from '../config/repositories';
 
 const MainContainer = styled('div')(({ theme }) => ({
   maxWidth: '100vw',
@@ -26,7 +27,7 @@ const MainSection = styled('section')(({ theme }) => ({
 const OpenSourcePage = () => (
   <MainContainer>
     <MainSection id="main">
-      <OpenSource />
+      <OpenSource repos={repositories} />
       <Icons />
     </MainSection>
   </MainContainer>
