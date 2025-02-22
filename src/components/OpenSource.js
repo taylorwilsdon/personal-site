@@ -1,14 +1,6 @@
-// Icons
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import ChatIcon from "@mui/icons-material/Chat";
-import CodeIcon from "@mui/icons-material/Code";
 import ForkRightIcon from "@mui/icons-material/ForkRight";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import HomeIcon from "@mui/icons-material/Home";
-import SecurityIcon from "@mui/icons-material/Security";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
-import TerminalIcon from "@mui/icons-material/Terminal";
 import {
   Card,
   CardActionArea,
