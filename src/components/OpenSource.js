@@ -16,7 +16,7 @@ import { styled } from "@mui/material/styles";
 import { Octokit } from "@octokit/rest";
 import React, { useState, useEffect } from "react";
 
-import { REPOS, GITHUB_COLORS } from "../config/repositories";
+import { GITHUB_COLORS } from "../config/repositories";
 
 // Utility: Format numbers nicely
 const formatNumber = (num) => {
