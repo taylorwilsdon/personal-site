@@ -1,7 +1,9 @@
 import { styled } from '@mui/system';
+import { Divider, Typography } from '@mui/material';
 
 import Icons from './Icons';
 import OpenSource from './OpenSource';
+import { REPOS } from '../config/repositories';
 
 const MainContainer = styled('div')(({ theme }) => ({
   maxWidth: '100vw',
@@ -23,13 +25,22 @@ const MainSection = styled('section')(({ theme }) => ({
   },
 }));
 
-const OpenSourcePage = () => (
-  <MainContainer>
-    <MainSection id="main">
-      <OpenSource />
-      <Icons />
-    </MainSection>
-  </MainContainer>
-);
+const OpenSourcePage = () => {
+  const projects = REPOS.filter(repo => repo.type === 'project' || !repo.type);
+  const tools = REPOS.filter(repo => repo.type === 'tool');
+
+  return (
+    <MainContainer>
+      <MainSection id="main">
+        <Typography variant="h5" sx={{ mb: 3 }}>Projects</Typography>
+        <OpenSource repos={projects} />
+        <Divider sx={{ my: 4 }} />
+        <Typography variant="h5" sx={{ mb: 3 }}>Tools</Typography>
+        <OpenSource repos={tools} />
+        <Icons />
+      </MainSection>
+    </MainContainer>
+  );
+};
 
 export default OpenSourcePage;
