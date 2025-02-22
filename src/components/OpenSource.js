@@ -211,6 +211,8 @@ const PageHeader = () => (
 
 // Main Component
 const OpenSource = ({ repos = [] }) => {
+  const { repoStats, loading, error } = useRepoStats(repos);
+
   if (!repos.length) {
     return (
       <Container maxWidth="lg" sx={{ py: 2 }}>
@@ -221,7 +223,6 @@ const OpenSource = ({ repos = [] }) => {
       </Container>
     );
   }
-  const { repoStats, loading, error } = useRepoStats(repos);
 
   return (
     <Container maxWidth="lg" sx={{ py: 2 }}>
