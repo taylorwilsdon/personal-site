@@ -16,7 +16,7 @@ import { styled } from "@mui/material/styles";
 import { Octokit } from "@octokit/rest";
 import React, { useState, useEffect } from "react";
 
-import { REPOS, GITHUB_COLORS } from "../config/repositories";
+import { GITHUB_COLORS } from "../config/repositories";
 
 // Utility: Format numbers nicely
 const formatNumber = (num) => {
@@ -210,8 +210,8 @@ const PageHeader = () => (
 );
 
 // Main Component
-const OpenSource = () => {
-  const { repoStats, loading, error } = useRepoStats(REPOS);
+const OpenSource = ({ repos }) => {
+  const { repoStats, loading, error } = useRepoStats(repos);
 
   return (
     <Container maxWidth="lg" sx={{ py: 2 }}>
@@ -226,7 +226,7 @@ const OpenSource = () => {
         </Typography>
       ) : (
         <Grid container spacing={2}>
-          {REPOS.map((repo) => (
+          {repos.map((repo) => (
             <Grid item xs={12} sm={6} md={6} key={`${repo.owner}/${repo.name}`}>
               <RepoCard
                 repo={repo}
