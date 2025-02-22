@@ -75,7 +75,9 @@ const useRepoStats = (repos = []) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const octokit = new Octokit();
+    const octokit = new Octokit({
+      auth: process.env.REACT_APP_GITHUB_TOKEN
+    });
     const fetchStats = async () => {
       try {
         const statsArray = await Promise.all(
