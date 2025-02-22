@@ -1,10 +1,10 @@
-import { Divider, Typography } from '@mui/material';
+import { Container, Divider, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 import { REPOS } from '../config/repositories';
 
 import Icons from './Icons';
-import OpenSource from './OpenSource';
+import { OpenSource, PageHeader } from './OpenSource';
 
 const MainContainer = styled('div')(({ theme }) => ({
   maxWidth: '100vw',
@@ -33,10 +33,13 @@ const OpenSourcePage = () => {
   return (
     <MainContainer>
       <MainSection id="main">
-        <OpenSource repos={projects} />
-        <Divider sx={{ my: 2 }} />
-        <Typography variant="h5" sx={{ mb: 3 }}>Tools</Typography>
-        <OpenSource repos={tools} />
+        <Container maxWidth="lg" sx={{ py: 2 }}>
+          <PageHeader />
+          <OpenSource repos={projects} showHeader={false} />
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="h5" sx={{ mb: 3 }}>Tools</Typography>
+          <OpenSource repos={tools} showHeader={false} />
+        </Container>
         <Icons />
       </MainSection>
     </MainContainer>

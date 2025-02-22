@@ -211,24 +211,19 @@ const PageHeader = () => (
   </Box>
 );
 
-// Main Component
-const OpenSource = ({ repos = [] }) => {
+// Repository List Component
+const RepositoryList = ({ repos = [] }) => {
   const { repoStats, loading, error } = useRepoStats(repos);
 
   if (!repos.length) {
     return (
-      <Container maxWidth="lg" sx={{ py: 2 }}>
-        <PageHeader />
-        <Typography color="error" align="left">
-          No repositories configured.
-        </Typography>
-      </Container>
+      <Typography color="error" align="left">
+        No repositories configured.
+      </Typography>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 2 }}>
-      <PageHeader />
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "left", mt: 4 }}>
           <CircularProgress />
@@ -253,4 +248,14 @@ const OpenSource = ({ repos = [] }) => {
   );
 };
 
-export default OpenSource;
+// Main Component
+const OpenSource = ({ repos = [], showHeader = true }) => {
+  return (
+    <Container maxWidth="lg" sx={{ py: 2 }}>
+      {showHeader && <PageHeader />}
+      <RepositoryList repos={repos} />
+    </Container>
+  );
+};
+
+export { OpenSource, PageHeader };
