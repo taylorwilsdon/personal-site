@@ -224,6 +224,7 @@ const RepositoryList = ({ repos = [] }) => {
   }
 
   return (
+    <>
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "left", mt: 4 }}>
           <CircularProgress />
@@ -244,7 +245,7 @@ const RepositoryList = ({ repos = [] }) => {
           ))}
         </Grid>
       )}
-    </Container>
+    </>
   );
 };
 
