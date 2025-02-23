@@ -9,7 +9,7 @@ const Header = () => (
     <div className="header-content">
       <h2>taylor wilsdon</h2>
         <span className="avatar"><img src={avatar} alt="" /></span>
-        <h4>corpeng @yelp {' '} <YelpLogo /></h4>
+        <h5>corpeng @yelp {' '} <YelpLogo /></h5>
     </div>
   </header>
 )
