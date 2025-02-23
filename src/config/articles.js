@@ -1,7 +1,26 @@
+import acImage from '../images/ac.jpg';
+import mediumCard from '../images/medium_card.png';
+import nytCard from '../images/nyt_card.png';
+import summitCard from '../images/summit_card.png';
+import ventImage from '../images/vent.png';
+
+export const BLOG_COLORS = {
+  background: {
+    card: '#ffffff',
+    chip: '#f6f8fa',
+  },
+  border: '#d0d7de',
+  text: {
+    primary: '#24292f',
+    secondary: '#57606a',
+  },
+  hover: '#0969da',
+};
+
 export const articles = [
   {
     href: "https://medium.com/@tbarrettwilsdon/multi-gig-for-the-masses-building-an-inexpensive-10gbe-network-for-the-home-cfe91740f186",
-    image: require('../images/medium_card.png'),
+    image: mediumCard,
     alt: "Multi-Gig for the Masses",
     title: "Multi-Gig for the Masses",
     subtitle: "Building an inexpensive 10GbE network",
@@ -9,7 +28,7 @@ export const articles = [
   },
   {
     href: "https://www.conferencecast.tv/speaker-32221-taylor-barrett-wilsdon#.speakerPage-latest",
-    image: require('../images/summit_card.png'),
+    image: summitCard,
     alt: "Atlassian Summit",
     subtitle: "Scaling Jira Server for the Enterprise via IaC",
     title: "Atlassian Summit - Jira & Ansible",
@@ -17,7 +36,7 @@ export const articles = [
   },
   {
     href: "https://medium.com/@tbarrettwilsdon/smart-zoned-nyc-steam-radiators-effectively-controlling-one-pipe-steam-heat-in-apartments-304a2ed2cd1b",
-    image: require('../images/vent.png'),
+    image: ventImage,
     alt: "Smart Steam Heat",
     title: "Smart Zoned Steam Radiators",
     subtitle: "Modernizing control of one pipe steam heat",
@@ -25,7 +44,7 @@ export const articles = [
   },
   {
     href: "https://taylorwilsdon.medium.com/in-the-pursuit-of-a-more-refined-window-ac-installation-building-in-midea-u-shape-inverter-splits-9bd3b83b0351",
-    image: require('../images/ac.jpg'),
+    image: acImage,
     alt: "Air Conditioner",
     title: "In the pursuit of a more refined window AC installation",
     subtitle: "Building in Midea U-Shape Inverter Splits",
@@ -33,7 +52,7 @@ export const articles = [
   },
   {
     href: "https://www.nytimes.com/interactive/2022/02/17/realestate/17hunt-wilsdon.html",
-    image: require('../images/nyt_card.png'),
+    image: nytCard,
     alt: "NYT - The Hunt",
     subtitle: "The New York Times",
     title: "Real Estate > The Hunt",

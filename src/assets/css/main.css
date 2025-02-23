@@ -3,6 +3,7 @@
 @import "./modules/layout.css";
 @import "./modules/navigation.css";
 @import "./modules/design-system.css";
+@import "./modules/blog.css";
 
 /* Base Styles */
 html {

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import "./assets/css/main.css";
 
 // Lazy load components
-const Blog = lazy(() => import("./components/Blog"));
+const BlogPage = lazy(() => import("./components/BlogPage"));
 const Main = lazy(() => import("./components/Main"));
 const MarkdownPage = lazy(() => import("./components/MarkdownPage"));
 const OpenSourcePage = lazy(() => import("./components/OpenSourcePage"));
@@ -33,7 +33,7 @@ const App = () => {
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
               <Route path="/" element={<Main />} />
-              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog" element={<BlogPage />} />
               <Route path="/opensource" element={<OpenSourcePage />} />
               <Route path="/read/:filename" element={<MarkdownPage />} />
             </Routes>

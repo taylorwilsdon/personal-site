@@ -199,7 +199,7 @@ const PageHeader = () => (
         mb: 2,
       }}
     >
-      <GitHubIcon sx={{ mr: 1, verticalAlign: "bottom", fontSize: "2rem" }} />
+      <GitHubIcon className="blog-header-icon" />
       Open Source Contributions
     </Typography>
     <Typography
