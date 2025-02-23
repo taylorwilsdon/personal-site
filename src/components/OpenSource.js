@@ -16,7 +16,7 @@ import { styled } from "@mui/material/styles";
 import { Octokit } from "@octokit/rest";
 import React, { useState, useEffect } from "react";
 
-import { REPOS, GITHUB_COLORS } from "../config/repositories";
+import { GITHUB_COLORS } from "../config/repositories";
 
 // Utility: Format numbers nicely
 const formatNumber = (num) => {
@@ -69,13 +69,15 @@ const StatChip = styled(Chip)({
 });
 
 // Custom hook to fetch repository statistics concurrently
-const useRepoStats = (repos) => {
+const useRepoStats = (repos = []) => {
   const [repoStats, setRepoStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const octokit = new Octokit();
+    const octokit = new Octokit({
+      auth: process.env.REACT_APP_GITHUB_TOKEN
+    });
     const fetchStats = async () => {
       try {
         const statsArray = await Promise.all(
@@ -138,18 +140,18 @@ const RepoCard = React.memo(({ repo, stats }) => {
               sx={{
                 color: GITHUB_COLORS.text.secondary,
                 mr: 1,
-                fontSize: "1.2rem",
+                fontSize: "1.3rem",
               }}
             />
             <Typography
               className="repo-name"
               sx={{
                 color: GITHUB_COLORS.text.primary,
-                fontSize: "1.1rem",
+                fontSize: "0.9rem",
                 fontWeight: 600,
               }}
             >
-              {repo.name}
+              {repo.displayName}
             </Typography>
           </Box>
           <Typography
@@ -209,13 +211,20 @@ const PageHeader = () => (
   </Box>
 );
 
-// Main Component
-const OpenSource = () => {
-  const { repoStats, loading, error } = useRepoStats(REPOS);
+// Repository List Component
+const RepositoryList = ({ repos = [] }) => {
+  const { repoStats, loading, error } = useRepoStats(repos);
+
+  if (!repos.length) {
+    return (
+      <Typography color="error" align="left">
+        No repositories configured.
+      </Typography>
+    );
+  }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 2 }}>
-      <PageHeader />
+    <>
       {loading ? (
         <Box sx={{ display: "flex", justifyContent: "left", mt: 4 }}>
           <CircularProgress />
@@ -226,7 +235,7 @@ const OpenSource = () => {
         </Typography>
       ) : (
         <Grid container spacing={2}>
-          {REPOS.map((repo) => (
+          {repos.map((repo) => (
             <Grid item xs={12} sm={6} md={6} key={`${repo.owner}/${repo.name}`}>
               <RepoCard
                 repo={repo}
@@ -236,8 +245,18 @@ const OpenSource = () => {
           ))}
         </Grid>
       )}
+    </>
+  );
+};
+
+// Main Component
+const OpenSource = ({ repos = [], showHeader = true }) => {
+  return (
+    <Container maxWidth="lg" sx={{ py: 2 }}>
+      {showHeader && <PageHeader />}
+      <RepositoryList repos={repos} />
     </Container>
   );
 };
 
-export default OpenSource;
+export { OpenSource, PageHeader };
