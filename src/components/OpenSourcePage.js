@@ -37,7 +37,7 @@ const OpenSourcePage = () => {
           <PageHeader />
           <OpenSource repos={projects} showHeader={false} />
           <Divider sx={{ my: 2 }} />
-          <Typography variant="h5" sx={{ mb: 3 }}>Tools</Typography>
+          <Typography variant="h5" sx={{ mb: 1 }}>Tools</Typography>
           <OpenSource repos={tools} showHeader={false} />
         </Container>
         <Icons />

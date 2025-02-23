@@ -140,18 +140,18 @@ const RepoCard = React.memo(({ repo, stats }) => {
               sx={{
                 color: GITHUB_COLORS.text.secondary,
                 mr: 1,
-                fontSize: "1.2rem",
+                fontSize: "1.3rem",
               }}
             />
             <Typography
               className="repo-name"
               sx={{
                 color: GITHUB_COLORS.text.primary,
-                fontSize: "1.1rem",
+                fontSize: "0.9rem",
                 fontWeight: 600,
               }}
             >
-              {repo.name}
+              {repo.displayName}
             </Typography>
           </Box>
           <Typography
