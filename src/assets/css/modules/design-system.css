@@ -104,14 +104,3 @@
   --container-2xl: 1536px;
 }
 
-/* Dark Mode Colors */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-neutral-100: #1A1A1A;
-    --color-neutral-200: #2D2D2D;
-    --color-neutral-300: #404040;
-    --color-neutral-400: #737373;
-    --color-neutral-500: #A6A6A6;
-    --color-neutral-600: #D9D9D9;
-  }
-}
