@@ -1,0 +1,116 @@
+/* Blog Component Styles */
+.blog-header {
+  margin-bottom: var(--space-4);
+}
+
+/* Override MUI Typography styles */
+.MuiTypography-root.blog-header-title {
+  color: #24292f;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}
+
+.MuiTypography-root.blog-header-subtitle {
+  color: #57606a;
+  font-size: 0.875rem;
+}
+
+.blog-header-icon {
+  margin-right: var(--space-2);
+  vertical-align: bottom;
+  font-size: 2rem;
+}
+
+.blog-card {
+  position: relative;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  height: 100%;
+}
+
+.blog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-card:hover .blog-card-title {
+  color: #0969da;
+}
+
+.blog-card-action {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card-image {
+  border-bottom: 1px solid #d0d7de;
+  max-height:200px;
+  object-fit: cover;
+}
+
+.blog-card-content {
+  padding: var(--space-4);
+  flex: 1;
+}
+
+.MuiTypography-root.blog-card-title {
+  color: #24292f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.MuiTypography-root.blog-card-subtitle {
+  color: #57606a;
+  font-size: 0.8rem;
+  margin-bottom: var(--space-2);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.MuiTypography-root.blog-card-description {
+  color: #57606a;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .blog-card {
+    background: #1A1A1A;
+    border-color: #404040;
+  }
+
+  .blog-card-image {
+    border-color: #404040;
+  }
+
+  .MuiTypography-root.blog-card-title {
+    color: #D9D9D9;
+  }
+
+  .MuiTypography-root.blog-card-subtitle,
+  .MuiTypography-root.blog-card-description {
+    color: #A6A6A6;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
