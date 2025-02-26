@@ -91,4 +91,3 @@ Blog.defaultProps = {
 };
 
 export { Blog, PageHeader };
-export default Blog;

@@ -4,19 +4,6 @@ import nytCard from '../images/nyt_card.png';
 import summitCard from '../images/summit_card.png';
 import ventImage from '../images/vent.png';
 
-export const BLOG_COLORS = {
-  background: {
-    card: '#ffffff',
-    chip: '#f6f8fa',
-  },
-  border: '#d0d7de',
-  text: {
-    primary: '#24292f',
-    secondary: '#57606a',
-  },
-  hover: '#0969da',
-};
-
 export const articles = [
   {
     href: "https://medium.com/@tbarrettwilsdon/multi-gig-for-the-masses-building-an-inexpensive-10gbe-network-for-the-home-cfe91740f186",
