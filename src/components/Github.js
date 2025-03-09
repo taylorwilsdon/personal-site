@@ -121,6 +121,22 @@ const CHIP_COLORS = {
   }
 };
 
+// Repository chip styling - more subdued but complementary to event chips
+const REPO_CHIP_STYLE = {
+  bg: "#f1f8e9",
+  text: "#558b2f",
+  border: "#dcedc8",
+  hoverBg: "#e8f5e9"
+};
+
+// Organization/owner chip styling
+const ORG_CHIP_STYLE = {
+  bg: "#e8eaf6",
+  text: "#3949ab",
+  border: "#c5cae9",
+  hoverBg: "#e3f2fd"
+};
+
 // Update GitHub colors with additional styles
 const GITHUB_STYLES = {
   ...GITHUB_COLORS,
@@ -234,8 +250,8 @@ return (
           justifyContent: 'center',
         }}
       >
-        <ActivityIcon icon={faCodeBranch} colors={GITHUB_STYLES} />
-        git blame
+        <ActivityIcon icon={faCodeBranch} colors={GITHUB_STYLES} /> 
+        {'  '} git blame
       </GitHubText>
       
       <Divider sx={{ mb: 2 }} />
@@ -293,7 +309,8 @@ return (
                            </GitHubCounter>
                          )}
                        </FlexBox>
-                       <FlexBox sx={{ flexWrap: 'nowrap', minWidth: 0, alignItems: 'center' }}>
+                       <FlexBox sx={{ flexWrap: 'nowrap', minWidth: 0, alignItems: 'center', gap: '8px' }}>
+                         {/* Event Type Chip */}
                          <Chip
                            label={CHIP_EVENT_TYPES[event.type] || event.type}
                            size="small"
@@ -308,7 +325,6 @@ return (
                            }
                            sx={{
                              height: '22px',
-                             marginRight: '8px',
                              fontSize: '10px',
                              backgroundColor: CHIP_COLORS[event.type]?.bg || GITHUB_STYLES.background.hover,
                              color: CHIP_COLORS[event.type]?.text || GITHUB_STYLES.text.secondary,
@@ -326,9 +342,114 @@ return (
                              transition: 'transform 0.2s ease-in-out',
                              '&:hover': {
                                transform: 'scale(1.05)'
-                             }
+                             },
+                             flexShrink: 0
                            }}
                          />
+                         
+                         {/* Organization/Owner Chip */}
+                         <GitHubLink
+                           href={`https://github.com/${event.repo.name.split('/')[0]}`}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           sx={{
+                             textDecoration: 'none',
+                             display: 'inline-block',
+                             flexShrink: 0
+                           }}
+                         >
+                           <Chip
+                             label={event.repo.name.split('/')[0]}
+                             size="small"
+                             icon={
+                               <FontAwesomeIcon
+                                 icon={faPlus}
+                                 style={{
+                                   fontSize: '0.65rem',
+                                   color: ORG_CHIP_STYLE.text
+                                 }}
+                               />
+                             }
+                             sx={{
+                               height: '22px',
+                               fontSize: '10px',
+                               backgroundColor: ORG_CHIP_STYLE.bg,
+                               color: ORG_CHIP_STYLE.text,
+                               border: `1px solid ${ORG_CHIP_STYLE.border}`,
+                               borderRadius: '11px',
+                               fontWeight: 500,
+                               '& .MuiChip-label': {
+                                 padding: '0 8px 0 4px',
+                                 lineHeight: '20px',
+                                 maxWidth: '120px',
+                                 overflow: 'hidden',
+                                 textOverflow: 'ellipsis'
+                               },
+                               '& .MuiChip-icon': {
+                                 marginLeft: '6px',
+                                 marginRight: '2px'
+                               },
+                               transition: 'all 0.2s ease-in-out',
+                               '&:hover': {
+                                 backgroundColor: ORG_CHIP_STYLE.hoverBg,
+                                 transform: 'scale(1.05)'
+                               }
+                             }}
+                           />
+                         </GitHubLink>
+                         
+                         {/* Repository Chip */}
+                         <GitHubLink
+                           href={`https://github.com/${event.repo.name}`}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           sx={{
+                             textDecoration: 'none',
+                             display: 'inline-block',
+                             flexShrink: 0
+                           }}
+                         >
+                           <Chip
+                             label={event.repo.name.split('/')[1]}
+                             size="small"
+                             icon={
+                               <FontAwesomeIcon
+                                 icon={faCodeBranch}
+                                 style={{
+                                   fontSize: '0.65rem',
+                                   color: REPO_CHIP_STYLE.text
+                                 }}
+                               />
+                             }
+                             sx={{
+                               height: '22px',
+                               fontSize: '10px',
+                               backgroundColor: REPO_CHIP_STYLE.bg,
+                               color: REPO_CHIP_STYLE.text,
+                               border: `1px solid ${REPO_CHIP_STYLE.border}`,
+                               borderRadius: '11px',
+                               fontWeight: 500,
+                               '& .MuiChip-label': {
+                                 padding: '0 8px 0 4px',
+                                 lineHeight: '20px',
+                                 maxWidth: '120px',
+                                 overflow: 'hidden',
+                                 textOverflow: 'ellipsis'
+                               },
+                               '& .MuiChip-icon': {
+                                 marginLeft: '6px',
+                                 marginRight: '2px'
+                               },
+                               transition: 'all 0.2s ease-in-out',
+                               '&:hover': {
+                                 backgroundColor: REPO_CHIP_STYLE.hoverBg,
+                                 transform: 'scale(1.05)'
+                               }
+                             }}
+                           />
+                         </GitHubLink>
+                         
+                         {/* Timestamp */}
                          <GitHubText
                            variant="small"
                            colors={GITHUB_STYLES}
@@ -336,7 +457,9 @@ return (
                            sx={{
                              whiteSpace: 'nowrap',
                              color: GITHUB_STYLES.text.muted,
-                             alignItems: 'center'
+                             alignItems: 'center',
+                             marginLeft: 'auto',
+                             flexShrink: 0
                            }}
                          >
                            <TimeIcon icon={faClock} colors={GITHUB_STYLES} />
