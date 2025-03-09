@@ -177,36 +177,63 @@ return (
       
       <Divider sx={{ mb: 2 }} />
       
-      <Stack spacing={1}>
+      <Stack spacing={0.5}>
         {displayedEvents.map((event) => (
-          <GitHubCard key={event.id} colors={GITHUB_STYLES}>
-            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+          <GitHubCard
+            key={event.id}
+            colors={GITHUB_STYLES}
+            sx={{
+              transition: 'all 0.2s ease-in-out',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(27,31,35,0.15)',
+                backgroundColor: GITHUB_STYLES.background.hover
+              }
+            }}
+          >
+            <CardContent
+              sx={{
+                p: 1,
+                '&:last-child': { pb: 1 },
+                '&:hover .activity-icon-container': {
+                  backgroundColor: GITHUB_STYLES.background.active
+                }
+              }}
+            >
               <ActivityContent>
                 <ActivityAvatar src={event.actor.avatar_url} alt={event.actor.login} colors={GITHUB_STYLES} />
                 
                 <ActivityDetails>
-                  <Stack spacing={1}>
-                    <FlexBox sx={{ flexWrap: 'wrap', minWidth: 0, gap: 1 }}>
-                      <GitHubLink
-                        href={`https://github.com/${event.actor.login}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        colors={GITHUB_STYLES}
-                        sx={{ marginRight: '8px', fontWeight: 600 }}
-                      >
-                        {event.actor.login}
-                      </GitHubLink>
-                      <GitHubLink
-                        href={`https://github.com/${event.repo.name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        colors={GITHUB_STYLES}
-                        sx={{ wordBreak: 'break-word' }}
-                      >
-                        {formatEventType(event.type)} {event.repo.name}
-                      </GitHubLink>
+                  <Stack spacing={0.5}>
+                    <FlexBox sx={{ display: 'flex', alignItems: 'center', minWidth: 0 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', minWidth: 0, flex: 1 }}>
+                        <GitHubLink
+                          href={`https://github.com/${event.actor.login}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          colors={GITHUB_STYLES}
+                          sx={{ fontWeight: 600, marginRight: '4px', flexShrink: 0 }}
+                        >
+                          {event.actor.login}
+                        </GitHubLink>
+                        <GitHubLink
+                          href={`https://github.com/${event.repo.name}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          colors={GITHUB_STYLES}
+                          sx={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            minWidth: 0,
+                            flex: 1
+                          }}
+                        >
+                          {formatEventType(event.type)} {event.repo.name}
+                        </GitHubLink>
+                      </Box>
                       {event.count > 1 && (
-                        <GitHubCounter colors={GITHUB_STYLES}>
+                        <GitHubCounter colors={GITHUB_STYLES} sx={{ marginLeft: '4px', marginRight: '8px', flexShrink: 0 }}>
                           {event.count}×
                         </GitHubCounter>
                       )}
@@ -249,15 +276,17 @@ return (
                 </ActivityDetails>
                 
                 <Box
+                  className="activity-icon-container"
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '32px',
-                    height: '32px',
+                    width: '30px',
+                    height: '30px',
                     borderRadius: '50%',
                     backgroundColor: GITHUB_STYLES.background.hover,
-                    marginLeft: '16px',
+                    marginLeft: '8px',
+                    marginRight: '4px',
                     transition: 'all 0.2s ease-in-out',
                     '&:hover': {
                       backgroundColor: GITHUB_STYLES.background.active,
@@ -268,8 +297,13 @@ return (
                   <ActivityIcon
                     icon={EVENT_ICONS[event.type]}
                     style={{
-                      fontSize: '1.1rem',
-                      color: GITHUB_STYLES.text.muted
+                      fontSize: '1rem',
+                      color: GITHUB_STYLES.text.muted,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%'
                     }}
                     colors={GITHUB_STYLES}
                   />
