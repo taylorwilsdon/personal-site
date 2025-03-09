@@ -1,30 +1,10 @@
 import { Container, Divider, Typography } from '@mui/material';
-import { styled } from '@mui/system';
 
 import { REPOS } from '../config/repositories';
 
 import Icons from './Icons';
+import { MainContainer, MainSection } from './Layout';
 import { OpenSource, PageHeader } from './OpenSource';
-
-const MainContainer = styled('div')(({ theme }) => ({
-  maxWidth: '100vw',
-  overflowX: 'hidden',
-  [theme.breakpoints.down('sm')]: {
-    padding: '0 16px',
-    width: '100vw',
-    boxSizing: 'border-box',
-  },
-}));
-
-const MainSection = styled('section')(({ theme }) => ({
-  margin: '0 auto',
-  [theme.breakpoints.down('sm')]: {
-    maxWidth: '100%',
-    width: '100%',
-    padding: '0',
-    boxSizing: 'border-box',
-  },
-}));
 
 const OpenSourcePage = () => {
   const projects = REPOS.filter(repo => repo.type === 'project' || !repo.type);

@@ -5,25 +5,37 @@ import {
   faCodeFork,
   faComment,
   faPlus,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Card,
   CardContent,
-  Typography,
   Chip,
-  Avatar,
-  Link,
   CircularProgress,
   Box,
   Button,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
+  Divider,
+  Stack,
+  Paper,
 } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+
+import { GITHUB_COLORS } from "../config/repositories";
+import SAMPLE_FEED from "../config/sample_gh_feed.json";
+
+import {
+  GitHubCard,
+  GitHubLink,
+  GitHubText,
+  FlexBox,
+  GitHubCounter,
+  ActivityContent,
+  ActivityAvatar,
+  ActivityIcon,
+  TimeIcon,
+  ActivityDetails,
+} from "./Layout";
 
 const EVENT_ICONS = {
   PushEvent: faCodeBranch,
@@ -46,12 +58,24 @@ const EVENT_TYPES = {
   PullRequestReviewEvent: "reviewed pr"
 };
 
-const ICON_STYLE = { width: 20, height: 20, marginRight: 8 };
+// Update GitHub colors with additional styles
+const GITHUB_STYLES = {
+  ...GITHUB_COLORS,
+  background: {
+    ...GITHUB_COLORS.background,
+    hover: "#f6f8fa",
+    active: "#f1f2f4"
+  },
+  text: {
+    ...GITHUB_COLORS.text,
+    link: "#0366d6",
+    muted: "#6a737d"
+  }
+};
 
 const GitHubActivityLog = ({ username }) => {
   const [activityLog, setActivityLog] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
   const fetchActivityLog = useCallback(async () => {
@@ -65,7 +89,8 @@ const GitHubActivityLog = ({ username }) => {
       const data = await response.json();
       setActivityLog(data);
     } catch (err) {
-      setError(err.message);
+      console.warn("Failed to fetch GitHub activity, using sample data:", err.message);
+      setActivityLog(SAMPLE_FEED);
     } finally {
       setLoading(false);
     }
@@ -74,11 +99,6 @@ const GitHubActivityLog = ({ username }) => {
   useEffect(() => {
     fetchActivityLog();
   }, [fetchActivityLog]);
-
-  const getEventIcon = useCallback((type) => {
-    const icon = EVENT_ICONS[type];
-    return icon ? <FontAwesomeIcon icon={icon} style={ICON_STYLE} /> : null;
-  }, []);
 
   const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
 
@@ -89,8 +109,8 @@ const GitHubActivityLog = ({ username }) => {
     events.forEach((event) => {
       if (event.type === "IssueCommentEvent") return;
 
-      if (currentGroup && 
-          currentGroup.type === event.type && 
+      if (currentGroup &&
+          currentGroup.type === event.type &&
           currentGroup.repo.name === event.repo.name) {
         currentGroup.count++;
         // Keep the most recent timestamp
@@ -118,101 +138,177 @@ const GitHubActivityLog = ({ username }) => {
       (event) => event.type !== "IssueCommentEvent" && event.type !== "DeleteEvent" && event.type !== "WatchEvent"
     );
     const groupedEvents = groupConsecutiveEvents(filteredEvents);
-    return showAll ? groupedEvents : groupedEvents.slice(0, 6);
+    return showAll ? groupedEvents : groupedEvents.slice(0, 8);
   }, [showAll, activityLog, groupConsecutiveEvents]);
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" mt={4}>
+      <FlexBox justifyContent="center" mt={4}>
         <CircularProgress />
-      </Box>
+      </FlexBox>
     );
   }
-
-  if (error) {
-    return (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <Typography color="error">Error: {error}</Typography>
-      </Box>
-    );
-  }
-
-  return (
-    <Card variant="outlined" sx={{ maxWidth: 800, margin: "auto", mt: 4 }}>
-      <CardContent>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          git blame
-        </Typography>
-        <List>
-          {displayedEvents.map((event) => (
-            <ListItem key={event.id} alignItems="flex-start">
-              <ListItemAvatar sx={{ minWidth: 40 }}>
-                <Avatar src={event.actor.avatar_url} alt={event.actor.login} sx={{ width: 32, height: 32 }} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Box display="flex" alignItems="center">
-                    {getEventIcon(event.type)}
-                    <Link
-                      href={`https://github.com/${event.actor.login}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      color="text.secondary"
-                      sx={{ mr: 1 }}
-                      underline="hover"
-                    >
-                      {event.actor.login}
-                    </Link>
-                    <Chip
-                      label={event.type
-                        .replace(/Event$|([A-Z])/g, " $1")
-                        .trim()}
-                      size="small"
-                      sx={{
-                        ml: 1,
-                        color: 'text.secondary',
-                        backgroundColor: 'transparent',
-                        borderColor: 'divider'
-                      }}
-                      variant="outlined"
-                    />{" "}
-                  </Box>
-                }
-                secondary={
-                  <Typography variant="body2" color="text.disabled">
-                    {formatEventType(event.type)}{" "}
-                    <Link
-                      href={`https://github.com/${event.repo.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      color="primary"
-                      underline="hover"
-                    >
-                      {event.repo.name}
-                    </Link>
-                    {event.count > 1 && ` (${event.count}x)`}{" "}
-                    —{" "}
-                    {formatDistanceToNow(new Date(event.created_at), {
-                      addSuffix: true,
-                    })}
-                  </Typography>
-                }
-              />
-            </ListItem>
-          ))}
-        </List>
-        {activityLog.length > 6 && (
-          <Box display="flex" justifyContent="center" mt={2}>
-            <Button
-              variant="outlined"
-              onClick={() => setShowAll((prev) => !prev)}
-            >
-              {showAll ? "Show Less" : "Show More"}
-            </Button>
-          </Box>
-        )}
-      </CardContent>
-    </Card>
+return (
+  <Paper
+    elevation={1}
+    sx={{
+      width: "100%",
+      margin: "auto",
+      mt: 4,
+      p: 3,
+      backgroundColor: '#ffffff',
+      borderRadius: 2,
+      border: `1px solid ${GITHUB_STYLES.border}`
+    }}
+  >
+      <GitHubText
+        variant="header"
+        colors={GITHUB_STYLES}
+        sx={{
+          mb: 2,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <ActivityIcon icon={faCodeBranch} style={{ marginRight: '8px' }} colors={GITHUB_STYLES} />
+        git blame
+      </GitHubText>
+      
+      <Divider sx={{ mb: 2 }} />
+      
+      <Stack spacing={1}>
+        {displayedEvents.map((event) => (
+          <GitHubCard key={event.id} colors={GITHUB_STYLES}>
+            <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+              <ActivityContent>
+                <ActivityAvatar src={event.actor.avatar_url} alt={event.actor.login} colors={GITHUB_STYLES} />
+                
+                <ActivityDetails>
+                  <Stack spacing={1}>
+                    <FlexBox sx={{ flexWrap: 'wrap', minWidth: 0, gap: 1 }}>
+                      <GitHubLink
+                        href={`https://github.com/${event.actor.login}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        colors={GITHUB_STYLES}
+                        sx={{ marginRight: '8px', fontWeight: 600 }}
+                      >
+                        {event.actor.login}
+                      </GitHubLink>
+                      <GitHubLink
+                        href={`https://github.com/${event.repo.name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        colors={GITHUB_STYLES}
+                        sx={{ wordBreak: 'break-word' }}
+                      >
+                        {formatEventType(event.type)} {event.repo.name}
+                      </GitHubLink>
+                      {event.count > 1 && (
+                        <GitHubCounter colors={GITHUB_STYLES}>
+                          {event.count}×
+                        </GitHubCounter>
+                      )}
+                    </FlexBox>
+                    <FlexBox sx={{ flexWrap: 'nowrap', minWidth: 0, alignItems: 'center' }}>
+                      <Chip
+                        label={formatEventType(event.type)}
+                        size="small"
+                        sx={{
+                          height: '24px',
+                          marginRight: '8px',
+                          fontSize: '12px',
+                          backgroundColor: GITHUB_STYLES.background.hover,
+                          color: GITHUB_STYLES.text.secondary,
+                          border: `1px solid ${GITHUB_STYLES.border}`,
+                          borderRadius: '12px',
+                          '& .MuiChip-label': {
+                            padding: '0 10px',
+                            lineHeight: '22px'
+                          }
+                        }}
+                      />
+                      <GitHubText
+                        variant="small"
+                        colors={GITHUB_STYLES}
+                        component={FlexBox}
+                        sx={{
+                          whiteSpace: 'nowrap',
+                          color: GITHUB_STYLES.text.muted,
+                          alignItems: 'center'
+                        }}
+                      >
+                        <TimeIcon icon={faClock} colors={GITHUB_STYLES} />
+                        {formatDistanceToNow(new Date(event.created_at), {
+                          addSuffix: true,
+                        })}
+                      </GitHubText>
+                    </FlexBox>
+                  </Stack>
+                </ActivityDetails>
+                
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    backgroundColor: GITHUB_STYLES.background.hover,
+                    marginLeft: '16px',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      backgroundColor: GITHUB_STYLES.background.active,
+                      transform: 'scale(1.1)'
+                    }
+                  }}
+                >
+                  <ActivityIcon
+                    icon={EVENT_ICONS[event.type]}
+                    style={{
+                      fontSize: '1.1rem',
+                      color: GITHUB_STYLES.text.muted
+                    }}
+                    colors={GITHUB_STYLES}
+                  />
+                </Box>
+              </ActivityContent>
+            </CardContent>
+          </GitHubCard>
+        ))}
+      </Stack>
+      
+      {activityLog.length > 8 && (
+        <FlexBox justifyContent="center" mt={2} mb={1}>
+          <Button
+            variant="outlined"
+            size="small"
+            startIcon={showAll ? null : <FontAwesomeIcon icon={faPlus} style={{ fontSize: '0.75rem' }} />}
+            onClick={() => setShowAll((prev) => !prev)}
+            sx={{
+              borderColor: GITHUB_STYLES.border,
+              color: GITHUB_STYLES.text.link,
+              fontSize: '0.875rem',
+              textTransform: 'none',
+              padding: '4px 12px',
+              borderRadius: '6px',
+              fontWeight: 500,
+              boxShadow: '0 1px 0 rgba(27,31,35,0.04)',
+              background: 'linear-gradient(180deg, #fafbfc, #eff3f6 90%)',
+              '&:hover': {
+                borderColor: GITHUB_STYLES.hover,
+                backgroundColor: GITHUB_STYLES.background.hover,
+                background: 'linear-gradient(180deg, #f3f4f6, #e1e4e8 90%)'
+              }
+            }}
+          >
+            {showAll ? "Show fewer activities" : "Show more activities"}
+          </Button>
+        </FlexBox>
+      )}
+    </Paper>
   );
 };
 
