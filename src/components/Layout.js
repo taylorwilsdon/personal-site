@@ -111,7 +111,7 @@ export const ActivityIcon = styled(FontAwesomeIcon, {
 })(({ colors }) => ({
   width: 16,
   height: 16,
-  marginRight: 8,
+  margin: 0,
   color: colors?.text?.secondary,
   flexShrink: 0,
 }));
