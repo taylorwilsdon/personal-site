@@ -10,11 +10,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   CardContent,
+  Chip,
   CircularProgress,
   Box,
   Button,
   Divider,
   Stack,
+  Paper,
 } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
@@ -146,9 +148,19 @@ const GitHubActivityLog = ({ username }) => {
       </FlexBox>
     );
   }
-
-  return (
-    <Box sx={{ width: "100%", margin: "auto", mt: 4 }}>
+return (
+  <Paper
+    elevation={1}
+    sx={{
+      width: "100%",
+      margin: "auto",
+      mt: 4,
+      p: 3,
+      backgroundColor: '#ffffff',
+      borderRadius: 2,
+      border: `1px solid ${GITHUB_STYLES.border}`
+    }}
+  >
       <GitHubText
         variant="header"
         colors={GITHUB_STYLES}
@@ -156,10 +168,11 @@ const GitHubActivityLog = ({ username }) => {
           mb: 2,
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <ActivityIcon icon={faCodeBranch} style={{ marginRight: '8px' }} colors={GITHUB_STYLES} />
-        GitHub Activity
+        git blame
       </GitHubText>
       
       <Divider sx={{ mb: 2 }} />
@@ -172,71 +185,95 @@ const GitHubActivityLog = ({ username }) => {
                 <ActivityAvatar src={event.actor.avatar_url} alt={event.actor.login} colors={GITHUB_STYLES} />
                 
                 <ActivityDetails>
-                  <FlexBox sx={{ flexWrap: 'nowrap', minWidth: 0 }}>
-                    <GitHubLink
-                      href={`https://github.com/${event.actor.login}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      colors={GITHUB_STYLES}
-                      sx={{ marginRight: '8px' }}
-                    >
-                      {event.actor.login}
-                    </GitHubLink>
-                    
-                    <GitHubText
-                      component="span"
-                      variant="small"
-                      colors={GITHUB_STYLES}
-                      sx={{
-                        marginRight: '8px',
-                        color: GITHUB_STYLES.text.secondary,
-                        display: 'inline-block'
-                      }}
-                    >
-                      {formatEventType(event.type)}
-                    </GitHubText>
-                    
-                    <GitHubLink
-                      href={`https://github.com/${event.repo.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title={event.repo.name}
-                      variant="truncate"
-                      colors={GITHUB_STYLES}
-                    >
-                      {event.repo.name}
-                    </GitHubLink>
-                    
-                    {event.count > 1 && (
-                      <GitHubCounter colors={GITHUB_STYLES}>
-                        {event.count}×
-                      </GitHubCounter>
-                    )}
-                  </FlexBox>
+                  <Stack spacing={1}>
+                    <FlexBox sx={{ flexWrap: 'wrap', minWidth: 0, gap: 1 }}>
+                      <GitHubLink
+                        href={`https://github.com/${event.actor.login}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        colors={GITHUB_STYLES}
+                        sx={{ marginRight: '8px', fontWeight: 600 }}
+                      >
+                        {event.actor.login}
+                      </GitHubLink>
+                      <GitHubLink
+                        href={`https://github.com/${event.repo.name}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        colors={GITHUB_STYLES}
+                        sx={{ wordBreak: 'break-word' }}
+                      >
+                        {formatEventType(event.type)} {event.repo.name}
+                      </GitHubLink>
+                      {event.count > 1 && (
+                        <GitHubCounter colors={GITHUB_STYLES}>
+                          {event.count}×
+                        </GitHubCounter>
+                      )}
+                    </FlexBox>
+                    <FlexBox sx={{ flexWrap: 'nowrap', minWidth: 0, alignItems: 'center' }}>
+                      <Chip
+                        label={formatEventType(event.type)}
+                        size="small"
+                        sx={{
+                          height: '24px',
+                          marginRight: '8px',
+                          fontSize: '12px',
+                          backgroundColor: GITHUB_STYLES.background.hover,
+                          color: GITHUB_STYLES.text.secondary,
+                          border: `1px solid ${GITHUB_STYLES.border}`,
+                          borderRadius: '12px',
+                          '& .MuiChip-label': {
+                            padding: '0 10px',
+                            lineHeight: '22px'
+                          }
+                        }}
+                      />
+                      <GitHubText
+                        variant="small"
+                        colors={GITHUB_STYLES}
+                        component={FlexBox}
+                        sx={{
+                          whiteSpace: 'nowrap',
+                          color: GITHUB_STYLES.text.muted,
+                          alignItems: 'center'
+                        }}
+                      >
+                        <TimeIcon icon={faClock} colors={GITHUB_STYLES} />
+                        {formatDistanceToNow(new Date(event.created_at), {
+                          addSuffix: true,
+                        })}
+                      </GitHubText>
+                    </FlexBox>
+                  </Stack>
                 </ActivityDetails>
                 
-                <GitHubText
-                  variant="small"
-                  colors={GITHUB_STYLES}
-                  component={FlexBox}
+                <Box
                   sx={{
-                    marginLeft: '12px',
-                    whiteSpace: 'nowrap',
-                    color: GITHUB_STYLES.text.muted,
-                    alignItems: 'center'
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    backgroundColor: GITHUB_STYLES.background.hover,
+                    marginLeft: '16px',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      backgroundColor: GITHUB_STYLES.background.active,
+                      transform: 'scale(1.1)'
+                    }
                   }}
                 >
-                  <TimeIcon icon={faClock} colors={GITHUB_STYLES} />
-                  {formatDistanceToNow(new Date(event.created_at), {
-                    addSuffix: true,
-                  })}
-                </GitHubText>
-                
-                <ActivityIcon
-                  icon={EVENT_ICONS[event.type]}
-                  style={{ marginLeft: '12px', color: GITHUB_STYLES.text.link }}
-                  colors={GITHUB_STYLES}
-                />
+                  <ActivityIcon
+                    icon={EVENT_ICONS[event.type]}
+                    style={{
+                      fontSize: '1.1rem',
+                      color: GITHUB_STYLES.text.muted
+                    }}
+                    colors={GITHUB_STYLES}
+                  />
+                </Box>
               </ActivityContent>
             </CardContent>
           </GitHubCard>
@@ -271,7 +308,7 @@ const GitHubActivityLog = ({ username }) => {
           </Button>
         </FlexBox>
       )}
-    </Box>
+    </Paper>
   );
 };
 

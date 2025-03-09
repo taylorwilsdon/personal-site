@@ -46,11 +46,10 @@ export const GitHubCard = styled(Card)(({ theme, colors }) => ({
 export const GitHubLink = styled(Link)(({ theme, variant, colors }) => ({
   textDecoration: 'none',
   fontSize: variant === 'small' ? '0.75rem' : '0.875rem',
-  color: variant === 'muted' ? colors?.text?.muted : colors?.text?.link,
+  color: variant === 'muted' ? colors?.text?.muted : colors?.text?.primary,
   fontWeight: 500,
   '&:hover': {
     color: colors?.hover,
-    textDecoration: 'underline',
   },
   ...(variant === 'truncate' && {
     overflow: 'hidden',
