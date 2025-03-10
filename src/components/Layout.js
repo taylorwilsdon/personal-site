@@ -188,12 +188,12 @@ export const REPO_CHIP_STYLE = {
   hoverBg: "#e8f5e9",
 };
 
-export const ORG_CHIP_STYLE = {
-  bg: "#e8eaf6",
-  text: "#3949ab",
-  border: "#c5cae9",
-  hoverBg: "#e3f2fd",
-};
+// export const ORG_CHIP_STYLE = {
+//   bg: "#e8eaf6",
+//   text: "#3949ab",
+//   border: "#c5cae9",
+//   hoverBg: "#e3f2fd",
+// };
 
 export const GITHUB_STYLES = {
   ...GITHUB_COLORS,
