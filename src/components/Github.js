@@ -21,7 +21,6 @@ import {
 import { formatDistanceToNow } from "date-fns";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
-import { GITHUB_COLORS } from "../config/repositories";
 import SAMPLE_FEED from "../config/sample_gh_feed.json";
 
 import {
@@ -37,7 +36,6 @@ import {
   ActivityDetails,
   CHIP_COLORS,
   REPO_CHIP_STYLE,
-  ORG_CHIP_STYLE,
   GITHUB_STYLES,
 } from "./Layout";
 
