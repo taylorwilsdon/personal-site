@@ -6,20 +6,20 @@ import ventImage from '../images/vent.png';
 
 export const articles = [
   {
+    href: "https://www.slideshare.net/slideshow/jira-ansible-streamlining-jira-server-administration-for-the-enterprise/141838330",
+    image: summitCard,
+    alt: "Atlassian Summit",
+    subtitle: "Scaling Jira Server for the Enterprise via IaC",
+    title: "Atlassian Summit - Jira & Ansible",
+    description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
+  },
+  {
     href: "https://medium.com/@tbarrettwilsdon/multi-gig-for-the-masses-building-an-inexpensive-10gbe-network-for-the-home-cfe91740f186",
     image: mediumCard,
     alt: "Multi-Gig for the Masses",
     title: "Multi-Gig for the Masses",
     subtitle: "Building an inexpensive 10GbE network",
     description: "Thoughts on design and component selection for a multi-gigabit LAN (2.5/5/10GbE) based on my experiences building my home network architecture"
-  },
-  {
-    href: "https://www.conferencecast.tv/speaker-32221-taylor-barrett-wilsdon#.speakerPage-latest",
-    image: summitCard,
-    alt: "Atlassian Summit",
-    subtitle: "Scaling Jira Server for the Enterprise via IaC",
-    title: "Atlassian Summit - Jira & Ansible",
-    description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
   },
   {
     href: "https://medium.com/@tbarrettwilsdon/smart-zoned-nyc-steam-radiators-effectively-controlling-one-pipe-steam-heat-in-apartments-304a2ed2cd1b",
