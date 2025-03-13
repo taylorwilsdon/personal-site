@@ -31,7 +31,7 @@ export const MainSection = styled('section')(({ theme, variant }) => ({
 }));
 
 // Shared GitHub styled components
-export const GitHubCard = styled(Card)(({ theme, colors }) => ({
+export const GitHubCard = styled(Card)(({ theme, colors, variant }) => ({
   position: 'relative',
   transition: 'all 0.2s ease',
   background: colors?.background?.card || '#ffffff',
@@ -43,6 +43,11 @@ export const GitHubCard = styled(Card)(({ theme, colors }) => ({
     borderColor: '#c6cbd1',
     backgroundColor: colors?.background?.hover || '#f6f8fa',
   },
+  ...(variant === 'icon' && {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  }),
 }));
 
 export const GitHubLink = styled(Link)(({ theme, variant, colors }) => ({
@@ -93,19 +98,25 @@ export const GitHubCounter = styled(Box)(({ theme, colors }) => ({
 }));
 
 // GitHub Activity styled components
-export const ActivityContent = styled(FlexBox)({
+export const ActivityContent = styled(FlexBox)(({ theme }) => ({
   padding: "12px 16px",
   width: "100%",
-});
+  [theme.breakpoints.down('sm')]: {
+    padding: "6px 10px",
+  },
+}));
 
 export const ActivityAvatar = styled(Avatar, {
   shouldForwardProp: prop => prop !== 'colors'
-})(({ colors }) => ({
+})(({ theme, colors }) => ({
   width: 32,
   height: 32,
   marginRight: 10,
   border: `1px solid ${colors?.border}`,
   flexShrink: 0,
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
 }));
 
 export const ActivityIcon = styled(FontAwesomeIcon, {
