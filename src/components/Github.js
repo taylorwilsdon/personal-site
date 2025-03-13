@@ -6,6 +6,7 @@ import {
   faComment,
   faPlus,
   faClock,
+  faTag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,8 +17,9 @@ import {
   Button,
   Divider,
   Stack,
-  Paper,
 } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { formatDistanceToNow } from "date-fns";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
@@ -47,6 +49,7 @@ const EVENT_ICONS = {
   IssueCommentEvent: faComment,
   CommentEvent: faComment,
   CreateEvent: faPlus,
+  ReleaseEvent: faTag,
 };
 
 const EVENT_TYPES = {
@@ -79,6 +82,12 @@ const GitHubActivityLog = ({ username }) => {
   const [activityLog, setActivityLog] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const shortenUsername = useCallback((login) => {
+    return isMobile ? login.split('wilsdon')[0] : login;
+  }, [isMobile]);
 
   const fetchActivityLog = useCallback(async () => {
     try {
@@ -159,15 +168,7 @@ const GitHubActivityLog = ({ username }) => {
     );
   }
   return (
-    <Paper
-      elevation={1}
-      sx={{
-        width: "100%",
-        margin: "auto",
-        ...GITHUB_STYLES.paper.surface,
-        mt: 4,
-      }}
-    >
+    <div>
       <GitHubText
         variant="header"
         colors={GITHUB_STYLES}
@@ -184,7 +185,7 @@ const GitHubActivityLog = ({ username }) => {
 
       <Divider sx={{ mb: 2 }} />
 
-      <Stack spacing={0.5}>
+      <Stack spacing={{ xs: 0.25, sm: 0.5 }}>
         {displayedEvents.map((event) => (
           <Box
             key={event.id}
@@ -210,7 +211,7 @@ const GitHubActivityLog = ({ username }) => {
                     colors={GITHUB_STYLES}
                   />
                   <ActivityDetails>
-                    <Stack spacing={0.5}>
+                    <Stack spacing={{ xs: 0.25, sm: 0.5 }}>
                       <FlexBox
                         sx={{
                           display: "flex",
@@ -237,7 +238,7 @@ const GitHubActivityLog = ({ username }) => {
                               flexShrink: 0,
                             }}
                           >
-                            {event.actor.login}
+                            {shortenUsername(event.actor.login)}
                           </GitHubLink>
                           <GitHubLink
                             href={`https://github.com/${event.repo.name}`}
@@ -396,6 +397,7 @@ const GitHubActivityLog = ({ username }) => {
               </CardContent>
             </GitHubCard>
             <GitHubCard
+              variant="icon"
               colors={GITHUB_STYLES}
               sx={{
                 minHeight: "100%",
@@ -474,7 +476,7 @@ const GitHubActivityLog = ({ username }) => {
           </Button>
         </FlexBox>
       )}
-    </Paper>
+      </div>
   );
 };
 
