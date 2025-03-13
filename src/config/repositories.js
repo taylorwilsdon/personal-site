@@ -1,13 +1,18 @@
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import ChatIcon from "@mui/icons-material/Chat";
 import CodeIcon from "@mui/icons-material/Code";
+import ConstructionIcon from '@mui/icons-material/Construction';
+import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
+import HardwareIcon from '@mui/icons-material/Hardware';
 import HomeIcon from "@mui/icons-material/Home";
+import LayersIcon from '@mui/icons-material/Layers';
 import MoveUpIcon from "@mui/icons-material/MoveUp";
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import SaveIcon from "@mui/icons-material/Save";
 import SecurityIcon from "@mui/icons-material/Security";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import TerminalIcon from "@mui/icons-material/Terminal";
+
 
 export const REPOS = [
   {
@@ -67,11 +72,25 @@ export const REPOS = [
     Icon: SmartToyIcon,
   },
   {
+    name: "Roo-Code",
+    displayName: "Roo",
+    owner: "RooVetGit",
+    desc: "the single best agentic dev tool on the market today (sorry aider)",
+    Icon: DeveloperModeIcon,
+  },
+  {
+    name: "textual",
+    displayName: "textual",
+    owner: "textualize",
+    desc: "unbelievably good interactive python cli applications made easy",
+    Icon: LayersIcon,
+  },
+  {
     name: "open-webui-postgres-migration",
     displayName: "Open-WebUI SQLite to PostgreSQL Migration Tool",
     owner: "taylorwilsdon",
     desc: "robust, interactive tool for migrating Open WebUI databases from SQLite to PostgreSQL",
-    Icon: MoveUpIcon,
+    Icon: ConstructionIcon,
     type: "tool"
   },
   {
@@ -83,11 +102,27 @@ export const REPOS = [
     type: "tool"
   },
   {
+    name: "open-webui-tools",
+    displayName: "Jira Agent for Open-WebUI",
+    owner: "taylorwilsdon",
+    desc: "Extend the capabilities of Open-WebUI with direct Jira integration",
+    Icon: MoveUpIcon,
+    type: "tool"
+  },
+  {
     name: "ai-chrome-extension",
     displayName: "Chrome Inline AI Extension",
     owner: "taylorwilsdon",
     desc: "simple, lightweight manifest v3 extension - init chat anywhere to open-webui & chatgpt",
     Icon: PsychologyIcon,
+    type: "tool"
+  },
+  {
+    name: "homebrew-tap",
+    displayName: "taylorwilsdon/homebrew-tap",
+    owner: "taylorwilsdon",
+    desc: "homebrew repository for mac installation of my oss tools",
+    Icon: HardwareIcon,
     type: "tool"
   },
 ];
