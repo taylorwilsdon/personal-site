@@ -206,7 +206,7 @@ const PageHeader = () => (
       variant="subtitle1"
       sx={{ color: GITHUB_COLORS.text.secondary, fontSize: "0.9rem" }}
     >
-      Projects I believe in, support & contribute to
+      My projects + a few I believe in, support & contribute to
     </Typography>
   </Box>
 );
