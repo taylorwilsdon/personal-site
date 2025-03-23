@@ -33,7 +33,7 @@ export const REPOS = [
     name: "netbird",
     displayName: "netbird",
     owner: "netbirdio",
-    desc: "wireguard overlay networking made easy",
+    desc: "wireguard overlay networking made easy in fast golang",
     Icon: CodeIcon,
   },
   {
