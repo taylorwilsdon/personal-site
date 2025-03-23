@@ -23,8 +23,8 @@ export const REPOS = [
     Icon: SecurityIcon,
   },
   {
-    name: "reclaim",
-    displayName: "reclaim",
+    name: "reclaimed",
+    displayName: "reclaimed",
     owner: "taylorwilsdon",
     desc: "high performance cli disk analysis - find large folders & files ",
     Icon: SaveIcon,
