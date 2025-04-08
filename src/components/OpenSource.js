@@ -1,6 +1,6 @@
 import ForkRightIcon from "@mui/icons-material/ForkRight";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import StarOutlineIcon from "@mui/icons-material/StarOutline";
+import StarIcon from "@mui/icons-material/Star"; // Import filled StarIcon
 import {
   Card,
   CardActionArea,
@@ -48,23 +48,34 @@ const StyledCard = styled(Card)({
 
 const RepoStats = styled(Box)({
   display: "flex",
-  gap: "8px",
-  marginTop: "4px",
+  justifyContent: "center", // Center the chips
+  gap: "10px", // Slightly increase gap
+  marginTop: "8px", // Add a bit more top margin
+  // Target icons within specific chips
+  "& .MuiChip-root:nth-of-type(1) .MuiChip-icon": { // Target icon in the first chip (Star)
+    color: "#FFD700", // Gold
+  },
+  "& .MuiChip-root:nth-of-type(2) .MuiChip-icon": { // Target icon in the second chip (Fork)
+    color: "#2da44e", // GitHub Green
+  },
 });
 
 const StatChip = styled(Chip)({
   background: GITHUB_COLORS.background.chip,
   border: `1px solid ${GITHUB_COLORS.border}`,
-  borderRadius: "12px",
+  borderRadius: "6px", // Less round
   color: GITHUB_COLORS.text.secondary,
-  height: "20px",
+  height: "24px", // Slightly taller
   "& .MuiChip-icon": {
-    color: GITHUB_COLORS.text.secondary,
-    fontSize: "14px",
+    color: GITHUB_COLORS.text.secondary, // Default icon color
+    fontSize: "16px", // Bigger icon
+    marginLeft: "6px", // Adjust icon spacing
+    marginRight: "-4px", // Adjust icon spacing
   },
+  // General icon color removed, specific colors handled in RepoStats
   "& .MuiChip-label": {
-    padding: "0 8px",
-    fontSize: "0.75rem",
+    padding: "0 10px", // Adjust label padding
+    fontSize: "0.8rem", // Slightly larger text
   },
 });
 
@@ -169,7 +180,7 @@ const RepoCard = React.memo(({ repo, stats }) => {
             {stats && (
               <>
                 <StatChip
-                  icon={<StarOutlineIcon sx={{ fontSize: "14px" }} />}
+                  icon={<StarIcon />} // Use filled StarIcon, size controlled by StatChip style
                   label={formatNumber(stats.stars)}
                   size="small"
                 />
