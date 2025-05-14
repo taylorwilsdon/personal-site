@@ -1,4 +1,5 @@
 import acImage from '../images/ac.jpg';
+import functionCard from '../images/function_card.png';
 import mediumCard from '../images/medium_card.png';
 import nytCard from '../images/nyt_card.png';
 import reclaimedImage from '../images/reclaimed-card.png';
@@ -13,6 +14,14 @@ export const articles = [
     subtitle: "Scaling Jira Server for the Enterprise via IaC",
     title: "Atlassian Summit - Jira & Ansible",
     description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
+  },
+    {
+    href: "https://taylorwilsdon.medium.com/the-missing-guide-to-native-tool-function-calling-with-mcp-openapi-servers-ed2557a8a7b7",
+    image: functionCard,
+    alt: "Multi-Gig for the Masses",
+    title: "LLM Native Tool & Function Calling",
+    subtitle: "Building Tools that “Just Work”",
+    description: "A pragmatic guide to the best practices for Native Tool & Function Calling Response Structure with MCP & OpenAPI Servers to ensure broad compatibility"
   },
   {
     href: "https://medium.com/@tbarrettwilsdon/multi-gig-for-the-masses-building-an-inexpensive-10gbe-network-for-the-home-cfe91740f186",
