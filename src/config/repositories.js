@@ -7,6 +7,7 @@ import HardwareIcon from '@mui/icons-material/Hardware';
 import HomeIcon from "@mui/icons-material/Home";
 import LayersIcon from '@mui/icons-material/Layers';
 import MoveUpIcon from "@mui/icons-material/MoveUp";
+import PolylineIcon from '@mui/icons-material/Polyline';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import SaveIcon from "@mui/icons-material/Save";
 import SecurityIcon from "@mui/icons-material/Security";
@@ -91,6 +92,14 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "robust, interactive tool for migrating Open WebUI databases from SQLite to PostgreSQL",
     Icon: ConstructionIcon,
+    type: "tool"
+  },
+    {
+    name: "google_workspace_mcp",
+    displayName: "Google Workspace MCP Server",
+    owner: "taylorwilsdon",
+    desc: "Connect MCP Clients, AI Assistants and more to Google Workspace services through the Model Context Protocol",
+    Icon: PolylineIcon,
     type: "tool"
   },
   {
