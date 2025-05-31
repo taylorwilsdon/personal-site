@@ -93,6 +93,30 @@ export const REPOS = [
     Icon: ConstructionIcon,
     type: "tool"
   },
+    {
+    name: "open-webui-embeddable-widget",
+    displayName: "Open-WebUI Embeddable Chat Widget",
+    owner: "taylorwilsdon",
+    desc: "Lightweight, simple embeddable widget for Open WebUI allowing you to easily implement AI chat anywhere",
+    Icon: ConstructionIcon,
+    type: "tool"
+  },
+    {
+    name: "reorganizer",
+    displayName: "reorganizer",
+    owner: "taylorwilsdon",
+    desc: "Performant, local LLM driven cross-platform file reorganization tool",
+    Icon: ConstructionIcon,
+    type: "tool"
+  },
+      {
+    name: "openapi-servers",
+    displayName: "OpenAPI Tool Servers",
+    owner: "open-webui",
+    desc: "Integrate interactive tool capabilities into your AI workflows",
+    Icon: ConstructionIcon,
+    type: "tool"
+  },
   {
     name: "llm-context-limits",
     displayName: "LLM Max Context, Output Limits & Compatibility",
