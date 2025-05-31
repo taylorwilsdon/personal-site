@@ -26,14 +26,14 @@ export const REPOS = [
     name: "google_workspace_mcp",
     displayName: "Google Workspace MCP Server",
     owner: "taylorwilsdon",
-    desc: "Connect MCP Clients, AI Assistants and more to Google Workspace services through the Model Context Protocol",
+    desc: "Connect MCP Clients, AI Assistants and more to Google Workspace",
     Icon: PolylineIcon,
   },
   {
     name: "reclaimed",
     displayName: "reclaimed",
     owner: "taylorwilsdon",
-    desc: "high performance cli disk analysis - find large folders & files ",
+    desc: "high performance cli disk space analyzer - find large folders & files ",
     Icon: SaveIcon,
   },
   {
