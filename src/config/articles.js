@@ -2,6 +2,7 @@ import acImage from '../images/ac.jpg';
 import functionCard from '../images/function_card.png';
 import mediumCard from '../images/medium_card.png';
 import nytCard from '../images/nyt_card.png';
+import owuiCard from '../images/owui-ha-card.png';
 import reclaimedImage from '../images/reclaimed-card.png';
 import summitCard from '../images/summit_card.png';
 import ventImage from '../images/vent.png';
@@ -13,12 +14,20 @@ export const articles = [
     alt: "Atlassian Summit",
     subtitle: "Scaling Jira Server for the Enterprise via IaC",
     title: "Atlassian Summit - Jira & Ansible",
-    description: "Speaking on behalf of Yelp at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
+    description: "Featured Speaker at Atlassian Summit 2019 in Las Vegas, covering the technical architecture that allowed Yelp to smoothly administrate Jira at scale with Ansible"
+  },
+    {
+    href: "https://taylorwilsdon.medium.com/the-sres-guide-to-high-availability-open-webui-deployment-architecture-2ee42654eced",
+    image: owuiCard,
+    alt: "High Availability Architecture for Open WebUI",
+    subtitle: "The SRE’s Guide to Deployment Architecture",
+    title: "High Availability for Open WebUI",
+    description: "When you're ready to graduate from single container deployment to a distributed HA architecture for Open WebUI, this is the guide for you!"
   },
     {
     href: "https://taylorwilsdon.medium.com/the-missing-guide-to-native-tool-function-calling-with-mcp-openapi-servers-ed2557a8a7b7",
     image: functionCard,
-    alt: "Multi-Gig for the Masses",
+    alt: "LLM Native Tool & Function Calling",
     title: "LLM Native Tool & Function Calling",
     subtitle: "Building Tools that “Just Work”",
     description: "A pragmatic guide to the best practices for Native Tool & Function Calling Response Structure with MCP & OpenAPI Servers to ensure broad compatibility"
