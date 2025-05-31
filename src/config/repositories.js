@@ -5,7 +5,6 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 import HardwareIcon from '@mui/icons-material/Hardware';
 import HomeIcon from "@mui/icons-material/Home";
-import LayersIcon from '@mui/icons-material/Layers';
 import MoveUpIcon from "@mui/icons-material/MoveUp";
 import PolylineIcon from '@mui/icons-material/Polyline';
 import PsychologyIcon from '@mui/icons-material/Psychology';
@@ -84,7 +83,7 @@ export const REPOS = [
     displayName: "textual",
     owner: "textualize",
     desc: "unbelievably good interactive python cli applications made easy",
-    Icon: LayersIcon,
+    Icon: TerminalIcon,
   },
   {
     name: "open-webui-postgres-migration",
