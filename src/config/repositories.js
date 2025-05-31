@@ -23,6 +23,13 @@ export const REPOS = [
     desc: "ai-powered reddit pii detection & sentiment analysis with redaction",
     Icon: SecurityIcon,
   },
+      {
+    name: "google_workspace_mcp",
+    displayName: "Google Workspace MCP Server",
+    owner: "taylorwilsdon",
+    desc: "Connect MCP Clients, AI Assistants and more to Google Workspace services through the Model Context Protocol",
+    Icon: PolylineIcon,
+  },
   {
     name: "reclaimed",
     displayName: "reclaimed",
@@ -50,13 +57,6 @@ export const REPOS = [
     owner: "open-webui",
     desc: "the gold standard for self hosted llm chat platforms",
     Icon: ChatIcon,
-  },
-  {
-    name: "ollama",
-    displayName: "ollama",
-    owner: "ollama",
-    desc: "llama.cpp wrapper for dead simple llm inference with local models",
-    Icon: TerminalIcon,
   },
   {
     name: "GAM",
@@ -92,14 +92,6 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "robust, interactive tool for migrating Open WebUI databases from SQLite to PostgreSQL",
     Icon: ConstructionIcon,
-    type: "tool"
-  },
-    {
-    name: "google_workspace_mcp",
-    displayName: "Google Workspace MCP Server",
-    owner: "taylorwilsdon",
-    desc: "Connect MCP Clients, AI Assistants and more to Google Workspace services through the Model Context Protocol",
-    Icon: PolylineIcon,
     type: "tool"
   },
   {
