@@ -36,6 +36,13 @@ export const REPOS = [
     desc: "high performance cli disk space analyzer - find large folders & files ",
     Icon: SaveIcon,
   },
+    {
+    name: "netshow",
+    displayName: "netshow",
+    owner: "taylorwilsdon",
+    desc: "Lightweight, performant interactive network connection monitor app",
+    Icon: CodeIcon,
+  },
   {
     name: "netbird",
     displayName: "netbird",
@@ -48,6 +55,13 @@ export const REPOS = [
     displayName: "homebridge",
     owner: "homebridge",
     desc: "HomeKit support for everything you own",
+    Icon: HomeIcon,
+  },
+    {
+    name: "quantconnect-mcp",
+    displayName: "quantconnect mcp server",
+    owner: "taylorwilsdon",
+    desc: "Agentic LLM Driven Trading Strategy Design, Research & Implementation",
     Icon: HomeIcon,
   },
   {
