@@ -43,6 +43,13 @@ export const REPOS = [
     desc: "Lightweight, performant interactive network connection monitor app",
     Icon: CodeIcon,
   },
+    {
+    name: "mcpo",
+    displayName: "mcpo",
+    owner: "open-webui",
+    desc: "simple, secure MCP-to-OpenAPI proxy server & gateway",
+    Icon: SmartToyIcon,
+  },
   {
     name: "netbird",
     displayName: "netbird",
@@ -77,13 +84,6 @@ export const REPOS = [
     owner: "GAM-team",
     desc: "cli for google workspace superadmins & friends",
     Icon: AdminPanelSettingsIcon,
-  },
-  {
-    name: "mcpo",
-    displayName: "mcpo",
-    owner: "open-webui",
-    desc: "simple, secure MCP-to-OpenAPI proxy server & gateway",
-    Icon: SmartToyIcon,
   },
   {
     name: "Roo-Code",
