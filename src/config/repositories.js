@@ -79,10 +79,10 @@ export const REPOS = [
     Icon: AdminPanelSettingsIcon,
   },
   {
-    name: "aider",
-    displayName: "aider",
-    owner: "Aider-AI",
-    desc: "pragmatic, interactive ai dev tool for us vim types",
+    name: "mcpo",
+    displayName: "mcpo",
+    owner: "open-webui",
+    desc: "simple, secure MCP-to-OpenAPI proxy server & gateway",
     Icon: SmartToyIcon,
   },
   {
