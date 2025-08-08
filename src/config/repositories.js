@@ -14,6 +14,13 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import TerminalIcon from "@mui/icons-material/Terminal";
 
 export const REPOS = [
+    {
+    name: "netshow",
+    displayName: "netshow",
+    owner: "taylorwilsdon",
+    desc: "Lightweight, performant interactive network connection monitor app",
+    Icon: CodeIcon,
+  },
   {
     name: "reddacted",
     displayName: "reddacted",
@@ -34,13 +41,6 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "high performance cli disk space analyzer - find large folders & files ",
     Icon: SaveIcon,
-  },
-  {
-    name: "netshow",
-    displayName: "netshow",
-    owner: "taylorwilsdon",
-    desc: "Lightweight, performant interactive network connection monitor app",
-    Icon: CodeIcon,
   },
   {
     name: "mcpo",
