@@ -1,18 +1,17 @@
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import ChatIcon from "@mui/icons-material/Chat";
 import CodeIcon from "@mui/icons-material/Code";
-import ConstructionIcon from '@mui/icons-material/Construction';
-import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
-import HardwareIcon from '@mui/icons-material/Hardware';
+import ConstructionIcon from "@mui/icons-material/Construction";
+import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
+import HardwareIcon from "@mui/icons-material/Hardware";
 import HomeIcon from "@mui/icons-material/Home";
 import MoveUpIcon from "@mui/icons-material/MoveUp";
-import PolylineIcon from '@mui/icons-material/Polyline';
-import PsychologyIcon from '@mui/icons-material/Psychology';
+import PolylineIcon from "@mui/icons-material/Polyline";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 import SaveIcon from "@mui/icons-material/Save";
 import SecurityIcon from "@mui/icons-material/Security";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import TerminalIcon from "@mui/icons-material/Terminal";
-
 
 export const REPOS = [
   {
@@ -22,7 +21,7 @@ export const REPOS = [
     desc: "ai-powered reddit pii detection & sentiment analysis with redaction",
     Icon: SecurityIcon,
   },
-      {
+  {
     name: "google_workspace_mcp",
     displayName: "Google Workspace MCP Server",
     owner: "taylorwilsdon",
@@ -36,14 +35,14 @@ export const REPOS = [
     desc: "high performance cli disk space analyzer - find large folders & files ",
     Icon: SaveIcon,
   },
-    {
+  {
     name: "netshow",
     displayName: "netshow",
     owner: "taylorwilsdon",
     desc: "Lightweight, performant interactive network connection monitor app",
     Icon: CodeIcon,
   },
-    {
+  {
     name: "mcpo",
     displayName: "mcpo",
     owner: "open-webui",
@@ -58,13 +57,20 @@ export const REPOS = [
     Icon: CodeIcon,
   },
   {
+    name: "git-clone-stats",
+    displayName: "Git Stats",
+    owner: "taylorwilsdon",
+    desc: "Self-hosted Github Repo Analytics Platform",
+    Icon: CodeIcon,
+  },
+  {
     name: "homebridge",
     displayName: "homebridge",
     owner: "homebridge",
     desc: "HomeKit support for everything you own",
     Icon: HomeIcon,
   },
-    {
+  {
     name: "quantconnect-mcp",
     displayName: "quantconnect mcp server",
     owner: "taylorwilsdon",
@@ -105,31 +111,31 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "robust, interactive tool for migrating Open WebUI databases from SQLite to PostgreSQL",
     Icon: ConstructionIcon,
-    type: "tool"
+    type: "tool",
   },
-    {
+  {
     name: "open-webui-embeddable-widget",
     displayName: "Open-WebUI Embeddable Chat Widget",
     owner: "taylorwilsdon",
     desc: "Lightweight, simple embeddable widget for Open WebUI allowing you to easily implement AI chat anywhere",
     Icon: ConstructionIcon,
-    type: "tool"
+    type: "tool",
   },
-    {
+  {
     name: "reorganizer",
     displayName: "reorganizer",
     owner: "taylorwilsdon",
     desc: "Performant, local LLM driven cross-platform file reorganization tool",
     Icon: ConstructionIcon,
-    type: "tool"
+    type: "tool",
   },
-      {
+  {
     name: "openapi-servers",
     displayName: "OpenAPI Tool Servers",
     owner: "open-webui",
     desc: "Integrate interactive tool capabilities into your AI workflows",
     Icon: ConstructionIcon,
-    type: "tool"
+    type: "tool",
   },
   {
     name: "llm-context-limits",
@@ -137,7 +143,7 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "missing context limit & parameter support guide for local and hosted LLMs",
     Icon: PsychologyIcon,
-    type: "tool"
+    type: "tool",
   },
   {
     name: "open-webui-tools",
@@ -145,7 +151,15 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "Extend the capabilities of Open-WebUI with direct Jira integration",
     Icon: MoveUpIcon,
-    type: "tool"
+    type: "tool",
+  },
+    {
+    name: "open-webui-analytics",
+    displayName: "Open WebUI Analytics",
+    owner: "taylorwilsdon",
+    desc: "Analytics dashboard for Open WebUI - Track user activity, model usage, and system metrics",
+    Icon: MoveUpIcon,
+    type: "tool",
   },
   {
     name: "ai-chrome-extension",
@@ -153,7 +167,7 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "simple, lightweight manifest v3 extension - init chat anywhere to open-webui & chatgpt",
     Icon: PsychologyIcon,
-    type: "tool"
+    type: "tool",
   },
   {
     name: "homebrew-tap",
@@ -161,7 +175,7 @@ export const REPOS = [
     owner: "taylorwilsdon",
     desc: "homebrew repository for mac installation of my oss tools",
     Icon: HardwareIcon,
-    type: "tool"
+    type: "tool",
   },
 ];
 
