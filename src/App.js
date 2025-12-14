@@ -7,6 +7,7 @@ const BlogPage = lazy(() => import("./components/BlogPage"));
 const ModernMain = lazy(() => import("./components/ModernMain"));
 const MarkdownPage = lazy(() => import("./components/MarkdownPage"));
 const OpenSourcePage = lazy(() => import("./components/OpenSourcePage"));
+const PhotosPage = lazy(() => import("./components/PhotosPage"));
 
 const LoadingFallback = () => (
   <div style={{ textAlign: 'center', padding: '3em', color: '#6f6f6a' }}>
@@ -25,7 +26,7 @@ const App = () => {
               <Link to="/">Home</Link>
               <Link to="/opensource">Open Source</Link>
               <Link to="/blog">Writing</Link>
-              <a href="https://instagram.com/taylorwilsdon" target="_blank" rel="noopener noreferrer">Photos</a>
+              <Link to="/photos">Photos</Link>
             </nav>
           </header>
           <Suspense fallback={<LoadingFallback />}>
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/" element={<ModernMain />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/opensource" element={<OpenSourcePage />} />
+              <Route path="/photos" element={<PhotosPage />} />
               <Route path="/read/:filename" element={<MarkdownPage />} />
             </Routes>
           </Suspense>
