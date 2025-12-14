@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import SAMPLE_FEED from '../config/sample_gh_feed.json';
 
-const ModernGitHub = ({ username }) => {
+const ModernGitHub = ({ username, onExpansionChange }) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isInFocus, setIsInFocus] = useState(false);
@@ -30,45 +30,80 @@ const ModernGitHub = ({ username }) => {
 
   // Intersection Observer for focus detection
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInFocus(true);
-          } else {
-            setIsInFocus(false);
-          }
-        });
-      },
-      {
-        threshold: 0.3, // Trigger when 30% of the component is visible
-        rootMargin: '0px 0px -20% 0px' // Only trigger when scrolled past the hero
+    const setupObserver = () => {
+      if (!dashboardRef.current) {
+        console.log('dashboardRef.current is still null, retrying...');
+        setTimeout(setupObserver, 100);
+        return;
       }
-    );
 
-    if (dashboardRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            console.log('GitHub Widget Intersection:', {
+              isIntersecting: entry.isIntersecting,
+              intersectionRatio: entry.intersectionRatio
+            });
+
+            // Only expand when scrolled into view, don't collapse automatically
+            if (entry.isIntersecting && !isInFocus) {
+              console.log('Setting isInFocus to TRUE');
+              setIsInFocus(true);
+            }
+            // Note: We don't set it to false when leaving view - user must manually collapse
+          });
+        },
+        {
+          threshold: 0.5, // Trigger when 50% visible
+          rootMargin: '0px'
+        }
+      );
+
       observer.observe(dashboardRef.current);
-    }
+      console.log('Observer attached to GitHub widget');
 
-    return () => {
-      if (dashboardRef.current) {
-        observer.unobserve(dashboardRef.current);
-      }
+      return () => {
+        if (dashboardRef.current) {
+          observer.unobserve(dashboardRef.current);
+        }
+      };
     };
+
+    const cleanup = setupObserver();
+    return cleanup;
   }, []);
 
   // Update activities when focus or showMore changes
   useEffect(() => {
+    console.log('State changed:', { isInFocus, showMore, allActivitiesLength: allActivities.length });
+
     if ((isInFocus || showMore) && allActivities.length > 0) {
+      console.log('Expanding to 10 items');
       setActivities(allActivities.slice(0, 10));
     } else if (allActivities.length > 0) {
+      console.log('Collapsing to 5 items');
       setActivities(allActivities.slice(0, 5));
     }
   }, [isInFocus, showMore, allActivities]);
 
   const toggleShowMore = () => {
-    setShowMore(!showMore);
+    const newShowMore = !showMore;
+    setShowMore(newShowMore);
+
+    // If user is manually collapsing, reset the auto-expansion too
+    if (!newShowMore && isInFocus) {
+      setIsInFocus(false);
+    }
   };
+
+  const isExpanded = isInFocus || showMore;
+
+  // Notify parent of expansion state changes
+  useEffect(() => {
+    if (onExpansionChange) {
+      onExpansionChange(isExpanded);
+    }
+  }, [isExpanded, onExpansionChange]);
 
   const getEventText = (event) => {
     const repo = event.repo.name.split('/')[1];
@@ -153,8 +188,6 @@ const ModernGitHub = ({ username }) => {
     );
   }
 
-  const isExpanded = isInFocus || showMore;
-
   return (
     <div
       ref={dashboardRef}
@@ -178,7 +211,7 @@ const ModernGitHub = ({ username }) => {
       <div
         className="modern-activity-feed"
         style={{
-          maxHeight: isInFocus ? '800px' : '400px',
+          maxHeight: isExpanded ? '800px' : '400px',
           transition: 'max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           overflow: 'hidden'
         }}
@@ -192,8 +225,8 @@ const ModernGitHub = ({ username }) => {
             className="modern-activity-item"
             style={{
               animationDelay: `${index * 0.1}s`,
-              opacity: index >= 5 && !isInFocus ? 0 : 1,
-              transform: index >= 5 && !isInFocus ? 'translateY(-20px)' : 'translateY(0)',
+              opacity: index >= 5 && !isExpanded ? 0 : 1,
+              transform: index >= 5 && !isExpanded ? 'translateY(-20px)' : 'translateY(0)',
               transition: 'opacity 0.4s ease, transform 0.4s ease',
               transitionDelay: index >= 5 ? `${(index - 5) * 0.1}s` : '0s'
             }}
@@ -246,6 +279,12 @@ const ModernGitHub = ({ username }) => {
 
       {/* Dashboard Footer */}
       <div className="modern-github-footer">
+        <button
+          onClick={toggleShowMore}
+          className="dashboard-toggle"
+        >
+          {showMore ? '↑ Show less' : '↓ Show more'}
+        </button>
         <a
           href={`https://github.com/${username}`}
           className="dashboard-link"

@@ -7,7 +7,10 @@ import Icons from "./Icons";
 import ModernGitHub from "./ModernGitHub";
 import YelpLogo from "./YelpLogo";
 
-const ModernMain = () => (
+const ModernMain = () => {
+  const [isGitHubExpanded, setIsGitHubExpanded] = React.useState(false);
+
+  return (
   <div className="modern-animate">
     {/* Hero Section */}
     <section className="modern-section modern-section--hero">
@@ -39,10 +42,19 @@ const ModernMain = () => (
     </section>
 
     {/* Two Column Section */}
-    <section className="modern-section">
+    <section
+      className={`modern-section github-section ${isGitHubExpanded ? 'github-expanded' : ''}`}
+      style={{
+        paddingTop: isGitHubExpanded ? '1rem' : '3rem',
+        transition: 'padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      }}
+    >
       <div className="modern-container">
         <div className="modern-window">
-          <ModernGitHub username="taylorwilsdon" />
+          <ModernGitHub
+            username="taylorwilsdon"
+            onExpansionChange={setIsGitHubExpanded}
+          />
         </div>
       </div>
     </section>
@@ -82,7 +94,7 @@ const ModernMain = () => (
               className="card-link"
               style={{ marginTop: "auto" }}
             >
-              How I spend my night
+              How I spend my nights
             </Link>
           </div>
 
@@ -114,6 +126,7 @@ const ModernMain = () => (
       </div>
     </section>
   </div>
-);
+  );
+};
 
 export default ModernMain;
