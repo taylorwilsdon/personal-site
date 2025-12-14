@@ -16,6 +16,9 @@ import { styled } from "@mui/material/styles";
 import { Octokit } from "@octokit/rest";
 import React, { useState, useEffect } from "react";
 
+const CACHE_KEY = "ghRepoStatsV1";
+const CACHE_TTL_MS = 1000 * 60 * 60 * 6; // 6 hours
+
 const COLORS = {
   bg: '#f7f7f4',
   bgSection: '#f3f2ef',
@@ -63,26 +66,97 @@ const StatChip = styled(Chip)({
   "& .MuiChip-label": { padding: "0 10px", fontSize: "0.8rem" },
 });
 
+const repoKey = (repo) => `${repo.owner}/${repo.name}`;
+
+const readCache = () => {
+  if (typeof window === "undefined") return null;
+  try {
+    const cached = window.localStorage.getItem(CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+};
+
+const writeCache = (data) => {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(
+      CACHE_KEY,
+      JSON.stringify({ data, expiresAt: Date.now() + CACHE_TTL_MS })
+    );
+  } catch {
+    // Swallow cache write errors (private mode, quota, etc.)
+  }
+};
+
+const cacheIsFresh = (cache, repos) => {
+  if (!cache?.data || cache.expiresAt < Date.now()) return false;
+  return repos.every((repo) => cache.data[repoKey(repo)]);
+};
+
+const fetchRepoStats = async (octokit, repo) => {
+  const key = repoKey(repo);
+  try {
+    const { data } = await octokit.rest.repos.get({
+      owner: repo.owner,
+      repo: repo.name,
+    });
+    return { key, stats: { stars: data.stargazers_count, forks: data.forks_count } };
+  } catch (primaryError) {
+    try {
+      const response = await fetch(`https://ungh.cc/repos/${repo.owner}/${repo.name}`);
+      if (!response.ok) throw new Error(`ungh.cc response ${response.status}`);
+      const fallback = await response.json();
+      return {
+        key,
+        stats: {
+          stars: fallback?.repo?.stars ?? 0,
+          forks: fallback?.repo?.forks ?? 0,
+        },
+      };
+    } catch (fallbackError) {
+      console.warn(`Failed to load stats for ${key}`, { primaryError, fallbackError });
+      return { key, stats: { stars: 0, forks: 0 } };
+    }
+  }
+};
+
 const useRepoStats = (repos = []) => {
   const [repoStats, setRepoStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!repos.length) {
+      setLoading(false);
+      return;
+    }
+
+    const cached = readCache();
+    if (cacheIsFresh(cached, repos)) {
+      setRepoStats(cached.data);
+      setLoading(false);
+      return;
+    }
+
+    if (cached?.data) {
+      setRepoStats(cached.data);
+    }
+
     const octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_TOKEN });
     const fetchStats = async () => {
       try {
         const statsArray = await Promise.all(
-          repos.map(async (repo) => {
-            try {
-              const { data } = await octokit.rest.repos.get({ owner: repo.owner, repo: repo.name });
-              return { key: `${repo.owner}/${repo.name}`, stats: { stars: data.stargazers_count, forks: data.forks_count } };
-            } catch {
-              return { key: `${repo.owner}/${repo.name}`, stats: { stars: 0, forks: 0 } };
-            }
-          })
+          repos.map((repo) => fetchRepoStats(octokit, repo))
         );
-        setRepoStats(statsArray.reduce((acc, { key, stats }) => ({ ...acc, [key]: stats }), {}));
+        const nextStats = statsArray.reduce(
+          (acc, { key, stats }) => ({ ...acc, [key]: stats }),
+          {}
+        );
+        setRepoStats(nextStats);
+        writeCache(nextStats);
+        setError(null);
       } catch (err) {
         setError(err);
       } finally {

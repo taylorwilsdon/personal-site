@@ -116,7 +116,13 @@ const ModernGitHub = ({ username, onExpansionChange }) => {
 
     switch (event.type) {
       case 'PushEvent':
-        const commits = event.payload?.commits?.length || 0;
+        const commits =
+          Math.max(
+            1,
+            event.payload?.size ?? 0,
+            event.payload?.distinct_size ?? 0,
+            event.payload?.commits?.length ?? 0
+          );
         return `Pushed ${commits} commit${commits !== 1 ? 's' : ''} to ${repo}`;
       case 'PullRequestEvent':
         return `${action === 'merged' ? 'Merged' : action === 'opened' ? 'Opened' : 'Updated'} PR #${event.payload?.number} in ${repo}`;
