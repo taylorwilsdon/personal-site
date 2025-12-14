@@ -1,15 +1,5 @@
 import { styled } from '@mui/system';
 
-// Cursor-inspired color palette
-const CURSOR_COLORS = {
-  bg: '#f7f7f4',
-  bgSection: '#f3f2ef',
-  bgCard: '#ecebe9',
-  text: '#26251e',
-  textMuted: '#6f6f6a',
-  accent: '#f45a19',
-  border: '#e8e7e4',
-};
 
 // Base container components
 export const MainContainer = styled('div')(({ theme }) => ({
