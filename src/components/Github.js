@@ -1,482 +1,133 @@
-import {
-  faCodeBranch,
-  faCodePullRequest,
-  faCircleExclamation,
-  faCodeFork,
-  faComment,
-  faPlus,
-  faClock,
-  faTag,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  CardContent,
-  Chip,
-  CircularProgress,
-  Box,
-  Button,
-  Divider,
-  Stack,
-} from "@mui/material";
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { formatDistanceToNow } from "date-fns";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import SAMPLE_FEED from "../config/sample_gh_feed.json";
 
-import {
-  GitHubCard,
-  GitHubLink,
-  GitHubText,
-  FlexBox,
-  GitHubCounter,
-  ActivityContent,
-  ActivityAvatar,
-  ActivityIcon,
-  TimeIcon,
-  ActivityDetails,
-  CHIP_COLORS,
-  REPO_CHIP_STYLE,
-  GITHUB_STYLES,
-} from "./Layout";
-
-const EVENT_ICONS = {
-  PushEvent: faCodeBranch,
-  PullRequestEvent: faCodePullRequest,
-  IssuesEvent: faCircleExclamation,
-  ForkEvent: faCodeFork,
-  IssueCommentEvent: faComment,
-  CommentEvent: faComment,
-  CreateEvent: faPlus,
-  ReleaseEvent: faTag,
+const ICONS = {
+  PushEvent: '→',
+  PullRequestEvent: '⤴',
+  IssuesEvent: '○',
+  ForkEvent: '⑂',
+  CreateEvent: '+',
+  ReleaseEvent: '◆',
+  PullRequestReviewEvent: '✓',
 };
 
-const EVENT_TYPES = {
+const VERBS = {
   PushEvent: "pushed to",
-  PullRequestEvent: "opened a pr in",
-  IssuesEvent: "opened an issue in",
+  PullRequestEvent: "opened pr in",
+  IssuesEvent: "opened issue in",
   ForkEvent: "forked",
-  IssueCommentEvent: "commented on an issue in",
-  CommentEvent: "commented on",
   CreateEvent: "created",
-  PullRequestReviewEvent: "reviewed pr",
   ReleaseEvent: "released",
+  PullRequestReviewEvent: "reviewed",
 };
 
-// More concise, visually appealing labels for chips
-const CHIP_EVENT_TYPES = {
-  PushEvent: "Push",
-  PullRequestEvent: "PR",
-  IssuesEvent: "Issue",
-  ForkEvent: "Fork",
-  IssueCommentEvent: "Comment",
-  CommentEvent: "Comment",
-  CreateEvent: "New",
-  PullRequestReviewEvent: "Review",
-  ReleaseEvent: "Release",
+const getPRDetails = (event) => {
+  if (event.type !== "PullRequestEvent" || !event.payload?.pull_request) return null;
+  const pr = event.payload.pull_request;
+  return { title: pr.title, number: pr.number, additions: pr.additions, deletions: pr.deletions };
 };
-
 
 const GitHubActivityLog = ({ username }) => {
   const [activityLog, setActivityLog] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const shortenUsername = useCallback((login) => {
-    return isMobile ? login.split('wilsdon')[0] : login;
-  }, [isMobile]);
 
   const fetchActivityLog = useCallback(async () => {
     try {
-      const response = await fetch(
-        `https://api.github.com/users/${username}/events`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch activity log");
-      }
-      const data = await response.json();
-      setActivityLog(data);
-    } catch (err) {
-      console.warn(
-        "Failed to fetch GitHub activity, using sample data:",
-        err.message
-      );
+      const response = await fetch(`https://api.github.com/users/${username}/events`);
+      if (!response.ok) throw new Error("Failed to fetch");
+      setActivityLog(await response.json());
+    } catch {
       setActivityLog(SAMPLE_FEED);
     } finally {
       setLoading(false);
     }
   }, [username]);
 
-  useEffect(() => {
-    fetchActivityLog();
-  }, [fetchActivityLog]);
+  useEffect(() => { fetchActivityLog(); }, [fetchActivityLog]);
 
-  const formatEventType = useCallback((type) => EVENT_TYPES[type] || type, []);
-
-  const groupConsecutiveEvents = useCallback((events) => {
+  const events = useMemo(() => {
+    const filtered = activityLog.filter(e => 
+      !["IssueCommentEvent", "DeleteEvent", "WatchEvent"].includes(e.type)
+    );
     const grouped = [];
-    let currentGroup = null;
-
-    events.forEach((event) => {
-      if (event.type === "IssueCommentEvent") return;
-
-      if (
-        currentGroup &&
-        currentGroup.type === event.type &&
-        currentGroup.repo.name === event.repo.name
-      ) {
-        currentGroup.count++;
-        // Keep the most recent timestamp
-        currentGroup.created_at = event.created_at;
+    let current = null;
+    filtered.forEach(event => {
+      if (current?.type === event.type && current?.repo.name === event.repo.name && event.type !== "PullRequestEvent") {
+        current.count++;
       } else {
-        if (currentGroup) {
-          grouped.push(currentGroup);
-        }
-        currentGroup = {
-          ...event,
-          count: 1,
-        };
+        if (current) grouped.push(current);
+        current = { ...event, count: 1 };
       }
     });
-
-    if (currentGroup) {
-      grouped.push(currentGroup);
-    }
-
-    return grouped;
-  }, []);
-
-  const displayedEvents = useMemo(() => {
-    const filteredEvents = activityLog.filter(
-      (event) =>
-        event.type !== "IssueCommentEvent" &&
-        event.type !== "DeleteEvent" &&
-        event.type !== "WatchEvent"
-    );
-    const groupedEvents = groupConsecutiveEvents(filteredEvents);
-    return showAll ? groupedEvents : groupedEvents.slice(0, 8);
-  }, [showAll, activityLog, groupConsecutiveEvents]);
+    if (current) grouped.push(current);
+    return grouped.slice(0, 6);
+  }, [activityLog]);
 
   if (loading) {
     return (
-      <FlexBox justifyContent="center" mt={4}>
-        <CircularProgress />
-      </FlexBox>
+      <div className="gh-dashboard">
+        <div className="gh-header">
+          <span className="gh-title">⚡ recent activity</span>
+          <span className="gh-status gh-status--loading">loading...</span>
+        </div>
+        <div className="gh-loading">
+          {[...Array(3)].map((_, i) => <div key={i} className="gh-skeleton" />)}
+        </div>
+      </div>
     );
   }
+
   return (
-    <div>
-      <GitHubText
-        variant="header"
-        colors={GITHUB_STYLES}
-        sx={{
-          mb: 2,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <ActivityIcon icon={faCodeBranch} colors={GITHUB_STYLES} />
-        {" "} {" "}git blame
-      </GitHubText>
-
-      <Divider sx={{ mb: 2 }} />
-
-      <Stack spacing={{ xs: 0.25, sm: 0.5 }}>
-        {displayedEvents.map((event) => (
-          <Box
-            key={event.id}
-            sx={{ display: "flex", gap: 1, alignItems: "stretch" }}
-          >
-            <GitHubCard
-              colors={GITHUB_STYLES}
-              sx={{
-                flex: 1,
-                transition: "all 0.2s ease-in-out",
-              }}
-            >
-              <CardContent
-                sx={{
-                  p: 1,
-                  "&:last-child": { pb: 1 },
-                }}
-              >
-                <ActivityContent>
-                  <ActivityAvatar
-                    src={event.actor.avatar_url}
-                    alt={event.actor.login}
-                    colors={GITHUB_STYLES}
-                  />
-                  <ActivityDetails>
-                    <Stack spacing={{ xs: 0.25, sm: 0.5 }}>
-                      <FlexBox
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          minWidth: 0,
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            minWidth: 0,
-                            flex: 1,
-                          }}
-                        >
-                          <GitHubLink
-                            href={`https://github.com/${event.actor.login}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            colors={GITHUB_STYLES}
-                            sx={{
-                              fontWeight: 600,
-                              marginRight: "4px",
-                              flexShrink: 0,
-                            }}
-                          >
-                            {shortenUsername(event.actor.login)}
-                          </GitHubLink>
-                          <GitHubLink
-                            href={`https://github.com/${event.repo.name}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            colors={GITHUB_STYLES}
-                            sx={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              minWidth: 0,
-                            }}
-                          >
-                          {formatEventType(event.type)} {event.repo.name.split('/')[1]}
-                          </GitHubLink>
-                        </Box>
-                        {event.count > 1 && (
-                          <GitHubCounter
-                            colors={GITHUB_STYLES}
-                            sx={{
-                              marginLeft: "4px",
-                              marginRight: "8px",
-                              flexShrink: 0,
-                            }}
-                          >
-                            {event.count}×
-                          </GitHubCounter>
-                        )}
-                      </FlexBox>
-                      <FlexBox
-                        sx={{
-                          flexWrap: "nowrap",
-                          minWidth: 0,
-                          alignItems: "center",
-                          gap: "8px",
-                        }}
-                      >
-                        {/* Timestamp */}
-                        <GitHubText
-                          variant="small"
-                          colors={GITHUB_STYLES}
-                          component={FlexBox}
-                          sx={{
-                            whiteSpace: "nowrap",
-                            color: GITHUB_STYLES.text.muted,
-                            alignItems: "left",
-                            flexShrink: 0,
-                          }}
-                        >
-                          <TimeIcon icon={faClock} colors={GITHUB_STYLES} />
-                          {formatDistanceToNow(new Date(event.created_at), {
-                            addSuffix: true,
-                          })}
-                        </GitHubText>
-
-                        {/* Event Type Chip */}
-                        <Chip
-                          label={CHIP_EVENT_TYPES[event.type] || event.type}
-                          size="small"
-                          icon={
-                            <FontAwesomeIcon
-                              icon={EVENT_ICONS[event.type]}
-                              style={{
-                                fontSize: "0.65rem",
-                                color:
-                                  CHIP_COLORS[event.type]?.text ||
-                                  GITHUB_STYLES.text.secondary,
-                              }}
-                            />
-                          }
-                          sx={{
-                            height: "22px",
-                            fontSize: "10px",
-                            backgroundColor:
-                              CHIP_COLORS[event.type]?.bg ||
-                              GITHUB_STYLES.background.hover,
-                            color:
-                              CHIP_COLORS[event.type]?.text ||
-                              GITHUB_STYLES.text.secondary,
-                            border: `1px solid ${
-                              CHIP_COLORS[event.type]?.border ||
-                              GITHUB_STYLES.border
-                            }`,
-                            borderRadius: "4px",
-                            fontWeight: 500,
-                            "& .MuiChip-label": {
-                              padding: "0 8px 0 4px",
-                              lineHeight: "20px",
-                            },
-                            "& .MuiChip-icon": {
-                              marginLeft: "6px",
-                              marginRight: "2px",
-                            },
-                            transition: "transform 0.2s ease-in-out",
-                            "&:hover": {
-                              transform: "scale(1.05)",
-                            },
-                            flexShrink: 0,
-                          }}
-                        />
-
-                        {/* Repository Chip */}
-                        <GitHubLink
-                          href={`https://github.com/${event.repo.name}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{
-                            textDecoration: "none",
-                            display: "inline-block",
-                            flexShrink: 0,
-                          }}
-                        >
-                          <Chip
-                            label={event.repo.name.split("/")[1]}
-                            size="small"
-                            icon={
-                              <FontAwesomeIcon
-                                icon={faCodeBranch}
-                                style={{
-                                  fontSize: "0.65rem",
-                                  color: REPO_CHIP_STYLE.text,
-                                }}
-                              />
-                            }
-                            sx={{
-                              height: "22px",
-                              fontSize: "10px",
-                              backgroundColor: REPO_CHIP_STYLE.bg,
-                              color: REPO_CHIP_STYLE.text,
-                              border: `1px solid ${REPO_CHIP_STYLE.border}`,
-                              borderRadius: "4px",
-                              fontWeight: 500,
-                              "& .MuiChip-label": {
-                                padding: "0 8px 0 4px",
-                                lineHeight: "20px",
-                                maxWidth: "160px",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                              },
-                              "& .MuiChip-icon": {
-                                marginLeft: "6px",
-                                marginRight: "2px",
-                              },
-                              transition: "all 0.2s ease-in-out",
-                              "&:hover": {
-                                backgroundColor: REPO_CHIP_STYLE.hoverBg,
-                                transform: "scale(1.05)",
-                              },
-                            }}
-                          />
-                        </GitHubLink>
-                      </FlexBox>
-                    </Stack>
-                  </ActivityDetails>
-                </ActivityContent>
-              </CardContent>
-            </GitHubCard>
-            <GitHubCard
-              variant="icon"
-              colors={GITHUB_STYLES}
-              sx={{
-                minHeight: "100%",
-                width: "40px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                p: 0,
-                transition: "all 0.2s ease-in-out",
-                border: "none",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "32px",
-                  height: "32px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "50%",
-                  backgroundColor: GITHUB_STYLES.background.hover,
-                }}
-              >
-                <ActivityIcon
-                  icon={EVENT_ICONS[event.type]}
-                  style={{
-                    fontSize: "1rem",
-                    color: GITHUB_STYLES.text.muted,
-                  }}
-                  colors={GITHUB_STYLES}
-                />
-              </Box>
-            </GitHubCard>
-          </Box>
-        ))}
-      </Stack>
-
-      {activityLog.length > 8 && (
-        <FlexBox justifyContent="center" mt={2} mb={1}>
-          <Button
-            variant="outlined"
-            size="small"
-            startIcon={
-              showAll ? null : (
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  style={{ fontSize: "0.75rem" }}
-                />
-              )
-            }
-            onClick={() => setShowAll((prev) => !prev)}
-            sx={{
-              ...GITHUB_STYLES.button.primary,
-              textTransform: "uppercase",
-              fontWeight: 400,
-              "& .MuiButton-startIcon": {
-                marginRight: "4px",
-                "& svg": {
-                  fontSize: "0.65rem"
-                }
-              },
-              "&:hover": {
-                borderColor: GITHUB_STYLES.hover,
-                background: GITHUB_STYLES.button.primary.hoverBackground,
-                boxShadow: GITHUB_STYLES.button.primary.hoverShadow,
-                transform: "translateY(-1px)",
-              },
-              "&:active": {
-                background: GITHUB_STYLES.button.primary.activeBackground,
-                boxShadow: GITHUB_STYLES.button.primary.activeShadow,
-                transform: "translateY(0)",
-              },
-            }}
-          >
-            {showAll ? "Show fewer activities" : "Show more activities"}
-          </Button>
-        </FlexBox>
-      )}
+    <div className="gh-dashboard">
+      <div className="gh-header">
+        <span className="gh-title">⚡ recent activity</span>
+        <span className="gh-status"><span className="gh-dot" /> live</span>
       </div>
+      
+      <div className="gh-feed">
+        {events.map((event, i) => {
+          const pr = getPRDetails(event);
+          return (
+            <a
+              key={event.id}
+              href={`https://github.com/${event.repo.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gh-item"
+              style={{ animationDelay: `${i * 0.08}s` }}
+            >
+              <span className="gh-icon">{ICONS[event.type] || '•'}</span>
+              <span className="gh-body">
+                <span className="gh-action">
+                  <span className="gh-verb">{VERBS[event.type]}</span>
+                  <span className="gh-repo">{event.repo.name.split('/')[1]}</span>
+                  {event.count > 1 && <span className="gh-count">{event.count}×</span>}
+                </span>
+                {pr && (
+                  <span className="gh-pr">
+                    <span className="gh-pr-title">{pr.title}</span>
+                    <span className="gh-pr-stats">
+                      #{pr.number}
+                      {pr.additions > 0 && <span className="gh-add">+{pr.additions}</span>}
+                      {pr.deletions > 0 && <span className="gh-del">−{pr.deletions}</span>}
+                    </span>
+                  </span>
+                )}
+                <span className="gh-time">{formatDistanceToNow(new Date(event.created_at), { addSuffix: true })}</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+
+      <div className="gh-footer">
+        <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer" className="gh-link">
+          view all on github →
+        </a>
+      </div>
+    </div>
   );
 };
 

@@ -1,70 +1,53 @@
-/* Navigation Styles */
+/* Navigation - Cursor-inspired minimal */
 .navBar {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-1) 0;
-  position: relative;
-  font-size: var(--font-size-md);
+  padding: var(--space-4) 0;
 }
 
 .navBar a {
-  color: var(--color-neutral-100);
+  color: var(--text-muted);
   text-decoration: none;
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-md);
-  position: relative;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
   font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
   transition: all var(--transition-normal);
+}
+
+.navBar a:hover {
+  color: var(--text);
+  background: var(--bg-card);
+}
+
+.navBar a.active {
+  color: var(--text);
+  background: var(--bg-card);
 }
 
 /* Mobile Navigation */
 @media screen and (max-width: 768px) {
   .navBar {
-    gap: var(--space-4);
-    font-size: var(--font-size-base);
+    gap: var(--space-1);
     flex-wrap: wrap;
+  }
+
+  .navBar a {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
   }
 }
 
 @media screen and (max-width: 480px) {
   .navBar {
-    gap: var(--space-2);
-    font-size: var(--font-size-sm);
-    padding: var(--space-2) 0;
+    gap: var(--space-1);
+    padding: var(--space-3) 0;
   }
 
   .navBar a {
     padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
   }
-}
-
-/* Animation for Navigation Items */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.navBar a {
-  animation: slideIn 0.3s ease-out forwards;
-}
-
-.navBar a:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.navBar a:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.navBar a:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.navBar a:nth-child(4) {
-  animation-delay: 0.4s;
 }

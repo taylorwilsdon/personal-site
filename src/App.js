@@ -1,16 +1,16 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 import "./assets/css/main.css";
+import "./assets/css/modern-layout.css";
 
-// Lazy load components
 const BlogPage = lazy(() => import("./components/BlogPage"));
-const Main = lazy(() => import("./components/Main"));
+const ModernMain = lazy(() => import("./components/ModernMain"));
 const MarkdownPage = lazy(() => import("./components/MarkdownPage"));
 const OpenSourcePage = lazy(() => import("./components/OpenSourcePage"));
+const PhotosPage = lazy(() => import("./components/PhotosPage"));
 
-// Loading fallback component
 const LoadingFallback = () => (
-  <div style={{ textAlign: 'center', padding: '2em' }}>
+  <div style={{ textAlign: 'center', padding: '3em', color: '#6f6f6a' }}>
     Loading...
   </div>
 );
@@ -26,15 +26,15 @@ const App = () => {
               <Link to="/">Home</Link>
               <Link to="/opensource">Open Source</Link>
               <Link to="/blog">Writing</Link>
-              <a href="https://instagram.com/taylorwilsdon" target="_blank" rel="noopener noreferrer">Photos</a>
+              <Link to="/photos">Photos</Link>
             </nav>
           </header>
-          <br />
           <Suspense fallback={<LoadingFallback />}>
             <Routes>
-              <Route path="/" element={<Main />} />
+              <Route path="/" element={<ModernMain />} />
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/opensource" element={<OpenSourcePage />} />
+              <Route path="/photos" element={<PhotosPage />} />
               <Route path="/read/:filename" element={<MarkdownPage />} />
             </Routes>
           </Suspense>

@@ -1,6 +1,6 @@
 import ForkRightIcon from "@mui/icons-material/ForkRight";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import StarIcon from "@mui/icons-material/Star"; // Import filled StarIcon
+import StarIcon from "@mui/icons-material/Star";
 import {
   Card,
   CardActionArea,
@@ -16,179 +16,105 @@ import { styled } from "@mui/material/styles";
 import { Octokit } from "@octokit/rest";
 import React, { useState, useEffect } from "react";
 
-import { GITHUB_COLORS } from "../config/repositories";
+const COLORS = {
+  bg: '#f7f7f4',
+  bgSection: '#f3f2ef',
+  bgCard: '#ecebe9',
+  text: '#26251e',
+  textMuted: '#6f6f6a',
+  accent: '#f45a19',
+  border: '#e8e7e4',
+};
 
-// Utility: Format numbers nicely
 const formatNumber = (num) => {
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}m`;
-  } else if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}k`;
-  }
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}m`;
+  if (num >= 1000) return `${(num / 1000).toFixed(1)}k`;
   return num.toString();
 };
 
-
-// Styled components
 const StyledCard = styled(Card)({
-  position: "relative",
   transition: "all 0.2s ease",
-  background: GITHUB_COLORS.background.card,
-  border: `1px solid ${GITHUB_COLORS.border}`,
-  borderRadius: "6px",
+  background: "white",
+  border: `1px solid ${COLORS.border}`,
+  borderRadius: "16px",
   height: "100%",
+  boxShadow: "0 2px 8px rgba(0,0,0,.04)",
   "&:hover": {
     transform: "translateY(-2px)",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-    "& .repo-name": {
-      color: GITHUB_COLORS.hover,
-    },
+    boxShadow: "0 10px 30px rgba(0,0,0,.1)",
+    "& .repo-name": { color: COLORS.accent },
   },
 });
 
 const RepoStats = styled(Box)({
   display: "flex",
-  justifyContent: "center", // Center the chips
-  gap: "10px", // Slightly increase gap
-  marginTop: "8px", // Add a bit more top margin
-  // Target icons within specific chips
-  "& .MuiChip-root:nth-of-type(1) .MuiChip-icon": { // Target icon in the first chip (Star)
-    color: "#FFD700", // Gold
-  },
-  "& .MuiChip-root:nth-of-type(2) .MuiChip-icon": { // Target icon in the second chip (Fork)
-    color: "#2da44e", // GitHub Green
-  },
+  justifyContent: "center",
+  gap: "10px",
+  marginTop: "12px",
 });
 
 const StatChip = styled(Chip)({
-  background: GITHUB_COLORS.background.chip,
-  border: `1px solid ${GITHUB_COLORS.border}`,
-  borderRadius: "6px", // Less round
-  color: GITHUB_COLORS.text.secondary,
-  height: "24px", // Slightly taller
-  "& .MuiChip-icon": {
-    color: GITHUB_COLORS.text.secondary, // Default icon color
-    fontSize: "16px", // Bigger icon
-    marginLeft: "6px", // Adjust icon spacing
-    marginRight: "-4px", // Adjust icon spacing
-  },
-  // General icon color removed, specific colors handled in RepoStats
-  "& .MuiChip-label": {
-    padding: "0 10px", // Adjust label padding
-    fontSize: "0.8rem", // Slightly larger text
-  },
+  background: COLORS.bgSection,
+  border: `1px solid ${COLORS.border}`,
+  borderRadius: "9999px",
+  color: COLORS.textMuted,
+  height: "26px",
+  "& .MuiChip-icon": { fontSize: "14px", marginLeft: "8px", marginRight: "-2px" },
+  "& .MuiChip-label": { padding: "0 10px", fontSize: "0.8rem" },
 });
 
-// Custom hook to fetch repository statistics concurrently
 const useRepoStats = (repos = []) => {
   const [repoStats, setRepoStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const octokit = new Octokit({
-      auth: process.env.REACT_APP_GITHUB_TOKEN
-    });
+    const octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_TOKEN });
     const fetchStats = async () => {
       try {
         const statsArray = await Promise.all(
           repos.map(async (repo) => {
             try {
-              const { data } = await octokit.rest.repos.get({
-                owner: repo.owner,
-                repo: repo.name,
-              });
-              return {
-                key: `${repo.owner}/${repo.name}`,
-                stats: {
-                  stars: data.stargazers_count,
-                  forks: data.forks_count,
-                },
-              };
-            } catch (err) {
-              console.error(
-                `Error fetching stats for ${repo.owner}/${repo.name}:`,
-                err
-              );
-              return {
-                key: `${repo.owner}/${repo.name}`,
-                stats: { stars: 0, forks: 0 },
-              };
+              const { data } = await octokit.rest.repos.get({ owner: repo.owner, repo: repo.name });
+              return { key: `${repo.owner}/${repo.name}`, stats: { stars: data.stargazers_count, forks: data.forks_count } };
+            } catch {
+              return { key: `${repo.owner}/${repo.name}`, stats: { stars: 0, forks: 0 } };
             }
           })
         );
-        const statsObj = statsArray.reduce((acc, { key, stats }) => {
-          acc[key] = stats;
-          return acc;
-        }, {});
-        setRepoStats(statsObj);
+        setRepoStats(statsArray.reduce((acc, { key, stats }) => ({ ...acc, [key]: stats }), {}));
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchStats();
   }, [repos]);
 
   return { repoStats, loading, error };
 };
 
-// The RepoCard component renders individual repository information.
 const RepoCard = React.memo(({ repo, stats }) => {
   const { Icon } = repo;
   return (
     <StyledCard>
-      <CardActionArea
-        href={`https://github.com/${repo.owner}/${repo.name}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <CardContent sx={{ p: 2 }}>
-          <Box sx={{ display: "flex", alignItems: "left", mb: 1.5 }}>
-            <Icon
-              sx={{
-                color: GITHUB_COLORS.text.secondary,
-                mr: 1,
-                fontSize: "1.3rem",
-              }}
-            />
-            <Typography
-              className="repo-name"
-              sx={{
-                color: GITHUB_COLORS.text.primary,
-                fontSize: "0.9rem",
-                fontWeight: 600,
-              }}
-            >
-              {repo.displayName}
+      <CardActionArea href={`https://github.com/${repo.owner}/${repo.name}`} target="_blank" rel="noopener noreferrer">
+        <CardContent sx={{ p: 2.5 }}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+            <Icon sx={{ color: COLORS.textMuted, mr: 1, fontSize: "1.2rem" }} />
+            <Typography className="repo-name" sx={{ color: COLORS.text, fontSize: "0.95rem", fontWeight: 600, transition: "color 0.2s ease", textTransform: "lowercase" }}>
+              {repo.displayName.toLowerCase()}
             </Typography>
           </Box>
-          <Typography
-            sx={{
-              color: GITHUB_COLORS.text.secondary,
-              fontSize: ".85rem",
-              mb: 2,
-              minHeight: "40px",
-              lineHeight: 1.5,
-            }}
-          >
-            {repo.desc}
+          <Typography sx={{ color: COLORS.textMuted, fontSize: ".85rem", mb: 2, minHeight: "40px", lineHeight: 1.5, textTransform: "lowercase" }}>
+            {repo.desc.toLowerCase()}
           </Typography>
           <RepoStats>
             {stats && (
               <>
-                <StatChip
-                  icon={<StarIcon />} // Use filled StarIcon, size controlled by StatChip style
-                  label={formatNumber(stats.stars)}
-                  size="small"
-                />
-                <StatChip
-                  icon={<ForkRightIcon sx={{ fontSize: "14px" }} />}
-                  label={formatNumber(stats.forks)}
-                  size="small"
-                />
+                <StatChip icon={<StarIcon sx={{ color: "#FFD700" }} />} label={formatNumber(stats.stars)} size="small" />
+                <StatChip icon={<ForkRightIcon sx={{ color: COLORS.textMuted }} />} label={formatNumber(stats.forks)} size="small" />
               </>
             )}
           </RepoStats>
@@ -198,76 +124,41 @@ const RepoCard = React.memo(({ repo, stats }) => {
   );
 });
 
-// Header Component for the page
 const PageHeader = () => (
-  <Box sx={{ mb: 3 }}>
-    <Typography
-      variant="h4"
-      sx={{
-        color: GITHUB_COLORS.text.primary,
-        fontWeight: 600,
-        fontSize: "1.25rem",
-        mb: 2,
-      }}
-    >
-      <GitHubIcon className="blog-header-icon" />
-      Open Source Contributions
+  <Box sx={{ mb: 4 }}>
+    <Typography variant="h4" sx={{ color: COLORS.text, fontWeight: 600, fontSize: "1.25rem", mb: 1, textTransform: "lowercase" }}>
+      <GitHubIcon sx={{ mr: 1, verticalAlign: "bottom", color: COLORS.textMuted }} />
+      open source contributions
     </Typography>
-    <Typography
-      variant="subtitle1"
-      sx={{ color: GITHUB_COLORS.text.secondary, fontSize: "0.9rem" }}
-    >
-      My projects + a few I believe in, support & contribute to
+    <Typography variant="subtitle1" sx={{ color: COLORS.textMuted, fontSize: "0.9rem", textTransform: "lowercase" }}>
+      my projects + a few i believe in, support & contribute to
     </Typography>
   </Box>
 );
 
-// Repository List Component
 const RepositoryList = ({ repos = [] }) => {
   const { repoStats, loading, error } = useRepoStats(repos);
 
-  if (!repos.length) {
-    return (
-      <Typography color="error" align="left">
-        No repositories configured.
-      </Typography>
-    );
-  }
+  if (!repos.length) return <Typography color="error">no repositories configured.</Typography>;
+  if (loading) return <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}><CircularProgress sx={{ color: COLORS.accent }} /></Box>;
+  if (error) return <Typography color="error">failed to load repository statistics.</Typography>;
 
   return (
-    <>
-      {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "left", mt: 4 }}>
-          <CircularProgress />
-        </Box>
-      ) : error ? (
-        <Typography color="error" align="left">
-          Failed to load repository statistics.
-        </Typography>
-      ) : (
-        <Grid container spacing={2}>
-          {repos.map((repo) => (
-            <Grid item xs={12} sm={6} md={6} key={`${repo.owner}/${repo.name}`}>
-              <RepoCard
-                repo={repo}
-                stats={repoStats[`${repo.owner}/${repo.name}`]}
-              />
-            </Grid>
-          ))}
+    <Grid container spacing={2}>
+      {repos.map((repo) => (
+        <Grid item xs={12} sm={6} key={`${repo.owner}/${repo.name}`}>
+          <RepoCard repo={repo} stats={repoStats[`${repo.owner}/${repo.name}`]} />
         </Grid>
-      )}
-    </>
+      ))}
+    </Grid>
   );
 };
 
-// Main Component
-const OpenSource = ({ repos = [], showHeader = true }) => {
-  return (
-    <Container maxWidth="lg" sx={{ py: 2 }}>
-      {showHeader && <PageHeader />}
-      <RepositoryList repos={repos} />
-    </Container>
-  );
-};
+const OpenSource = ({ repos = [], showHeader = true }) => (
+  <Container maxWidth="lg" sx={{ py: 2 }}>
+    {showHeader && <PageHeader />}
+    <RepositoryList repos={repos} />
+  </Container>
+);
 
 export { OpenSource, PageHeader };

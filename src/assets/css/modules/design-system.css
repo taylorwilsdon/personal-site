@@ -1,106 +1,89 @@
-/* Design System - Foundation */
+/* Design System - Cursor-inspired warm minimal aesthetic */
 
 :root {
-  /* Color System */
-  
-  /* Primary Colors - New modern blue palette */
-  --color-primary-100: #E6F6FF;
-  --color-primary-200: #BAE3FF;
-  --color-primary-300: #7CC4FA;
-  --color-primary-400: #47A3F3;
-  --color-primary-500: #2186EB;
-  --color-primary-600: #0967D2;
-  
-  /* Neutral Colors */
-  --color-neutral-100: #F8FAFC;
-  --color-neutral-200: #E2E8F0;
-  --color-neutral-300: #CBD5E1;
-  --color-neutral-400: #94A3B8;
-  --color-neutral-500: #64748B;
-  --color-neutral-600: #475569;
-  
-  /* Semantic Colors */
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-info: #3B82F6;
+  /* Color System - Warm neutrals */
+  --bg: #f7f7f4;
+  --bg-section: #f3f2ef;
+  --bg-card: #ecebe9;
 
-  /* Typography Scale - Using clamp for fluid typography */
-  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --font-size-sm: clamp(0.875rem, 0.82rem + 0.27vw, 1rem);
-  --font-size-base: clamp(1rem, 0.92rem + 0.39vw, 1.25rem);
-  --font-size-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
-  --font-size-xl: clamp(1.5rem, 1.38rem + 0.6vw, 1.875rem);
-  --font-size-2xl: clamp(1.875rem, 1.7rem + 0.87vw, 2.25rem);
-  --font-size-3xl: clamp(2.25rem, 2rem + 1.25vw, 3rem);
+  --text: #26251e;
+  --text-muted: #6f6f6a;
+
+  --accent: #6b7280;
+
+  /* Legacy mappings for compatibility */
+  --color-primary-100: #f8fafc;
+  --color-primary-200: #e2e8f0;
+  --color-primary-300: #cbd5e1;
+  --color-primary-400: #94a3b8;
+  --color-primary-500: #6b7280;
+  --color-primary-600: #4b5563;
+
+  --color-neutral-100: #f7f7f4;
+  --color-neutral-200: #ecebe9;
+  --color-neutral-300: #d8d7d4;
+  --color-neutral-400: #a3a29e;
+  --color-neutral-500: #6f6f6a;
+  --color-neutral-600: #26251e;
+
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
 
   /* Font Weights */
-  --font-weight-light: 300;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --font-weight-bold: 700;
 
   /* Line Heights */
   --line-height-tight: 1.25;
-  --line-height-snug: 1.375;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
-  --line-height-loose: 2;
 
   /* Spacing Scale */
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 0.75rem;  /* 12px */
-  --space-4: 1rem;     /* 16px */
-  --space-5: 1.5rem;   /* 24px */
-  --space-6: 2rem;     /* 32px */
-  --space-8: 3rem;     /* 48px */
-  --space-10: 4rem;    /* 64px */
-  --space-12: 6rem;    /* 96px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
 
-  /* Border Radius */
-  --radius-sm: 0.125rem;
-  --radius-base: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 1rem;
+  /* Border Radius - Cursor uses pills and soft cards */
+  --radius-sm: 0.25rem;
+  --radius-base: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
   --radius-2xl: 1.5rem;
+  --radius-pill: 9999px;
+  --radius-card: 16px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Shadows - Soft, subtle */
+  --shadow-soft: 0 18px 50px rgba(0,0,0,.12);
+  --shadow-softer: 0 10px 30px rgba(0,0,0,.08);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+  --shadow-base: 0 2px 8px rgba(0,0,0,.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.1);
+  --shadow-xl: 0 18px 50px rgba(0,0,0,.12);
 
   /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Z-index Scale */
-  --z-negative: -1;
-  --z-elevate: 1;
-  --z-sticky: 100;
-  --z-header: 200;
-  --z-dropdown: 300;
-  --z-modal: 400;
-  --z-toast: 500;
-
-  /* Breakpoints */
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
 
   /* Container Max Widths */
   --container-sm: 640px;
   --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-  --container-2xl: 1536px;
+  --container-lg: 960px;
+  --container-xl: 1100px;
 }
-

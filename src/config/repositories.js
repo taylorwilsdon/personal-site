@@ -179,15 +179,3 @@ export const REPOS = [
   },
 ];
 
-export const GITHUB_COLORS = {
-  text: {
-    primary: "#24292e",
-    secondary: "#586069",
-  },
-  border: "#e1e4e8",
-  background: {
-    card: "#ffffff",
-    chip: "#f6f8fa",
-  },
-  hover: "#0366d6",
-};
