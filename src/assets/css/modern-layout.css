@@ -9,16 +9,12 @@ a:hover {
   text-decoration: none;
 }
 
-/* Behold widget sizing */
-.behold-container {
+/* EmbedSocial widget sizing */
+.embedsocial-hashtag {
   width: 90%;
   min-width: 850px;
   max-width: 1000px;
-}
-
-behold-widget {
-  display: block;
-  width: 100%;
+  margin: 0 auto;
 }
 
 /* Grid Layout - Wide container with generous margins */
