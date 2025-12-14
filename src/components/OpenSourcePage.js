@@ -1,4 +1,4 @@
-import { Container, Divider, Typography } from '@mui/material';
+import { Box, Divider, Typography } from '@mui/material';
 
 import { REPOS } from '../config/repositories';
 
@@ -13,13 +13,13 @@ const OpenSourcePage = () => {
   return (
     <MainContainer>
       <MainSection id="main">
-        <Container maxWidth="lg" sx={{ py: 2 }}>
+        <Box sx={{ py: 2, width: '100%' }}>
           <PageHeader />
           <OpenSource repos={projects} showHeader={false} />
           <Divider sx={{ my: 2 }} />
-          <Typography variant="h5" sx={{ mb: 1 }}>Tools</Typography>
+          <Typography variant="h5" sx={{ mb: 1, textTransform: 'lowercase', fontWeight: 600, fontSize: '1.1rem' }}>tools</Typography>
           <OpenSource repos={tools} showHeader={false} />
-        </Container>
+        </Box>
         <Icons />
       </MainSection>
     </MainContainer>

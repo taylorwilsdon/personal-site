@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 
 import { Blog, PageHeader } from './Blog';
@@ -8,11 +8,11 @@ import { MainContainer, MainSection } from './Layout';
 const BlogPage = () => {
   return (
     <MainContainer>
-      <MainSection id="main" variant="blog">
-        <Container maxWidth="lg" sx={{ py: 2 }}>
+      <MainSection id="main">
+        <Box sx={{ py: 2, width: '100%' }}>
           <PageHeader />
           <Blog showHeader={false} />
-        </Container>
+        </Box>
         <Icons />
       </MainSection>
     </MainContainer>

@@ -2,7 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, Link, Typography, Box, Avatar } from '@mui/material';
 import { styled } from '@mui/system';
 
-import { GITHUB_COLORS } from '../config/repositories';
+// Cursor-inspired color palette
+const CURSOR_COLORS = {
+  bg: '#f7f7f4',
+  bgSection: '#f3f2ef',
+  bgCard: '#ecebe9',
+  text: '#26251e',
+  textMuted: '#6f6f6a',
+  accent: '#f45a19',
+  border: '#e8e7e4',
+};
 
 // Base container components
 export const MainContainer = styled('div')(({ theme }) => ({
@@ -19,7 +28,7 @@ export const MainSection = styled('section')(({ theme, variant }) => ({
   margin: '0 auto',
   ...(variant === 'blog' && {
     backgroundColor: 'white',
-    boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)',
+    boxShadow: '0 10px 30px rgba(0,0,0,.08)',
     width: '100%',
   }),
   [theme.breakpoints.down('sm')]: {
@@ -30,18 +39,18 @@ export const MainSection = styled('section')(({ theme, variant }) => ({
   },
 }));
 
-// Shared GitHub styled components
+// GitHub styled components with Cursor palette
 export const GitHubCard = styled(Card)(({ theme, colors, variant }) => ({
   position: 'relative',
   transition: 'all 0.2s ease',
-  background: colors?.background?.card || '#ffffff',
-  border: `1px solid ${colors?.border || '#e1e4e8'}`,
-  borderRadius: '6px',
+  background: 'white',
+  border: `1px solid ${CURSOR_COLORS.border}`,
+  borderRadius: '12px',
   marginBottom: '8px',
   boxShadow: 'none',
   '&:hover': {
-    borderColor: '#c6cbd1',
-    backgroundColor: colors?.background?.hover || '#f6f8fa',
+    borderColor: CURSOR_COLORS.textMuted,
+    backgroundColor: CURSOR_COLORS.bgSection,
   },
   ...(variant === 'icon' && {
     [theme.breakpoints.down('sm')]: {
@@ -53,10 +62,10 @@ export const GitHubCard = styled(Card)(({ theme, colors, variant }) => ({
 export const GitHubLink = styled(Link)(({ theme, variant, colors }) => ({
   textDecoration: 'none',
   fontSize: variant === 'small' ? '0.75rem' : '0.875rem',
-  color: variant === 'muted' ? colors?.text?.muted : colors?.text?.primary,
+  color: variant === 'muted' ? CURSOR_COLORS.textMuted : CURSOR_COLORS.text,
   fontWeight: 500,
   '&:hover': {
-    color: colors?.hover,
+    color: CURSOR_COLORS.accent,
   },
   ...(variant === 'truncate' && {
     overflow: 'hidden',
@@ -70,7 +79,7 @@ export const GitHubLink = styled(Link)(({ theme, variant, colors }) => ({
 
 export const GitHubText = styled(Typography)(({ theme, variant, colors }) => ({
   fontSize: variant === 'small' ? '0.75rem' : '0.875rem',
-  color: variant === 'muted' ? colors?.text?.muted : colors?.text?.primary,
+  color: variant === 'muted' ? CURSOR_COLORS.textMuted : CURSOR_COLORS.text,
   ...(variant === 'header' && {
     fontSize: '1rem',
     fontWeight: 600,
@@ -86,13 +95,13 @@ export const GitHubCounter = styled(Box)(({ theme, colors }) => ({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: colors?.text?.secondary,
+  color: CURSOR_COLORS.textMuted,
   fontSize: '0.75rem',
-  backgroundColor: colors?.background?.chip,
+  backgroundColor: CURSOR_COLORS.bgCard,
   padding: '0 6px',
   height: '20px',
-  borderRadius: '5px',
-  border: `1px solid ${colors?.border}`,
+  borderRadius: '10px',
+  border: `1px solid ${CURSOR_COLORS.border}`,
   marginLeft: '8px',
   fontWeight: 600,
 }));
@@ -112,7 +121,7 @@ export const ActivityAvatar = styled(Avatar, {
   width: 32,
   height: 32,
   marginRight: 10,
-  border: `1px solid ${colors?.border}`,
+  border: `1px solid ${CURSOR_COLORS.border}`,
   flexShrink: 0,
   [theme.breakpoints.down('sm')]: {
     display: 'none',
@@ -125,7 +134,7 @@ export const ActivityIcon = styled(FontAwesomeIcon, {
   width: 16,
   height: 16,
   margin: 4,
-  color: colors?.text?.secondary,
+  color: CURSOR_COLORS.textMuted,
   flexShrink: 0,
 }));
 
@@ -135,7 +144,7 @@ export const TimeIcon = styled(FontAwesomeIcon, {
   width: 12,
   height: 12,
   marginRight: 4,
-  color: colors?.text?.muted,
+  color: CURSOR_COLORS.textMuted,
 }));
 
 export const ActivityDetails = styled(FlexBox)({
@@ -143,108 +152,68 @@ export const ActivityDetails = styled(FlexBox)({
   minWidth: 0,
 });
 
-// GitHub style constants
+// Chip colors with Cursor-inspired palette
 export const CHIP_COLORS = {
-  PushEvent: {
-    bg: "#e1f5fe",
-    text: "#0277bd",
-    border: "#b3e5fc",
-  },
-  PullRequestEvent: {
-    bg: "#e3f2fd",
-    text: "#1565c0",
-    border: "#bbdefb",
-  },
-  IssuesEvent: {
-    bg: "#e8eaf6",
-    text: "#3949ab",
-    border: "#c5cae9",
-  },
-  ForkEvent: {
-    bg: "#e0f7fa",
-    text: "#00838f",
-    border: "#b2ebf2",
-  },
-  IssueCommentEvent: {
-    bg: "#e1f5fe",
-    text: "#0288d1",
-    border: "#b3e5fc",
-  },
-  CommentEvent: {
-    bg: "#e1f5fe",
-    text: "#0288d1",
-    border: "#b3e5fc",
-  },
-  CreateEvent: {
-    bg: "#e8f5e9",
-    text: "#2e7d32",
-    border: "#c8e6c9",
-  },
-  PullRequestReviewEvent: {
-    bg: "#e3f2fd",
-    text: "#1565c0",
-    border: "#bbdefb",
-  },
-  ReleaseEvent: {
-    bg: "#eceff1",
-    text: "#455a64",
-    border: "#cfd8dc",
-  },
+  PushEvent: { bg: CURSOR_COLORS.bgCard, text: CURSOR_COLORS.text, border: CURSOR_COLORS.border },
+  PullRequestEvent: { bg: "#fef3ed", text: CURSOR_COLORS.accent, border: "#fde0d0" },
+  IssuesEvent: { bg: CURSOR_COLORS.bgSection, text: CURSOR_COLORS.textMuted, border: CURSOR_COLORS.border },
+  ForkEvent: { bg: CURSOR_COLORS.bgCard, text: CURSOR_COLORS.textMuted, border: CURSOR_COLORS.border },
+  IssueCommentEvent: { bg: CURSOR_COLORS.bgSection, text: CURSOR_COLORS.textMuted, border: CURSOR_COLORS.border },
+  CommentEvent: { bg: CURSOR_COLORS.bgSection, text: CURSOR_COLORS.textMuted, border: CURSOR_COLORS.border },
+  CreateEvent: { bg: "#f0f9f0", text: "#2e7d32", border: "#c8e6c9" },
+  PullRequestReviewEvent: { bg: "#fef3ed", text: CURSOR_COLORS.accent, border: "#fde0d0" },
+  ReleaseEvent: { bg: CURSOR_COLORS.bgCard, text: CURSOR_COLORS.text, border: CURSOR_COLORS.border },
 };
 
 export const REPO_CHIP_STYLE = {
-  bg: "#f1f8e9",
-  text: "#558b2f",
-  border: "#dcedc8",
-  hoverBg: "#e8f5e9",
+  bg: CURSOR_COLORS.bgSection,
+  text: CURSOR_COLORS.textMuted,
+  border: CURSOR_COLORS.border,
+  hoverBg: CURSOR_COLORS.bgCard,
 };
 
-// export const ORG_CHIP_STYLE = {
-//   bg: "#e8eaf6",
-//   text: "#3949ab",
-//   border: "#c5cae9",
-//   hoverBg: "#e3f2fd",
-// };
-
 export const GITHUB_STYLES = {
-  ...GITHUB_COLORS,
   background: {
-    ...GITHUB_COLORS.background,
-    hover: "#f6f8fa",
-    active: "#f1f2f4",
+    card: 'white',
+    chip: CURSOR_COLORS.bgCard,
+    hover: CURSOR_COLORS.bgSection,
+    active: CURSOR_COLORS.bgCard,
   },
   text: {
-    ...GITHUB_COLORS.text,
-    link: "#0366d6",
-    muted: "#6a737d",
+    primary: CURSOR_COLORS.text,
+    secondary: CURSOR_COLORS.textMuted,
+    link: CURSOR_COLORS.accent,
+    muted: CURSOR_COLORS.textMuted,
   },
+  border: CURSOR_COLORS.border,
+  hover: CURSOR_COLORS.accent,
   button: {
     primary: {
-      background: "linear-gradient(180deg, #f6f8fa, #ebf0f4 90%)",
-      hoverBackground: "linear-gradient(180deg, #f3f4f6, #e1e4e8 90%)",
-      activeBackground: "#e9ecef",
-      border: "#e1e4e8",
-      hoverBorder: "#c6cbd1",
-      text: "#0366d6",
-      shadow: "0 1px 0 rgba(27,31,35,0.04)",
-      hoverShadow: "0 1px 0 rgba(27,31,35,0.1)",
-      activeShadow: "inset 0 1px 0 rgba(27,31,35,0.1)",
+      background: "white",
+      hoverBackground: CURSOR_COLORS.bgSection,
+      activeBackground: CURSOR_COLORS.bgCard,
+      border: CURSOR_COLORS.border,
+      hoverBorder: CURSOR_COLORS.textMuted,
+      text: CURSOR_COLORS.text,
+      shadow: "0 1px 2px rgba(0,0,0,0.04)",
+      hoverShadow: "0 2px 4px rgba(0,0,0,0.08)",
+      activeShadow: "inset 0 1px 0 rgba(0,0,0,0.05)",
       fontSize: "0.75rem",
       padding: "2px 12px",
       height: "24px",
-      borderRadius: "6px",
-      fontWeight: 600,
-      transition: "all 0.2s cubic-bezier(0.3, 0, 0.5, 1)"
+      borderRadius: "9999px",
+      fontWeight: 500,
+      transition: "all 0.2s ease"
     }
   },
   paper: {
     surface: {
-      backgroundColor: "#ffffff",
-      border: "1px solid #e1e4e8",
-      borderRadius: "6px",
+      backgroundColor: "white",
+      border: `1px solid ${CURSOR_COLORS.border}`,
+      borderRadius: "16px",
       padding: "24px",
       marginTop: "16px",
-      boxShadow: "none"
+      boxShadow: "0 10px 30px rgba(0,0,0,.08)"
     }
   }
 };
