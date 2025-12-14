@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import SAMPLE_FEED from '../config/sample_gh_feed.json';
 
 const ModernGitHub = ({ username }) => {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isInFocus, setIsInFocus] = useState(false);
+  const [allActivities, setAllActivities] = useState([]);
+  const [showMore, setShowMore] = useState(false);
+  const dashboardRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`https://api.github.com/users/${username}/events`);
         const data = await response.json();
+        setAllActivities(data.slice(0, 10));
         setActivities(data.slice(0, 5));
       } catch (err) {
+        setAllActivities(SAMPLE_FEED.slice(0, 10));
         setActivities(SAMPLE_FEED.slice(0, 5));
       } finally {
         setLoading(false);
@@ -21,6 +27,48 @@ const ModernGitHub = ({ username }) => {
 
     fetchData();
   }, [username]);
+
+  // Intersection Observer for focus detection
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsInFocus(true);
+          } else {
+            setIsInFocus(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the component is visible
+        rootMargin: '0px 0px -20% 0px' // Only trigger when scrolled past the hero
+      }
+    );
+
+    if (dashboardRef.current) {
+      observer.observe(dashboardRef.current);
+    }
+
+    return () => {
+      if (dashboardRef.current) {
+        observer.unobserve(dashboardRef.current);
+      }
+    };
+  }, []);
+
+  // Update activities when focus or showMore changes
+  useEffect(() => {
+    if ((isInFocus || showMore) && allActivities.length > 0) {
+      setActivities(allActivities.slice(0, 10));
+    } else if (allActivities.length > 0) {
+      setActivities(allActivities.slice(0, 5));
+    }
+  }, [isInFocus, showMore, allActivities]);
+
+  const toggleShowMore = () => {
+    setShowMore(!showMore);
+  };
 
   const getEventText = (event) => {
     const repo = event.repo.name.split('/')[1];
@@ -105,8 +153,17 @@ const ModernGitHub = ({ username }) => {
     );
   }
 
+  const isExpanded = isInFocus || showMore;
+
   return (
-    <div className="modern-github-dashboard">
+    <div
+      ref={dashboardRef}
+      className={`modern-github-dashboard ${isExpanded ? 'expanded' : ''}`}
+      style={{
+        transition: 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        transform: isExpanded ? 'scale(1.02)' : 'scale(1)',
+      }}
+    >
       {/* Dashboard Header */}
       <div className="modern-github-header">
         <div className="dashboard-title">
@@ -118,7 +175,14 @@ const ModernGitHub = ({ username }) => {
       </div>
 
       {/* Activity Feed */}
-      <div className="modern-activity-feed">
+      <div
+        className="modern-activity-feed"
+        style={{
+          maxHeight: isInFocus ? '800px' : '400px',
+          transition: 'max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          overflow: 'hidden'
+        }}
+      >
         {activities.map((event, index) => (
           <a
             key={event.id}
@@ -126,7 +190,13 @@ const ModernGitHub = ({ username }) => {
             target="_blank"
             rel="noopener noreferrer"
             className="modern-activity-item"
-            style={{ animationDelay: `${index * 0.1}s` }}
+            style={{
+              animationDelay: `${index * 0.1}s`,
+              opacity: index >= 5 && !isInFocus ? 0 : 1,
+              transform: index >= 5 && !isInFocus ? 'translateY(-20px)' : 'translateY(0)',
+              transition: 'opacity 0.4s ease, transform 0.4s ease',
+              transitionDelay: index >= 5 ? `${(index - 5) * 0.1}s` : '0s'
+            }}
           >
             <div className="activity-icon">
               {getEventIcon(event.type)}

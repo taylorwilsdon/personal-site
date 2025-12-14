@@ -546,6 +546,16 @@ behold-widget {
   opacity: 0.6;
 }
 
+/* Enhanced styles for expanded state */
+.modern-github-dashboard.expanded {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.modern-github-dashboard.expanded .modern-activity-feed {
+  transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* Dashboard Footer */
 .modern-github-footer {
   padding: 0.75rem 1.25rem;

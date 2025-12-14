@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import avatar from '../images/avatar.png';
+import avatar from "../images/avatar.png";
 
-import Icons from './Icons';
-import ModernGitHub from './ModernGitHub';
-import YelpLogo from './YelpLogo';
+import Icons from "./Icons";
+import ModernGitHub from "./ModernGitHub";
+import YelpLogo from "./YelpLogo";
 
 const ModernMain = () => (
   <div className="modern-animate">
@@ -12,23 +13,26 @@ const ModernMain = () => (
     <section className="modern-section modern-section--hero">
       <div className="modern-container">
         <div className="modern-hero">
-          <img
-            src={avatar}
-            alt="Taylor Wilsdon"
-            className="modern-avatar"
-          />
+          <img src={avatar} alt="Taylor Wilsdon" className="modern-avatar" />
           <h1>taylor wilsdon</h1>
           <div className="subtitle">
-            corpeng @<strong>yelp</strong> {' '} <YelpLogo />
+            corpeng @<strong>yelp</strong> <YelpLogo />
             <br />
           </div>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/blog" className="modern-btn modern-btn--primary">
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            <Link to="/blog" className="modern-btn modern-btn--primary">
               writing
-            </a>
-            <a href="/opensource" className="modern-btn modern-btn--secondary">
+            </Link>
+            <Link to="/opensource" className="modern-btn modern-btn--secondary">
               open source
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -44,39 +48,56 @@ const ModernMain = () => (
     </section>
 
     {/* Three Column Cards */}
-    <section className="modern-section" style={{ background: 'var(--bg-section)' }}>
+    <section
+      className="modern-section"
+      style={{ background: "var(--bg-section)" }}
+    >
       <div className="modern-container">
-        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>What I work on</h2>
+        <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>my work</h2>
         <div className="modern-cards">
-          <div className="modern-card">
-            <h3>Developer Tools</h3>
-            <p>
-              Creating CLI tools, build systems, and automation that streamline
-              development workflows and reduce friction.
-            </p>
-            <a href="/opensource" className="card-link">
-              View projects
-            </a>
-          </div>
-
-          <div className="modern-card">
+          <div className="modern-card" style={{ display: "flex", flexDirection: "column" }}>
             <h3>Infrastructure</h3>
-            <p>
-              Building scalable, reliable systems that power applications
-              used by millions of people every day.
+            <p style={{ flexGrow: 1 }}>
+              It's what I do for a living - <br /> Corporate Engineering teams
+              are responsible for Yelp's internal systems & network engineering,
+              SRE, client platform & internal software development.
             </p>
-            <a href="/blog" className="card-link">
-              Read about it
+            <a
+              href="https://www.linkedin.com/in/taylorbarrettwilsdon"
+              className="card-link"
+              style={{ marginTop: "auto" }}
+            >
+              How I spend my day
             </a>
           </div>
 
-          <div className="modern-card">
-            <h3>Open Source</h3>
-            <p>
-              Contributing to the community with tools, libraries, and
-              documentation that help other developers succeed.
+          <div className="modern-card" style={{ display: "flex", flexDirection: "column" }}>
+            <h3>Useful tools</h3>
+            <p style={{ flexGrow: 1 }}>
+              I work primarily out of the terminal and I'm a sucker for a good
+              CLI tool. I try to contribute back wherever I can.
             </p>
-            <a href="https://github.com/taylorwilsdon" className="card-link">
+            <Link
+              to="/opensource"
+              className="card-link"
+              style={{ marginTop: "auto" }}
+            >
+              How I spend my night
+            </Link>
+          </div>
+
+          <div className="modern-card" style={{ display: "flex", flexDirection: "column" }}>
+            <h3>Open Source</h3>
+            <p style={{ flexGrow: 1 }}>
+              Mostly infrastructure tooling, security / privacy & llm‑platform
+              stuff with lots of mcp & ai tool servers mixed in • Everything MIT
+              licensed
+            </p>
+            <a
+              href="https://github.com/taylorwilsdon"
+              className="card-link"
+              style={{ marginTop: "auto" }}
+            >
               GitHub profile
             </a>
           </div>
@@ -87,7 +108,7 @@ const ModernMain = () => (
     {/* Social Icons */}
     <section className="modern-section modern-section--compact">
       <div className="modern-container">
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <Icons />
         </div>
       </div>
