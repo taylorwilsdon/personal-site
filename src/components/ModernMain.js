@@ -84,7 +84,7 @@ const ModernMain = () => {
           </div>
 
           <div className="modern-card" style={{ display: "flex", flexDirection: "column" }}>
-            <h3>Useful tools</h3>
+            <h3>Tooling</h3>
             <p style={{ flexGrow: 1 }}>
               I work primarily out of the terminal and I'm a sucker for a good
               CLI tool. I try to contribute back wherever I can.
