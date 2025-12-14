@@ -46,9 +46,14 @@ const ModernGitHub = ({ username, onExpansionChange }) => {
             });
 
             // Only expand when scrolled into view, don't collapse automatically
-            if (entry.isIntersecting && !isInFocus) {
-              console.log('Setting isInFocus to TRUE');
-              setIsInFocus(true);
+            if (entry.isIntersecting) {
+              setIsInFocus(prev => {
+                if (!prev) {
+                  console.log('Setting isInFocus to TRUE');
+                  return true;
+                }
+                return prev;
+              });
             }
             // Note: We don't set it to false when leaving view - user must manually collapse
           });
